@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "description": "Web Interface for VK Project",
     "keywords": [
-        "hse",
-        "hse-app",
-        "schedule"
+        "vk",
+        "vkui",
+        "subscribers"
     ],
     "engines": {
         "node": "v10.15.x",
