@@ -114,4 +114,4 @@ export const unregister = () => {
             registration.unregister();
         });
     }
-}
+};

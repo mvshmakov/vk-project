@@ -26,7 +26,7 @@
         "start": "webpack-dev-server --config=configs/webpack/development.js",
         "start:debug": "export DEBUG='express:*' && npm run start",
         "start:prod": "npm run build && node express.js",
-        "build": "npm run lint && npm run clean-dist && webpack -p --config=configs/webpack/production.js",
+        "build": "npm run lint && npm run clean:dist && webpack -p --config=configs/webpack/production.js",
         "bundle-analyzer": "export BUNDLE_ANALYZER=true && webpack --config=configs/webpack/development.js",
         "clean": "rm -rfd node_modules && npm run clean:dist",
         "clean:dist": "rm -rfd dist",

@@ -15,7 +15,7 @@ interface IProps {
 
 export default ({ id, ...props }: IProps) => (
     <Panel id={id}>
-        <PanelHeader noShadow>HSE APP</PanelHeader>
+        <PanelHeader noShadow>VK Project</PanelHeader>
         <ExampleBlock {...props}/>
     </Panel>
 );

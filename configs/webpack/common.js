@@ -1,8 +1,8 @@
 const { resolve, join } = require("path");
 const { CheckerPlugin } = require("awesome-typescript-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-    .BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+//     .BundleAnalyzerPlugin;
 
 module.exports = {
     resolve: {
@@ -47,17 +47,18 @@ module.exports = {
     plugins: [
         new CheckerPlugin(),
         new HtmlWebpackPlugin({ template: "index.html.ejs" })
-    ].push(
-        process.env.BUNDLE_ANALYZER
-            ? new BundleAnalyzerPlugin({
-                  analyzerMode: "static",
-                  reportFilename: join(
-                      process.cwd(),
-                      "webpack-bundle-analyzer.html"
-                  )
-              })
-            : null
-    ),
+    ],
+    // .push(
+    //     process.env.BUNDLE_ANALYZER
+    //         ? new BundleAnalyzerPlugin({
+    //               analyzerMode: "static",
+    //               reportFilename: join(
+    //                   process.cwd(),
+    //                   "webpack-bundle-analyzer.html"
+    //               )
+    //           })
+    //         : null
+    // ),
     externals: {
         react: "React",
         "react-dom": "ReactDOM"

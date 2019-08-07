@@ -10,7 +10,7 @@ interface IProps {
 
 export default ({ id }: IProps) => (
     <Panel id={id}>
-        <PanelHeader noShadow>HSE APP</PanelHeader>
+        <PanelHeader noShadow>VK Project</PanelHeader>
         <Group title="Users">Hello, mzfk</Group>
     </Panel>
 );

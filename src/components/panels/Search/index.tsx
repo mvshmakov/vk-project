@@ -84,7 +84,7 @@ export default class SearchPanel extends React.PureComponent<IProps, IState> {
 
         return (
             <Panel id={id}>
-                <PanelHeader noShadow>HSE APP</PanelHeader>
+                <PanelHeader noShadow>VK Project</PanelHeader>
                 <Search
                     value={this.state.search}
                     onChange={this.onChange}
