@@ -2,21 +2,23 @@ import * as React from "react";
 import { Group, Div, Button } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
+import {IFunctionalBlock} from "@/typings/Components";
+
 import "./styles.scss";
 
 interface IProps {
     text?: string;
     title?: string;
     buttonText?: string;
-    onButtonClick: (...args) => any;
+    onButtonClick: (...args: any[]) => any;
 }
 
-export default ({
+const ExampleBlock: IFunctionalBlock<IProps> = ({
     title = "Example Title",
     text = "Example Text",
     buttonText = "Example Button",
     onButtonClick
-}: IProps) => (
+}) => (
     <Group title={title}>
         <Div>
             <span className="text">{text}</span>
@@ -31,3 +33,5 @@ export default ({
         </Div>
     </Group>
 );
+
+export default ExampleBlock;

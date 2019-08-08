@@ -1,0 +1,40 @@
+.root {
+    display: flex;
+}
+
+.time-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    padding-right: 10px;
+    border-right: 1px solid;
+}
+
+.time-start {
+    align-self: flex-start;
+    color: #000000;
+}
+
+.time-end {
+    align-self: flex-end;
+    color: #909499;
+}
+
+.content-wrapper {
+    padding-left: 10px;
+}
+
+.lesson-type {
+    letter-spacing: 0.1px;
+    line-height: 20px;
+}
+
+.lesson {
+    font-weight: bold;
+    line-height: 20px;
+}
+
+.teacher {
+    color: #909499;
+    line-height: 20px;
+}

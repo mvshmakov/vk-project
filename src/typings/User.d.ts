@@ -3,14 +3,15 @@ export interface IUser {
     id: number;
     label: string;
     description: string;
-    type: string;
-    additional: UserAdditional;
+    type: "student" | "lecturer";
+    additional: IUserAdditional;
     tags: any[];
 }
 
-interface UserAdditional {
+interface IUserAdditional {
     group_name: string;
     group: number;
     email: string;
     email_original?: string;
+    avatar_url?: string;
 }

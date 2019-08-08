@@ -11,6 +11,11 @@ $border-color: red;
     }
 }
 
+.group {
+    display: flex;
+    align-items: center;
+}
+
 .name {
-    margin: 16px;
+    text-align: center;
 }

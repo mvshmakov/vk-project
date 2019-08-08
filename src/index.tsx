@@ -7,12 +7,7 @@ import { AppContainer } from "react-hot-loader";
 
 import App from "@/App";
 import { store, history } from "@/store";
-import { saveState } from "@/helpers/localStorage";
 import registerServiceWorker from "@/helpers/serviceWorker";
-
-store.subscribe(() => {
-    saveState("bookmarks", store.getState().movies.bookmarks);
-});
 
 const renderApp = (AppComponent: any) => {
     const rootEl = document.getElementById("root");

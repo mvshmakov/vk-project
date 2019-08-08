@@ -1,7 +1,11 @@
 import { takeEvery } from "redux-saga/effects";
-import { searchMovies, getPopularMovies } from "@/sagas/imdb";
+
+import { SEARCH_USER } from "@/actions/search";
+import { EXAMPLE_ACTION } from "@/actions/example";
+import exampleSaga from "@/sagas/example";
+import searchSaga from "@/sagas/search";
 
 export default function* rootSaga() {
-    yield takeEvery("FETCH_SEARCH_MOVIES", searchMovies);
-    yield takeEvery("FETCH_POPULAR_MOVIES", getPopularMovies);
+    yield takeEvery(SEARCH_USER, searchSaga);
+    yield takeEvery(EXAMPLE_ACTION, exampleSaga);
 }
