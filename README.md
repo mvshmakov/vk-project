@@ -3,12 +3,7 @@
 ##### 1) Дев-режим: npm run bootstrap 
 ##### 2) Прод-режим: npm run bootstrap:prod
 
-#### На ебаной винде:
-##### `npm i && cd ./node_modules && mklink /D @ ../src && npm run start`
-##### В будущем, по-хорошему, надо бы postinstall'ом дёргать shell-скрипт, который линкует и винду, и юнихи (см. `./scripts/bootstrap.sh`)
-
-npm-check-updates
-
+`npm-check-updates`
 
 ## Глава про Docker
 
@@ -26,4 +21,7 @@ npm-check-updates
 ## Техническая инфа:
 #### Автогенерация тайпингов из JSON: `https://transform.now.sh/json-to-ts-interface/`
 
-Префиксуем типы через T, интерфейсы через I
+## Конвенции:
+#### Ветку в гите именуем как <task type>/<ticket>-<brief description>. Пример: feature/VKPROJECT-1-new-convention
+
+#### Префиксуем типы через T, интерфейсы через I
