@@ -25,14 +25,14 @@ export default class OnboardingView extends PureView<IProps, IState> {
         return () => {
             this.setState({ activePanel });
         };
-    };
+    }
 
     onSearchGroup = () => {
         const activePanel =
             this.state.activePanel === "groupSearch" ? "start" : "groupSearch";
 
         this.setState({ activePanel });
-    };
+    }
 
     render() {
         return (

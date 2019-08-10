@@ -58,7 +58,7 @@ export default class SearchPanel extends PurePanel<
         );
 
         this.setState({ username, timerId });
-    };
+    }
 
     render() {
         const { id, loading, onSelectUser } = this.props;

@@ -34,7 +34,7 @@ export class OnboardingPanel extends PurePanel<IProps, IState> {
             return this.setState({ isButtonActive: true });
         }
         return this.setState({ isButtonActive: false });
-    };
+    }
 
     render() {
         const { id, onSearchGroupClick, onButtonClick } = this.props;

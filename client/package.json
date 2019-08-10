@@ -20,9 +20,10 @@
         "url": "https://github.com/mvshmakov/vk-project/issues"
     },
     "homepage": "https://vk.com/vk-project",
-    "main": "express.js",
+    "main": "App.tsx",
+    "proxy": "http://server:8080",
     "scripts": {
-        "postinstall": "cd ./node_modules && ln -sfn ../src @",
+        "postinstall": "cd ./node_modules && ln -sfn ../src @ && ln -sfn ../../configs $",
         "bootstrap": "npm i && npm run start",
         "bootstrap:prod": "npm i && npm run start:prod",
         "start": "webpack-dev-server --config=configs/webpack/development.js",

@@ -47,12 +47,12 @@ class App extends React.PureComponent<IProps, IState> {
         return () => {
             this.setState({ activePanel });
         };
-    };
+    }
 
     onQuitOnboarding = (id: number) => {
         setLocalStorageItem("hse-app-id", id);
         this.setState({ onboarding: false });
-    };
+    }
 
     onStoryChange = async e => {
         this.props.pushStory(e.currentTarget.dataset.story);
@@ -62,7 +62,7 @@ class App extends React.PureComponent<IProps, IState> {
 
             this.props.initScheduleAction(schedule);
         }
-    };
+    }
 
     render() {
         if (this.state.onboarding) {

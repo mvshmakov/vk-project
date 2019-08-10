@@ -28,14 +28,14 @@ export default class ScheduleView extends PureView<IProps, IState> {
             activePanel: "lessonDescription",
             activeLesson: lessonId
         });
-    };
+    }
 
     showSchedulePanel = () => {
         this.setState({
             activePanel: "schedule",
             activeLesson: undefined
         });
-    };
+    }
 
     render() {
         return (
