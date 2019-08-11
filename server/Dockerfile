@@ -1,12 +1,13 @@
-FROM node:10.16.0-alpine
+FROM node:10.16.0
 
 WORKDIR /usr/app
 
 COPY package.json ./
-RUN npm install -qy
 
 COPY . .
 
+# COPY ../scripts ../scripts
+
 EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "bootstrap"]

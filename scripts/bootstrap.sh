@@ -4,7 +4,9 @@ set -e
 windows() { [[ -n "$WINDIR" ]]; }
 
 if windows; then
-    cmd <<< "mklink /D \"@\" \"..\/src\"" > /dev/null
+    cmd <<< "mklink /D .\node_modules\\@ ..\src";
+    cmd <<< "mklink /D .\node_modules\\$ ..\..\configs";
 else
-    ln -sfn \"..\/src\" \"@\"
+    ln -sfn ../src ./node_modules/@;
+    ln -sfn ../../configs ./node_modules/$;
 fi
