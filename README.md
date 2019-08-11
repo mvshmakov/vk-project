@@ -1,16 +1,17 @@
-## Web интерфейс для VK Project
-#### Запуск приложения:
-##### 1) Дев-режим: npm run bootstrap 
-##### 2) Прод-режим: npm run bootstrap:prod
+## Приложение для VK Project
+#### По команде `npm run bootstrap` из корня параллельно запускаются webpack-watch и nodemon (ts-node) для, соответственно, клиента (8080 порт) и сервера (3000 порт). Можно запустить каждое приложение по отдельности (см. npm scripts)
 
 `npm-check-updates`
 
 ## Глава про Docker
 
+#### Поднимаем инстанс docker-compose:
+##### Из корня проекта: `docker-compose up`
+
 #### Лезем в контейнер:
 ##### 1) `docker ps`
-##### > CONTAINER ID
-##### > <container_id>
+##### CONTAINER ID
+##### <container_id>
 ##### 2) `docker exec -it <container_id> bash`
 
 ##### Убиваем все процессы: `docker rm $(docker ps -a -q)`

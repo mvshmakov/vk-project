@@ -3,7 +3,7 @@ services:
   server:
     build:
       context: ./server/
-    command: /usr/app/node_modules/.bin/nodemon src/index.js
+    command: npm run bootstrap
     volumes:
       - ./server/:/usr/app
       - /usr/app/node_modules
@@ -16,7 +16,7 @@ services:
   client:
     build:
       context: ./client/
-    command: npm start
+    command: npm run bootstrap
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules

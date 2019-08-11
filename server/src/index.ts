@@ -1,17 +1,18 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
+import * as path from "path";
+
+const STATIC_DIR = "../../client/dist";
+const PORT = 3000;
 
 const app = express();
-const portNumber = 3000;
-const sourceDir = "../../client/dist";
 
-app.use(express.static(sourceDir));
+app.use(express.static(STATIC_DIR));
 
-app.get("*", function() {
-    console.log("yes");
+app.get("*", function(_, res) {
+    res.sendFile(path.resolve(__dirname + "/../../client/dist/index.html"));
 });
 
-app.listen(portNumber, () => {
-    console.log(`Express web server started: http://localhost:${portNumber}`);
-    console.log(`Serving content from /${sourceDir}/`);
+app.listen(PORT, () => {
+    console.log(`Express web server started: http://localhost:${PORT}`);
+    console.log(`Serving content from /${STATIC_DIR}/`);
 });
