@@ -4,14 +4,19 @@
         "incremental": true,
         "sourceMap": true,
         "esModuleInterop": true,
-        "module": "commonjs",
+        "module": "esnext",
         "target": "es5",
         "jsx": "react",
         "lib": ["es5", "es6", "dom"],
         "types": ["node"],
         "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
-        "forceConsistentCasingInFileNames": true
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": true
     },
     "include": ["./src/**/*"],
     "awesomeTypescriptLoaderOptions": {
