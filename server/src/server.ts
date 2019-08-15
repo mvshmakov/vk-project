@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 import * as env from "./env";
 
 import commonRoutes from "./routes";
-import userRoutes from "./routes/user";
+import userRoutes from "./routes/api/v1/users";
 
 // Setup an app
 const app = express();

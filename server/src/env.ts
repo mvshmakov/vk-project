@@ -27,7 +27,7 @@ if (!MONGODB_URI) {
 
 // Static non-dotenv variables
 export const PORT = 3000;
-export const STATIC_DIR = "../../client/dist";
+export const STATIC_DIR = "../client/dist";
 
 export const LOGGER_OPTIONS: LoggerOptions = {
     transports: [
