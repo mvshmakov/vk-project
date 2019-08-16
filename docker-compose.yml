@@ -1,5 +1,17 @@
 version: '2'
 services:
+  client:
+    build:
+      context: ./client/
+    command: npm run bootstrap
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+
   server:
     build:
       context: ./server/
@@ -13,14 +25,22 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
-  client:
-    build:
-      context: ./client/
-    command: npm run bootstrap
-    volumes:
-      - ./client/:/usr/app
-      - /usr/app/node_modules
     depends_on:
-      - server
+      mongodb:
+        condition: service_healthy
+    # volumes:
+      # - ./app:/server # volume in host -> $(pwd)/app
+  
+  mongodb:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./mongo/db:/data/db
     ports:
-      - "3000:3000"
+      - '27017:27017'
+    healthcheck:
+      test: ["CMD", "echo", "show dbs", "|", "mongo"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: mongod --smallfiles

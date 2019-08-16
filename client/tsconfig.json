@@ -1,14 +1,17 @@
 {
     "compilerOptions": {
         "outDir": "./dist/",
-        "sourceMap": true,
-        "noImplicitAny": false,
         "incremental": true,
+        "sourceMap": true,
         "esModuleInterop": true,
-        "module": "commonjs",
+        "module": "esnext",
         "target": "es5",
         "jsx": "react",
-        "lib": ["es5", "es6", "dom"]
+        "lib": ["es5", "es6", "dom"],
+        "types": ["node"],
+        "moduleResolution": "node",
+        "noImplicitReturns": true,
+        "forceConsistentCasingInFileNames": true
     },
     "include": ["./src/**/*"],
     "awesomeTypescriptLoaderOptions": {

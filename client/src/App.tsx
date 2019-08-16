@@ -19,6 +19,7 @@ import OnboardingView from "@/components/views/Onboarding";
 import { fetchUser } from "@/api/search";
 import { initUserAction, initScheduleAction } from "@/actions/initial";
 import { fetchSchedule } from "@/api/schedule";
+import { getUsers } from "@/api/users";
 
 interface IProps {
     pageId: string;
@@ -39,6 +40,9 @@ class App extends React.PureComponent<IProps, IState> {
 
     async componentDidMount() {
         const user = await fetchUser("Шмаков");
+
+        const backend = await getUsers();
+        console.log(backend);
 
         this.props.initUserAction(user[0]);
     }

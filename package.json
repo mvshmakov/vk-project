@@ -21,13 +21,15 @@
     },
     "homepage": "https://vk.com/vk-project",
     "scripts": {
-        "bootstrap": "npm run bootstrap:client & npm run bootstrap:server",
-        "bootstrap:client": "cd client && npm run bootstrap",
-        "bootstrap:server": "cd server && npm run bootstrap",
+        "bootstrap": "npm run bootstrap:mongo && npm run bootstrap:client & npm run bootstrap:server",
+        "bootstrap:client": "cd client && npm run bootstrap:dev",
+        "bootstrap:server": "cd server && npm run bootstrap:dev",
+        "bootstrap:mongo": "docker run --name mongo -v \"$PWD\"/mongo/data:/data/db -p 27017:27017 -d mongo",
 
-        "clean": "npm run clean:client && npm run clean:server",
+        "clean": "npm run clean:docker && npm run clean:client && npm run clean:server",
         "clean:client": "cd client && npm run clean",
         "clean:server": "cd server && npm run clean",
+        "clean:docker": "docker kill $(docker ps -a -q) && docker rm $(docker ps -a -q)",
 
         "lint": "npm run lint:client && npm run lint:server",
         "lint:client": "cd client && npm run lint",
