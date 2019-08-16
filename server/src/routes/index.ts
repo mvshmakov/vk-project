@@ -1,6 +1,6 @@
 import path from "path";
 import { Router, Response, Request } from "express";
-import authMiddleware from "@/middlewares/auth";
+import { auth as authMiddleware} from "@/middlewares";
 
 const commonRoutes = Router();
 
