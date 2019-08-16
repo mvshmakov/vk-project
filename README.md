@@ -7,27 +7,27 @@
 
 ## Глава про Docker
 
-#### Лезем в контейнер:
+### Лезем в контейнер:
 ##### 1) Достаём id (`container_id`) интересующего контейнера по его имени (`name`): `docker ps | grep <name>` 
 ##### 2) Лезем в терминал внутри контейнера: `docker exec -it <container_id> bash`
 
-#### Про убийства:
+### Про убийства:
 ##### Убиваем все процессы: `docker kill $(docker ps -a -q)`
 ##### Стираем все процессы: `docker rm $(docker ps -a -q)`
 ##### Стираем все образы: `docker rmi $(docker images -q)`
 
-#### Поднимаем инстанс docker-compose:
+### Поднимаем инстанс docker-compose:
 ##### Из корня проекта: `docker-compose up`
 
 ## Глава про Nginx
 
-#### Собственно запуск: `docker run -d --name nginx -p 8080:80 -v $(pwd)/web/src:/var/www -v $(pwd)/nginx/nginx.conf:/etc/nginx/nginx.conf --link server:server nginx`
-#### Важно: это не запустится без работающего в контейнера сервера, тк они линкуются и nginx хочет бегать по ручке `/ping` для создания правильного мнения о том, живой ли инстанс.
+##### Собственно запуск: `docker run -d --name nginx -p 8080:80 -v $(pwd)/web/src:/var/www -v $(pwd)/nginx/nginx.conf:/etc/nginx/nginx.conf --link server:server nginx`
+##### Важно: это не запустится без работающего в контейнера сервера, тк они линкуются и nginx хочет бегать по ручке `/ping` для создания правильного мнения о том, живой ли инстанс.
 
 ## Техническая инфа:
-#### Автогенерация тайпингов из JSON: `https://transform.now.sh/json-to-ts-interface/`.
+##### Автогенерация тайпингов из JSON: `https://transform.now.sh/json-to-ts-interface/`.
 
 ## Конвенции:
-#### Ветку в гите именуем как `<typeoffix>/<ticket>-<brief description>`. Пример: `feature/VKPROJECT-1-new-convention`.
+##### Ветку в гите именуем как `<typeoffix>/<ticket>-<brief description>`. Пример: `feature/VKPROJECT-1-new-convention`.
 
-#### Префиксуем типы через `T`, интерфейсы через `I`.
+##### Префиксуем типы через `T`, интерфейсы через `I`.
