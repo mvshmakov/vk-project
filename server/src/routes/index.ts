@@ -10,4 +10,8 @@ commonRoutes.get("/", authMiddleware, (req: Request, res: Response) => {
     );
 });
 
+commonRoutes.get("/ping", (req: Request, res: Response) => {
+    res.sendStatus(200);
+});
+
 export default commonRoutes;

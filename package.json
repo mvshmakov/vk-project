@@ -24,7 +24,7 @@
         "bootstrap": "npm run bootstrap:mongo && npm run bootstrap:client & npm run bootstrap:server",
         "bootstrap:client": "cd client && npm run bootstrap:dev",
         "bootstrap:server": "cd server && npm run bootstrap:dev",
-        "bootstrap:mongo": "docker run --name mongo -v \"$PWD\"/mongo/data:/data/db -p 27017:27017 -d mongo",
+        "bootstrap:mongo": "docker run --name mongo -v $(pwd)/mongo/data:/data/db -p 27017:27017 -d mongo",
 
         "clean": "npm run clean:docker && npm run clean:client && npm run clean:server",
         "clean:client": "cd client && npm run clean",
@@ -37,6 +37,9 @@
 
         "test": "npm run test:client && npm run test:server",
         "test:client": "cd client && npm run test",
-        "test:server": "cd server && npm run test"
+        "test:server": "cd server && npm run test",
+
+        "ncu": "cd client && npx npm-check-updates && cd ../server && npx npm-check-updates",
+        "ncu:update": "cd client && npx npm-check-updates -u && cd ../server && npx npm-check-updates -u"
     }
 }

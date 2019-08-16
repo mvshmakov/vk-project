@@ -1,5 +1,15 @@
 version: '2'
 services:
+  nginx:
+    image: nginx
+    build: ./nginx/
+    links:
+        - client:client
+        - server:server
+        - mongodb:mongodb
+    ports:
+        - "80:80"
+
   client:
     build:
       context: ./client/
@@ -37,7 +47,7 @@ services:
     volumes:
       - ./mongo/db:/data/db
     ports:
-      - '27017:27017'
+      - "27017:27017"
     healthcheck:
       test: ["CMD", "echo", "show dbs", "|", "mongo"]
       interval: 30s
