@@ -7,13 +7,15 @@ import {
     SelectMimicry,
     Button,
     Checkbox,
-    Link
+    Link,
+    Group
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import { PurePanel } from "@/typings/Components";
 
 import "./styles.scss";
+import {Post} from "../../blocks/Post";
 
 interface IProps {
     id: string;

@@ -8,6 +8,7 @@ import { IUser } from "@/typings/User";
 import { PurePanel } from "@/typings/Components";
 
 import "./styles.scss";
+import {Post} from "../../blocks/Post";
 
 const THROTTLE_DELAY: number = 100;
 
@@ -83,6 +84,10 @@ export default class SearchPanel extends PurePanel<
             </List>
         );
 
+        const attachment = {
+            text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam asperiores aspernatur atque autem commodi cumque, deserunt dicta dolore doloremque eius eligendi est ex fugiat hic illo laboriosam minima obcaecati odit pariatur possimus quam qui repellat repellendus rerum sapiente tempora velit! Asperiores beatae cum ducimus enim et, fugit itaque iure minus."
+        };
+
         return (
             <Panel id={id}>
                 <PanelHeader noShadow={true}>Поиск</PanelHeader>
@@ -96,6 +101,12 @@ export default class SearchPanel extends PurePanel<
                     )}
                     {this.state.username && children}
                 </Group>
+                    <Group>
+                        <Post name={"Апостол Пётр"}
+                              img={"https://pp.userapi.com/SslEXxXXambnM5qNlF_WTh6S_Y0fVDlKiDvsiQ/fd0PgTJ9Xfk.jpg"}
+                              date={"12 авг 2019 г."}
+                              attachments={attachment}/>
+                    </Group>
             </Panel>
         );
     }
