@@ -2,6 +2,7 @@ import * as React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
+import "@vkontakte/vk-connect";
 import { ConfigProvider, Epic, Root } from "@vkontakte/vkui";
 import { isWebView } from "@vkontakte/vkui/src/lib/webview";
 import "@vkontakte/vkui/dist/vkui.css";

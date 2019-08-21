@@ -39,8 +39,8 @@
     },
     "dependencies": {
         "@vkontakte/icons": "^1.8.2",
+        "@vkontakte/vk-connect": "^1.5.5",
         "@vkontakte/vkui": "^2.24.1",
-        "@vkontakte/vkui-connect": "^1.5.4",
         "@vkontakte/vkui-connect-promise": "^0.1.19",
         "connected-react-router": "^6.5.2",
         "history": "^4.9.0",
