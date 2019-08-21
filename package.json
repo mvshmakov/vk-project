@@ -21,7 +21,7 @@
     },
     "homepage": "https://vk.com/vk-project",
     "scripts": {
-        "bootstrap": "npm run bootstrap:mongo && npm run bootstrap:client & npm run bootstrap:server",
+        "bootstrap": "npm run bootstrap:mongo; (npm run bootstrap:client & npm run bootstrap:server)",
         "bootstrap:client": "cd client && npm run bootstrap:dev",
         "bootstrap:server": "cd server && npm run bootstrap:dev",
         "bootstrap:mongo": "docker run --name mongo -v $(pwd)/mongo/data:/data/db -p 27017:27017 -d mongo",

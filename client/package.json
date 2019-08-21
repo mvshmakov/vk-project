@@ -75,7 +75,6 @@
         "image-webpack-loader": "^5.0.0",
         "jest": "^24.9.0",
         "node-sass": "^4.12.0",
-        "react-hot-loader": "^4.12.11",
         "sass-loader": "^7.1.0",
         "style-loader": "^1.0.0",
         "tslint": "^5.18.0",
