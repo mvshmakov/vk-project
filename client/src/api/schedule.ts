@@ -3,7 +3,7 @@ import { ILesson } from "@/typings/Lesson";
 
 const API_BASE_RUZ = "http://api.hseapp.ru/gateway/ruz/lessons";
 
-export const fetchSchedule = async (student: number): Promise<ILesson[]> => {
+export const fetchSchedule = async (student: string): Promise<ILesson[]> => {
     const pathWithQuery = `
         ${API_BASE_RUZ}?${
         stringify({
@@ -25,7 +25,7 @@ export const fetchSchedule = async (student: number): Promise<ILesson[]> => {
 
 
     // после избавления от ругани cors, убрать мок
-    return [{
+    return Promise.resolve([{
         "beginLesson": "09:00",
         "createddate": "2019-01-16T18:16:00Z00:00",
         "date": "2019.02.04",
@@ -2133,5 +2133,5 @@ export const fetchSchedule = async (student: number): Promise<ILesson[]> => {
             3
         ]
     }
-    ];
+    ]);
 };

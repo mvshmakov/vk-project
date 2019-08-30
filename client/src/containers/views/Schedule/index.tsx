@@ -17,12 +17,8 @@ const groupLessonsByDay = (lessons: ILesson[]) => {
     return Object.values(obj);
 };
 
-const mapStateToProps = ({ initial }) => {
-    const { schedule = [] } = initial;
-
-    // critical for app, only second render survives
-    // due to unresolved action INIT_SCHEDULE
-    // debugger;
+const mapStateToProps = ({ account }) => {
+    const { schedule = [] } = account;
 
     return { schedule: groupLessonsByDay(schedule) };
 };

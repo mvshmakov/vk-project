@@ -41,11 +41,13 @@ class App extends React.PureComponent<IProps, IState> {
 
     async componentDidMount() {
         const user = await fetchUser("Шмаков");
+        const schedule = await fetchSchedule("Шмаков");
 
         const backend = await getUsers();
         console.log(backend);
 
         this.props.initUserAction(user[0]);
+        this.props.initScheduleAction(schedule);
     }
 
     changeView = (activePanel: string) => {
@@ -63,7 +65,7 @@ class App extends React.PureComponent<IProps, IState> {
         this.props.pushStory(e.currentTarget.dataset.story);
 
         if (e.currentTarget.dataset.story === "schedule") {
-            const schedule = await fetchSchedule(123);
+            const schedule = await fetchSchedule("Шмаков");
 
             this.props.initScheduleAction(schedule);
         }
