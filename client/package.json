@@ -23,18 +23,16 @@
     "main": "App.tsx",
     "proxy": "http://server:8080",
     "scripts": {
-        "postinstall": "bash ../scripts/bootstrap.sh",
-        "bootstrap": "npm i && npm run start",
-        "bootstrap:dev": "npm i && npm run start:dev",
-        "bootstrap:prod": "npm i && npm run start:prod",
-        "start": "webpack-dev-server --config=configs/webpack/development.js",
-        "start:dev": "webpack --watch --config=configs/webpack/development.js",
-        "start:prod": "npm run build && webpack-dev-server --config=configs/webpack/production.js",
+        "bootstrap": "npm install && npm run configure && npm run build:watch",
         "build": "npm run lint && npm run clean:dist && webpack -p --config=configs/webpack/production.js",
+        "build:watch": "webpack --watch --config=configs/webpack/development.js",
         "bundle-analyzer": "BUNDLE_ANALYZER=true && webpack --config=configs/webpack/development.js",
         "clean": "rm -rfd node_modules webpack-bundle-analyzer.html && npm run clean:dist",
         "clean:dist": "rm -rfd dist",
+        "configure": "bash ../scripts/configure.bash client",
         "lint": "tslint './src/**/*.ts*' --format stylish --force --fix",
+        "ncu": "./node_modules/.bin/npm-check-updates",
+        "ncu:update": "./node_modules/.bin/npm-check-updates -u",
         "test": "exit 0 && jest --watch --coverage --config=configs/jest.json"
     },
     "dependencies": {
@@ -86,7 +84,6 @@
         "webpack-cli": "^3.3.6",
         "webpack-config": "^7.5.0",
         "webpack-dev-middleware": "^3.7.0",
-        "webpack-dev-server": "^3.7.2",
         "webpack-merge": "^4.2.1"
     },
     "browserslist": [

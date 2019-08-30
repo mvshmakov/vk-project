@@ -8,3 +8,4 @@ tests/**/*.jsx
 webpack-bundle-analyzer.html
 package-lock.json
 debug.log
+docker-mongo.err

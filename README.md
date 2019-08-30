@@ -26,6 +26,8 @@
 
 ## Техническая инфа:
 ##### Автогенерация тайпингов из JSON: `https://transform.now.sh/json-to-ts-interface/`.
+##### Nodemon в девелопе по CTRL+C падает с `exit(130)` из-за `https://github.com/remy/nodemon/issues/1390`, на проде не отразится, но некрасиво выглядит в деве(
+##### Ворнинги типа `enoent ENOENT: no such file or directory, open '.../package.json'` появляются из-за того, что после создания симлинок в node_modules на локальный для проекта src, npm думает, что они - нормальные модули, и начинает рекурсивно их обходить в поисках декларации зависимостей из package.json. Отказываться от симлинок не хочется, а решения, кроме как фильтровать stdout, я пока не придумал; мешает не сильно, и так сойдёт.
 
 ## Конвенции:
 ##### Ветку в гите именуем как `<typeoffix>/<ticket>-<brief description>`. Пример: `feature/VKPROJECT-1-new-convention`.

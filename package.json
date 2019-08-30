@@ -21,10 +21,10 @@
     },
     "homepage": "https://vk.com/vk-project",
     "scripts": {
-        "bootstrap": "npm run bootstrap:mongo; (npm run bootstrap:client & npm run bootstrap:server)",
-        "bootstrap:client": "cd client && npm run bootstrap:dev",
-        "bootstrap:server": "cd server && npm run bootstrap:dev",
-        "bootstrap:mongo": "docker run --name mongo -v $(pwd)/mongo/data:/data/db -p 27017:27017 -d mongo",
+        "bootstrap": "npm run bootstrap:mongo && (npm run bootstrap:client & npm run bootstrap:server)",
+        "bootstrap:client": "cd client && npm run bootstrap",
+        "bootstrap:server": "cd server && npm run bootstrap",
+        "bootstrap:mongo": "bash ./scripts/database.bash",
 
         "clean": "npm run clean:docker && npm run clean:client && npm run clean:server",
         "clean:client": "cd client && npm run clean",
@@ -39,7 +39,7 @@
         "test:client": "cd client && npm run test",
         "test:server": "cd server && npm run test",
 
-        "ncu": "cd client && npx npm-check-updates && cd ../server && npx npm-check-updates",
-        "ncu:update": "cd client && npx npm-check-updates -u && cd ../server && npx npm-check-updates -u"
+        "ncu": "cd client && npm run ncu && cd ../server && npm run ncu",
+        "ncu:update": "cd client && npm run ncu:update && cd ../server && npm run ncu:update -u"
     }
 }
