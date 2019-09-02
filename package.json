@@ -26,6 +26,11 @@
         "bootstrap:server": "cd server && npm run bootstrap",
         "bootstrap:mongo": "bash ./scripts/database.bash",
 
+        "start": "npm run start:mongo && (npm run start:client & npm run start:server)",
+        "start:client": "cd client && npm run build:watch",
+        "start:server": "cd server && npm run start",
+        "start:mongo": "bash ./scripts/database.bash",
+
         "clean": "npm run clean:docker && npm run clean:client && npm run clean:server",
         "clean:client": "cd client && npm run clean",
         "clean:server": "cd server && npm run clean",

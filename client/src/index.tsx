@@ -3,13 +3,16 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { Route } from "react-router";
 import { ConnectedRouter } from "connected-react-router";
+import mVKMiniAppsScrollHelper from "@vkontakte/mvk-mini-apps-scroll-helper";
 
 import App from "@/App";
 import { store, history } from "@/store";
 import registerServiceWorker from "@/helpers/serviceWorker";
 
 const renderApp = (AppComponent: any) => {
-    const rootEl = document.getElementById("root");
+    const root = document.getElementById("root");
+
+    mVKMiniAppsScrollHelper(root);
 
     render(
         <Provider store={store}>
@@ -22,11 +25,10 @@ const renderApp = (AppComponent: any) => {
                 />
             </ConnectedRouter>
         </Provider>,
-        rootEl
+        root
     );
 };
 
 renderApp(App);
 
-// For cache
 registerServiceWorker();

@@ -49,6 +49,16 @@ app.use(expressWinston.logger(env.LOGGER_OPTIONS));
 app.use(commonRoutes);
 app.use(userRoutes);
 
+// Debug redir to /
+// TODO: deeplinking
+if (process.env.NODE_ENV !== "production") {
+    app.use((_req, res, next) => {
+        res.status(404);
+        res.redirect("/");
+        next();
+    });
+}
+
 // Log errors after the routes
 app.use(expressWinston.errorLogger({...env.LOGGER_OPTIONS}));
 

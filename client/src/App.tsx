@@ -2,7 +2,10 @@ import * as React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
+import { format } from "date-fns";
+
 import "@vkontakte/vk-connect";
+import VKConnect from "@vkontakte/vkui-connect-mock";
 import { ConfigProvider, Epic, Root } from "@vkontakte/vkui";
 import { isWebView } from "@vkontakte/vkui/src/lib/webview";
 import "@vkontakte/vkui/dist/vkui.css";
@@ -11,16 +14,17 @@ import {
     getLocalStorageItem,
     setLocalStorageItem
 } from "@/helpers/localStorage";
-import Tabbar from "@/components/blocks/Tabbar";
 
+import Tabbar from "@/components/blocks/Tabbar";
 import SearchView from "@/components/views/Search";
+import OnboardingView from "@/components/views/Onboarding";
+
 import ScheduleView from "@/containers/views/Schedule";
 import SettingsView from "@/containers/views/Settings";
-import OnboardingView from "@/components/views/Onboarding";
-import { fetchUser } from "@/api/search";
-import { initUserAction, initScheduleAction } from "@/actions/initial";
-import { fetchSchedule } from "@/api/schedule";
 import { getUsers } from "@/api/users";
+import { fetchUser } from "@/api/search";
+import { fetchSchedule } from "@/api/schedule";
+import { initUserAction, initScheduleAction } from "@/actions/initial";
 
 interface IProps {
     pageId: string;
@@ -45,6 +49,17 @@ class App extends React.PureComponent<IProps, IState> {
 
         const backend = await getUsers();
         console.log(backend);
+
+        VKConnect.subscribe(event => {
+            if (event.detail.type === "VKWebAppGetUserInfoResult") {
+                console.log(event);
+            }
+        });
+        VKConnect.send("VKWebAppGetUserInfo", {});
+
+        console.log(
+            format(new Date(), "'Today is a' iiii")
+        );
 
         this.props.initUserAction(user[0]);
         this.props.initScheduleAction(schedule);

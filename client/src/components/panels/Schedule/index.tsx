@@ -31,6 +31,7 @@ export default class SchedulePanel extends PurePanel<IProps, {}> {
                     {lessons.map(lesson => (
                         <ScheduleSnippetBlock
                             lesson={lesson}
+                            key={lesson[0].date_iso}
                             onSnippetClick={onSnippetClick}
                         />
                     ))}
