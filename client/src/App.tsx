@@ -17,10 +17,10 @@ import {
 
 import Tabbar from "@/components/blocks/Tabbar";
 import SearchView from "@/components/views/Search";
-import OnboardingView from "@/components/views/Onboarding";
-
+import ProfileView from "@/components/views/Profile";
 import ScheduleView from "@/containers/views/Schedule";
 import SettingsView from "@/containers/views/Settings";
+import OnboardingView from "@/components/views/Onboarding";
 import { getUsers } from "@/api/users";
 import { fetchUser } from "@/api/search";
 import { fetchSchedule } from "@/api/schedule";
@@ -112,6 +112,7 @@ class App extends React.PureComponent<IProps, IState> {
                         />
                     }
                 >
+                    <ProfileView id="profile" />
                     <ScheduleView id="schedule" />
                     <SearchView id="search" />
                     <SettingsView id="settings" />
