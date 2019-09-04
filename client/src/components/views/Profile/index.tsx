@@ -28,24 +28,24 @@ export default class ProfileView extends PureView<IProps, IState> {
 
     render() {
         return (
-            <View id={this.props.id} activePanel={this.state.activePanel}>
+            <View id={this.props.id} activePanel={this.state.activePanel} className="profile-view">
                 <Panel id="profile">
-                    <PanelHeader noShadow={true}>Настройки</PanelHeader>
-                    <Group>
+                    <PanelHeader noShadow={true} theme="alternate" className="profile-view__panel-header-block"></PanelHeader>
+                    <Group className="profile-view__main-block">
                         <Cell
                             size="l"
-                            style={{ display: "flex", justifyContent: "center" }}
+                            className="profile-view__cell"
                             description="Спорт, Интернет-СМИ"
                             photo="https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg"
                             asideContent={<Avatar src="https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg" size={80} />}
                         >
                             Sports.Ru
                         </Cell>
-                        <Div style={{ display: "flex" }}>
+                        <Div className="profile-view__main-buttons-wrapper">
                             <Button size="l"
                                 stretched
                                 level="outline"
-                                style={{ marginRight: 8 }}
+                                style={{ marginRight: 20 }}
                                 onClick={this.onButtonClicked}
                             >
                                 Сообщение
@@ -58,15 +58,29 @@ export default class ProfileView extends PureView<IProps, IState> {
                                 Подписаться
                             </Button>
                         </Div>
-                        <Div style={{ display: "flex", paddingTop: 10, color: "gray", fontSize: 14 }}>
+                        <Div className="profile-view__description-followers">
                             <Icon20FollowersOutline /> 865,2K подписчиков
                         </Div>
-                        <Div style={{ display: "flex", paddingTop: 5, paddingBottom: 10, color: "gray", fontSize: 14 }}>
+                        <Div className="profile-view__description-article">
                             <Icon20ArticleOutline /> Sports.Ru - ведущий российский спортивный сайт, обладающий аудиторией более 14 млн. человек...
                         </Div>
-                        <Div style={{ display: "flex", paddingTop: 5, paddingBottom: 10, fontSize: 14 }}>
+                        <Div className="profile-view__description-additional-info">
                             <Icon20Info /> Подробная информация
                         </Div>
+                    </Group>
+                    <Group className="profile-view__subscription-block">
+                        <div className="profile-view__subscription-block-wrapper"
+                             onClick={this.onButtonClicked}>
+                            <div className="profile-view__subscription-block-cards">
+                                <div className="profile-view__subscription-block-cards-one"></div>
+                                <div className="profile-view__subscription-block-cards-two"></div>
+                                <div className="profile-view__subscription-block-cards-three"></div>
+                            </div>
+                            <div className="profile-view__subscription-block-info">
+                                <div className="profile-view__subscription-block-info-caption">С подпиской - больше!</div>
+                                <div className="profile-view__subscription-block-info-text">Доступ к уникальному контенту, коммьюнити и многое другое...</div>
+                            </div>
+                        </div>
                     </Group>
                 </Panel>
             </View>

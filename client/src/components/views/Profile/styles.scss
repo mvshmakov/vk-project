@@ -1,8 +1,146 @@
-.Cell__children {
-    font-size: 18px;
-    font-weight: 600;
-}
+.profile-view {
+  &__panel-header-block {
+    .PanelHeader-bg {
+      height: 130px;
+    }
+  }
 
-.Cell__main {
-    align-self: center;
+  &__main-block {
+    margin-top: 0;
+  }
+
+  &__cell {
+    padding: 10px 0;
+
+    .Cell__children {
+      padding-bottom: 5px;
+      font-size: 19px !important;
+      font-weight: 600 !important;
+    }
+
+    .Cell__description {
+      font-size: 14px !important;
+    }
+
+    .Cell__in.Tappable--inactive {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .Cell__main {
+      padding: 11px 8px 11px 8px !important;
+      align-self: center;
+    }
+
+    .Cell__aside {
+      padding-right: 8px;
+    }
+  }
+
+  &__main-buttons-wrapper {
+    display: flex;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+
+  &__description {
+    &-followers {
+      display: flex;
+      align-items: center;
+
+      padding: 5px 20px 10px;
+      font-size: 14px;
+      color: gray;
+
+      & .Icon {
+        padding-right: 5px;
+      }
+    }
+
+    &-article {
+      display: flex;
+      align-items: center;
+
+      padding: 5px 20px 10px;
+      font-size: 14px;
+      color: gray;
+
+      & .Icon {
+        padding-right: 5px;
+      }
+    }
+
+    &-additional-info {
+      display: flex;
+      align-items: center;
+
+      padding: 5px 20px 15px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #528bcc;
+
+      & .Icon {
+        padding-right: 5px;
+      }
+    }
+  }
+
+  &__subscription-block {
+    padding: 5px 0;
+
+    &-wrapper {
+      display: flex;
+      align-items: center;
+
+      padding: 10px 10px;
+      margin: 5px 20px;
+      border: 1px solid #979797;
+      border-radius: 20px;
+    }
+
+    &-cards {
+      display: flex;
+      width: 50%;
+      position: relative;
+
+      &-one {
+        width: 70px;
+        height: 70px;
+        border-radius: 14px;
+        background: #3d9fac;
+      }
+
+      &-two {
+        position: absolute;
+        left: 25%;
+        width: 70px;
+        height: 70px;
+        border-radius: 14px;
+        background: #feb836;
+      }
+
+      &-three {
+        position: absolute;
+        left: 50%;
+        width: 70px;
+        height: 70px;
+        border-radius: 14px;
+        background: #5b4470;
+      }
+    }
+
+    &-info {
+      width: 50%;
+
+      &-caption {
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      &-text {
+        font-size: 13px;
+        color: gray;
+      }
+    }
+  }
 }
