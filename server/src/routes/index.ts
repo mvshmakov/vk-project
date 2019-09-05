@@ -1,17 +1,23 @@
 import path from "path";
-import { Router, Response, Request } from "express";
+import { Router } from "express";
 import { auth as authMiddleware} from "@/middlewares";
 
 const commonRoutes = Router();
 
-commonRoutes.get("/", authMiddleware, (req: Request, res: Response) => {
+commonRoutes.get("/", authMiddleware, (_req, res) => {
     res.sendFile(
-        path.resolve("../client/dist/index.html")
+        path.resolve("../client/dist/index.html.gz")
     );
 });
 
-commonRoutes.get("/ping", (req: Request, res: Response) => {
+commonRoutes.head("/ping", (_req, res) => {
     res.sendStatus(200);
+});
+
+commonRoutes.get("/ping", (_req, res) => {
+    res
+        .status(200)
+        .send("ok");
 });
 
 export default commonRoutes;

@@ -26,6 +26,10 @@
         "bootstrap:server": "cd server && npm run bootstrap",
         "bootstrap:mongo": "bash ./scripts/database.bash",
 
+        "build": "npm run build:client & npm run build:server",
+        "build:client": "cd client && npm run build:prod && cp -R ./client/dist/ ./dist/client",
+        "build:server": "cd server && npm run build:prod && cp -R ./server/dist/ ./dist/server",
+
         "start": "npm run start:mongo && (npm run start:client & npm run start:server)",
         "start:client": "cd client && npm run build:watch",
         "start:server": "cd server && npm run start",
@@ -34,7 +38,7 @@
         "clean": "npm run clean:docker && npm run clean:client && npm run clean:server",
         "clean:client": "cd client && npm run clean",
         "clean:server": "cd server && npm run clean",
-        "clean:docker": "docker kill $(docker ps -a -q) && docker rm $(docker ps -a -q)",
+        "clean:docker": "docker kill $(docker ps -a -q); docker rm $(docker ps -a -q)",
 
         "lint": "npm run lint:client && npm run lint:server",
         "lint:client": "cd client && npm run lint",

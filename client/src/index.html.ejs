@@ -6,11 +6,13 @@
         <meta name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover">
         <title>Фронтенд для VK Project</title>
-        <!-- <link rel="shortcut icon" href="favicon.ico"> TODO: correct path -->
+        <!-- <link rel="shortcut icon" href="favicon.ico"/> -->
 
         <!-- Скрипт дебаггера для мобильных устройств -->
+        <% if (webpackConfig.mode == 'development') { %>
         <script src="//cdn.jsdelivr.net/npm/eruda"></script>
         <script>eruda.init();</script>
+        <% } %>
     </head>
     <body>
         <div id="root"></div>

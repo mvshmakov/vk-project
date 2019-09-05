@@ -64,7 +64,7 @@ export class OnboardingPanel extends PurePanel<IProps, IState> {
                     <Button
                         size="xl"
                         stretched={true}
-                        onClick={onButtonClick}
+                        // onClick={onButtonClick}
                         level={
                             this.state.isButtonActive
                                 ? "primary"

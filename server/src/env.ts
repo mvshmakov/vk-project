@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
 import fs from "fs";
-import { LoggerOptions } from "express-winston";
-import { transports, format } from "winston";
 
 const ENV_PATH = ".env";
 const isInProduction = process.env.NODE_ENV === "production";
@@ -28,16 +26,3 @@ if (!MONGODB_URI) {
 // Static non-dotenv variables
 export const PORT = 3000;
 export const STATIC_DIR = "../client/dist";
-
-export const LOGGER_OPTIONS: LoggerOptions = {
-    transports: [
-        new transports.Console({
-            level: process.env.NODE_ENV === "production" ? "error" : "debug"
-        }),
-        new transports.File({ filename: "debug.log", level: "debug" })
-    ],
-    format: format.combine(
-        format.colorize(),
-        format.json()
-    )
-};

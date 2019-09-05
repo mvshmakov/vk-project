@@ -8,7 +8,6 @@ main() {
     log "Creating $service symlinks..."
 
     ln -sfn ../src ./node_modules/@;
-    ln -sfn ../../configs ./node_modules/$;
 
     log_success "Symlinks for $service created"
 

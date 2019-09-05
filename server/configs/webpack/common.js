@@ -36,13 +36,20 @@ module.exports = {
     plugins: process.env.BUNDLE_ANALYZER
         ? [
               ...basePlugins,
-              new BundleAnalyzerPlugin({
-                  analyzerMode: "static",
-                  reportFilename: join(
-                      process.cwd(),
-                      "webpack-bundle-analyzer.html"
-                  )
-              })
+              new BundleAnalyzerPlugin(
+                  new BundleAnalyzerPlugin({
+                      analyzerMode: "server",
+                      analyzerHost: "localhost",
+                      analyzerPort: 8888,
+                      reportFilename: "report.html",
+                      defaultSizes: "parsed",
+                      openAnalyzer: true,
+                      generateStatsFile: false,
+                      statsFilename: "stats.json",
+                      statsOptions: null,
+                      logLevel: "info"
+                  })
+              )
           ]
         : basePlugins,
     performance: {

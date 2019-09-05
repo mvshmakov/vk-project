@@ -1,12 +1,12 @@
 import { pick } from "ramda";
-import { Router, Response, Request } from "express";
+import { Router } from "express";
 
 import { User as UserModel } from "@/models/user";
 import { isValidUserModel } from "@/utils/validators";
 
 const userRoutes = Router();
 
-userRoutes.get("/api/v1/users/", (req: Request, res: Response) => {
+userRoutes.get("/api/v1/users/", (_req, res) => {
     UserModel.find({}, (err, users) => {
         if (err) {
             console.error(err);
@@ -17,8 +17,8 @@ userRoutes.get("/api/v1/users/", (req: Request, res: Response) => {
     });
 });
 
-userRoutes.get("/api/v1/users/:id", ({ params }: Request, res: Response) => {
-    const { id: _id } = params;
+userRoutes.get("/api/v1/users/:id", ({ params: requestParams }, res) => {
+    const { id: _id } = requestParams;
 
     UserModel.findOne({ _id }, (err, user) => {
         if (err) {
@@ -31,13 +31,13 @@ userRoutes.get("/api/v1/users/:id", ({ params }: Request, res: Response) => {
     });
 });
 
-userRoutes.post("/api/v1/users/", ({ body }: Request, res: Response) => {
-    if (!body) {
+userRoutes.post("/api/v1/users/", ({ body: requestBody }, res) => {
+    if (!requestBody) {
         res.sendStatus(400);
         return;
     }
 
-    const userFields = pick(["username", "email"], body);
+    const userFields = pick(["username", "email"], requestBody);
 
     if (!isValidUserModel(userFields)) {
         console.error("invalid user object");
@@ -57,8 +57,8 @@ userRoutes.post("/api/v1/users/", ({ body }: Request, res: Response) => {
     });
 });
 
-userRoutes.delete("/api/v1/users/:id", ({ params }: Request, res: Response) => {
-    const { id } = params;
+userRoutes.delete("/api/v1/users/:id", ({ params: requestParams }, res) => {
+    const { id } = requestParams;
 
     UserModel.findByIdAndDelete(id, (err, user) => {
         if (err) {
@@ -71,16 +71,16 @@ userRoutes.delete("/api/v1/users/:id", ({ params }: Request, res: Response) => {
     });
 });
 
-userRoutes.put("/api/v1/users/:id", ({ params, body }: Request, res: Response) => {
-    if (!body) {
+userRoutes.put("/api/v1/users/:id", ({ params: requestParams, body: requestBody }, res) => {
+    if (!requestBody) {
         res.sendStatus(400);
         return;
     }
 
-    const { username, email } = body;
+    const { username, email } = requestBody;
 
     UserModel.findOneAndUpdate(
-        { _id: params.id },
+        { _id: requestParams.id },
         { username, email },
         { new: true },
         (err, user) => {

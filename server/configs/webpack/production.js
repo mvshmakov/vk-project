@@ -7,7 +7,7 @@ module.exports = merge(commonConfig, {
     mode: "production",
     entry: "./index.ts",
     output: {
-        filename: "js/bundle.[hash].min.js",
+        filename: "server.min.js",
         path: resolve(__dirname, "../../dist"),
         publicPath: "/"
     },
