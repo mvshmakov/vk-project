@@ -1,5 +1,6 @@
 import * as React from "react";
-import {Avatar, Cell, Separator, Div} from "@vkontakte/vkui";
+import { Avatar, Cell, Separator, Div, Group } from "@vkontakte/vkui";
+import Icon16MoreHorizontal from "@vkontakte/icons/dist/16/more_horizontal";
 import "./styles.scss";
 
 interface IPostProps {
@@ -36,22 +37,27 @@ export class Post extends React.Component<IPostProps, IState> {
     }
 
     render() {
-        return(
+        return (
             <React.Fragment>
-                <Separator />
-                <Cell size="l"
-                      before={<Avatar src={this.props.img}/>}
-                      bottomContent={this.props.date}>
-                    {this.props.name}
-                </Cell>
-                <Div>{this.props.attachments.text}</Div>
-                <Div>{this.props.attachments.img}</Div>
-                <Separator />
-                <Cell>
-                    <Div className={this.state.like ? "iconBtn likeBtn _active" : "iconBtn likeBtn"}
-                         onClick={this.toggleLike}/>
-                    <Div className={"iconBtn repliesBtn"}/>
-                </Cell>
+                <Group className="post-block">
+                    <Cell size="l"
+                        before={<Avatar src={this.props.img} />}
+                        asideContent={<Icon16MoreHorizontal />}
+                        bottomContent={this.props.date}
+                        className="post-block__header">
+                        {this.props.name}
+                    </Cell>
+                    <Div className="post-block__text">{this.props.attachments.text}</Div>
+                    {this.props.attachments.img && (
+                        <Div className="post-block__image">{this.props.attachments.img}</Div>
+                    )}
+                    <Separator className="post-block__separator" />
+                    <Cell className="post-block__iconBtn-wrapper">
+                        <Div className={this.state.like ? "iconBtn likeBtn _active" : "iconBtn likeBtn"}
+                            onClick={this.toggleLike} />
+                        <Div className={"iconBtn repliesBtn"} />
+                    </Cell>
+                </Group>
             </React.Fragment>
         );
     }

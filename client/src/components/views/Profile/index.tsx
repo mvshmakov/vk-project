@@ -9,6 +9,7 @@ import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
 import { Panel, PanelHeader, View, Group, Div, Button, Cell, Avatar } from "@vkontakte/vkui";
 
 import "./styles.scss";
+import { Post } from "../../blocks/Post";
 
 interface IProps {
     id: string;
@@ -27,6 +28,10 @@ export default class ProfileView extends PureView<IProps, IState> {
     }
 
     render() {
+        const attachment = {
+            text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam asperiores aspernatur atque autem commodi cumque, deserunt dicta dolore doloremque eius eligendi est ex fugiat hic illo laboriosam minima obcaecati odit pariatur possimus quam qui repellat repellendus rerum sapiente tempora velit! Asperiores beatae cum ducimus enim et, fugit itaque iure minus."
+        };
+
         return (
             <View id={this.props.id} activePanel={this.state.activePanel} className="profile-view">
                 <Panel id="profile">
@@ -82,6 +87,18 @@ export default class ProfileView extends PureView<IProps, IState> {
                             </div>
                         </div>
                     </Group>
+                    <Post name={"Sports.Ru"}
+                        img={"https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg"}
+                        date={"12 авг 2019 г."}
+                        attachments={attachment} />
+                    <Post name={"Sports.Ru"}
+                        img={"https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg"}
+                        date={"12 авг 2019 г."}
+                        attachments={attachment} />
+                    <Post name={"Sports.Ru"}
+                        img={"https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg"}
+                        date={"12 авг 2019 г."}
+                        attachments={attachment} />
                 </Panel>
             </View>
         );
