@@ -2,8 +2,8 @@ import * as React from "react";
 import { Div } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
-import { ILesson } from "@/typings/Lesson";
-import { IFunctionalBlock } from "@/typings/Components";
+import { ILesson } from "@/entities/Lesson";
+import { IFunctionalBlock } from "@/utils/Components";
 
 import "./styles.scss";
 

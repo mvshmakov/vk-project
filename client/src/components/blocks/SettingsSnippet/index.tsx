@@ -2,9 +2,9 @@ import * as React from "react";
 import { Cell, Avatar } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
-import { IFunctionalBlock } from "@/typings/Components";
+import { IFunctionalBlock } from "@/utils/Components";
 
-import { IUser } from "@/typings/User";
+import { IUser } from "@/entities/User";
 
 import "./styles.scss";
 

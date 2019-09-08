@@ -1,15 +1,15 @@
 import * as React from "react";
-import { PureView } from "@/typings/Components";
-
-import "@vkontakte/vkui/dist/vkui.css";
+import { Panel, PanelHeader, View, Group, Div, Button, Cell, Avatar } from "@vkontakte/vkui";
 import Icon16Add from "@vkontakte/icons/dist/16/add";
 import Icon20Info from "@vkontakte/icons/dist/20/info";
 import Icon20ArticleOutline from "@vkontakte/icons/dist/20/article_outline";
 import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
-import { Panel, PanelHeader, View, Group, Div, Button, Cell, Avatar } from "@vkontakte/vkui";
+
+import { Post } from "@/components/blocks/Post";
+import { PureView } from "@/utils/Components";
 
 import "./styles.scss";
-import { Post } from "../../blocks/Post";
+import "@vkontakte/vkui/dist/vkui.css";
 
 interface IProps {
     id: string;
@@ -36,6 +36,7 @@ export default class ProfileView extends PureView<IProps, IState> {
             <View id={this.props.id} activePanel={this.state.activePanel} className="profile-view">
                 <Panel id="profile">
                     <PanelHeader noShadow={true} theme="alternate" className="profile-view__panel-header-block"></PanelHeader>
+                    <div className="profile-view__panel-header-additional"></div>
                     <Group className="profile-view__main-block">
                         <Cell
                             size="l"

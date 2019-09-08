@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import ScheduleView from "@/components/views/Schedule";
-import { ILesson } from "@/typings/Lesson";
+import { ILesson } from "@/entities/Lesson";
 
 const groupLessonsByDay = (lessons: ILesson[]) => {
     const obj = {};

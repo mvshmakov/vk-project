@@ -3,10 +3,10 @@ import { View, PanelHeader, Panel, Group, List } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import SettingsSnippetBlock from "@/components/blocks/SettingsSnippet";
-import { PureView } from "@/typings/Components";
+import { PureView } from "@/utils/Components";
 
 import "./styles.scss";
-import { IUser } from "@/typings/User";
+import { IUser } from "@/entities/User";
 
 export interface IStateProps {
     user: IUser;

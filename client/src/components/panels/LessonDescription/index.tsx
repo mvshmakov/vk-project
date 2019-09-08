@@ -5,7 +5,7 @@ import Icon28ChevronBack from "@vkontakte/icons/dist/28/chevron_back";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import { isAndroid } from "@/helpers/vkui";
-import { IFunctionalPanel } from "@/typings/Components";
+import { IFunctionalPanel } from "@/utils/Components";
 
 import "./styles.scss";
 

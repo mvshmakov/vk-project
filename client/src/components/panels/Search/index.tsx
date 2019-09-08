@@ -4,11 +4,10 @@ import PanelSpinner from "@vkontakte/vkui/dist/components/PanelSpinner/PanelSpin
 import "@vkontakte/vkui/dist/vkui.css";
 
 import UserSnippetBlock from "@/components/blocks/UserSnippet";
-import { IUser } from "@/typings/User";
-import { PurePanel } from "@/typings/Components";
+import { IUser } from "@/entities/User";
+import { PurePanel } from "@/utils/Components";
 
 import "./styles.scss";
-import {Post} from "../../blocks/Post";
 
 const THROTTLE_DELAY: number = 100;
 
@@ -101,12 +100,6 @@ export default class SearchPanel extends PurePanel<
                     )}
                     {this.state.username && children}
                 </Group>
-                    <Group>
-                        <Post name={"Апостол Пётр"}
-                              img={"https://pp.userapi.com/SslEXxXXambnM5qNlF_WTh6S_Y0fVDlKiDvsiQ/fd0PgTJ9Xfk.jpg"}
-                              date={"12 авг 2019 г."}
-                              attachments={attachment}/>
-                    </Group>
             </Panel>
         );
     }

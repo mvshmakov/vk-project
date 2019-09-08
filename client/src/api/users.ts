@@ -1,4 +1,4 @@
-import { IUser } from "@/typings/User";
+import { IUser } from "@/entities/User";
 
 const API_BASE_SEARCH = "http://localhost:3000/api/v1/users";
 

@@ -2,8 +2,8 @@ import * as React from "react";
 import { Panel, PanelHeader, Group } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
-import { ILesson } from "@/typings/Lesson";
-import { PurePanel } from "@/typings/Components";
+import { ILesson } from "@/entities/Lesson";
+import { PurePanel } from "@/utils/Components";
 import ScheduleSnippetBlock from "@/components/blocks/ScheduleSnippet";
 
 import "./styles.scss";

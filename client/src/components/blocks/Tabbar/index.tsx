@@ -8,10 +8,10 @@ import "@vkontakte/vkui/dist/vkui.css";
 
 import "./styles.scss";
 
-    interface IProps {
-        activeRoute: string;
-        onStoryChange: (...args: any) => any;
-    }
+interface IProps {
+    activeRoute: string;
+    onStoryChange: (...args: any) => any;
+}
 
 export default ({ activeRoute, onStoryChange }: IProps) => (
     <VkuiTabbbar>
