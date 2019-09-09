@@ -9,7 +9,6 @@ import { Post } from "@/components/blocks/Post";
 import { PureView } from "@/utils/Components";
 
 import "./styles.scss";
-import "@vkontakte/vkui/dist/vkui.css";
 
 interface IProps {
     id: string;
