@@ -1,7 +1,7 @@
 import { createAction } from "redux-actions";
 
-import { IUser } from "@/typings/User";
-import { TLoadedAction } from "@/typings/Actions";
+import { IUser } from "@/entities/User";
+import { TLoadedAction } from "@/entities/Actions";
 
 export const SEARCH_USER: "SEARCH_USER" = "SEARCH_USER";
 export const SET_USERS: "SET_USERS" = "SET_USERS";

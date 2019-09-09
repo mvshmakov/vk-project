@@ -1,5 +1,5 @@
 import { createAction } from "redux-actions";
-import { TAction, TLoadedAction } from "@/typings/Actions";
+import { TAction, TLoadedAction } from "@/entities/Actions";
 
 export const EXAMPLE_ACTION: "EXAMPLE_ACTION" = "EXAMPLE_ACTION";
 export const EXAMPLE_LOADED_ACTION: "EXAMPLE_LOADED_ACTION" = "EXAMPLE_LOADED_ACTION";

@@ -1,4 +1,4 @@
-import { IUser } from "@/typings/User";
+import { IUser } from "@/entities/User";
 
 const API_BASE_SEARCH = "https://api.hseapp.ru/gateway/dump/search/";
 

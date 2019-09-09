@@ -3,7 +3,7 @@ import { Panel, PanelHeader } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import ExampleBlock from "@/components/blocks/Example";
-import {IFunctionalPanel} from "@/typings/Components";
+import {IFunctionalPanel} from "@/utils/Components";
 
 import "./styles.scss";
 

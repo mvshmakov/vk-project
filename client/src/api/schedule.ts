@@ -1,5 +1,5 @@
 import { stringify } from "query-string";
-import { ILesson } from "@/typings/Lesson";
+import { ILesson } from "@/entities/Lesson";
 
 const API_BASE_RUZ = "http://api.hseapp.ru/gateway/ruz/lessons";
 

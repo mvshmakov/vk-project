@@ -1,0 +1,56 @@
+.post-block {
+  .Cell__children {
+    font-weight: bold;
+  }
+
+  .Cell__bottom {
+    margin-top: 0;
+    font-size: 14px;
+    color: #909499;
+  }
+
+  &__header {
+    padding: 5px 8px 0;
+  }
+
+  &__text {
+    padding: 0 20px 10px;
+    text-align: justify;
+  }
+
+  &__separator {
+    padding: 0 8px;
+  }
+
+  &__iconBtn-wrapper {
+    padding: 0 8px;
+  }
+}
+
+.iconBtn {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-image: url("../../../assets/icons/wall-icons.svg");
+  background-size: 156px 132px;
+  cursor: pointer;
+
+  & + & {
+    margin-left: 20px;
+  }
+}
+
+.likeBtn {
+  background-position: -80px -56px;
+
+  &._active {
+    background-position: -132px -24px;
+  }
+}
+
+.repliesBtn {
+  background-position: -108px -48px;
+}

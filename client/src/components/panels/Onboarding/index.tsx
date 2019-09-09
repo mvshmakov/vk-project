@@ -11,7 +11,7 @@ import {
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
-import { PurePanel } from "@/typings/Components";
+import { PurePanel } from "@/utils/Components";
 
 import "./styles.scss";
 

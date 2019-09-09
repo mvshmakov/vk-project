@@ -4,7 +4,7 @@ import "@vkontakte/vkui/dist/vkui.css";
 
 import SearchPanel from "@/containers/panels/Search";
 import OnboardingPanel from "@/components/panels/Onboarding";
-import { PureView } from "@/typings/Components";
+import { PureView } from "@/utils/Components";
 
 import "./styles.scss";
 
