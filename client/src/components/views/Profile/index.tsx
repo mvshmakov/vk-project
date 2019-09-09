@@ -56,14 +56,12 @@ export default class ProfileView extends PureView<IProps, IState> {
                                 stretched
                                 level="outline"
                                 style={{ marginRight: 20 }}
-                                onClick={this.onButtonClicked}
                             >
                                 Сообщение
                             </Button>
                             <Button size="l"
                                 stretched
                                 before={<Icon16Add />}
-                                onClick={this.onButtonClicked}
                             >
                                 Подписаться
                             </Button>
