@@ -1,0 +1,17 @@
+.subscription-popover {
+    width: 325px;
+    height: 510px;
+    flex: 0 0 auto;
+    border-radius: 12px;
+    background-color: white;
+
+    &__close {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &__button {
+      display: flex;
+      justify-content: center;
+    }
+  }
