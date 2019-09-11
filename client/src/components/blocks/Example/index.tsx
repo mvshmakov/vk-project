@@ -26,7 +26,7 @@ const ExampleBlock: IFunctionalBlock<IProps> = ({
                 level="primary"
                 size="m"
                 stretched={true}
-                // onClick={onButtonClick}
+                onClick={onButtonClick}
             >
                 {buttonText}
             </Button>
