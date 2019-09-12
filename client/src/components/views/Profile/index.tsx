@@ -12,6 +12,7 @@ import { PureView } from "@/utils/Components";
 import { SubscriptionPopover } from "@/components/popovers/SubscriptionPopover";
 
 import "./styles.scss";
+import { MoreActionsPopover } from "../../popovers/MoreActionsPopover";
 
 interface IProps {
     id: string;
@@ -20,6 +21,7 @@ interface IState {
     activePanel: string;
     activeModal: string;
     isPopupShown: boolean;
+    isActionSheetShown: boolean;
 }
 
 const MODAL_PAGE_ADDITIONAL_INFO = "MODAL_PAGE_ADDITIONAL_INFO";
@@ -28,21 +30,27 @@ export default class ProfileView extends PureView<IProps, IState> {
     constructor(props) {
         super(props);
 
-        this.updateVisibility = this.updateVisibility.bind(this);
+        this.updateSubscriptionVisibility = this.updateSubscriptionVisibility.bind(this);
+        this.updateActionSheetVisibility = this.updateActionSheetVisibility.bind(this);
     }
 
     state = {
         activePanel: "profile",
         activeModal: null,
         isPopupShown: false,
+        isActionSheetShown: false
     };
 
-    updateVisibility = (visible: boolean) => {
+    updateSubscriptionVisibility = (visible: boolean) => {
         this.setState({ isPopupShown: visible });
     }
 
+    updateActionSheetVisibility = (visible: boolean) => {
+        this.setState({ isActionSheetShown: visible });
+    }
+
     render() {
-        const { activePanel, activeModal, isPopupShown } = this.state;
+        const { activePanel, activeModal, isPopupShown, isActionSheetShown } = this.state;
 
         const profileMocks = {
             name: "Sports.Ru",
@@ -98,7 +106,9 @@ export default class ProfileView extends PureView<IProps, IState> {
         );
 
         const activePopover = (
-            isPopupShown ? <SubscriptionPopover onUpdateVisibility={this.updateVisibility}/> : null
+            isPopupShown ? <SubscriptionPopover onUpdateVisibility={this.updateSubscriptionVisibility}/> : (
+                isActionSheetShown ? <MoreActionsPopover onUpdateVisibility={this.updateActionSheetVisibility}/> : null
+            )
         );
 
         return (
@@ -159,15 +169,18 @@ export default class ProfileView extends PureView<IProps, IState> {
                     <Post name={postMocks.name}
                         img={postMocks.img}
                         date={postMocks.date}
-                        attachments={postMocks.attachment} />
+                        attachments={postMocks.attachment}
+                        onUpdateVisibility={this.updateActionSheetVisibility} />
                     <Post name={postMocks.name}
                         img={postMocks.img}
                         date={postMocks.date}
-                        attachments={postMocks.attachment} />
+                        attachments={postMocks.attachment}
+                        onUpdateVisibility={this.updateActionSheetVisibility} />
                     <Post name={postMocks.name}
                         img={postMocks.img}
                         date={postMocks.date}
-                        attachments={postMocks.attachment} />
+                        attachments={postMocks.attachment}
+                        onUpdateVisibility={this.updateActionSheetVisibility} />
                 </Panel>
             </View>
         );

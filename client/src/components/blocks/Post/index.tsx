@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, Cell, Separator, Div, Group, ActionSheet, ActionSheetItem, platform, IOS } from "@vkontakte/vkui";
+import { Avatar, Cell, Separator, Div, Group } from "@vkontakte/vkui";
 import Icon16MoreHorizontal from "@vkontakte/icons/dist/16/more_horizontal";
 import { IPostProps } from "@/entities/Post";
 
@@ -7,10 +7,7 @@ import "./styles.scss";
 
 interface IState {
     like: boolean;
-    popout: JSX.Element;
 }
-
-const osname = platform();
 
 export class Post extends React.Component<IPostProps, IState> {
     constructor(props) {
@@ -21,7 +18,6 @@ export class Post extends React.Component<IPostProps, IState> {
 
     state = {
         like: false,
-        popout: null
     };
 
     private toggleLike = (): void => {
@@ -31,21 +27,7 @@ export class Post extends React.Component<IPostProps, IState> {
     }
 
     showMoreActions() {
-        this.setState({
-            popout:
-                <ActionSheet onClose={() => this.setState({ popout: null })}>
-                    <ActionSheetItem autoclose>
-                        По дням
-                    </ActionSheetItem>
-                    <ActionSheetItem autoclose>
-                        По неделям
-                    </ActionSheetItem>
-                    <ActionSheetItem autoclose>
-                        По месяцам
-                    </ActionSheetItem>
-                    {osname === IOS && <ActionSheetItem autoclose theme="cancel">Отменить</ActionSheetItem>}
-                </ActionSheet>
-        });
+        this.props.onUpdateVisibility(true);
     }
 
     render() {
