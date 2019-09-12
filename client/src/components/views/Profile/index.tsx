@@ -1,56 +1,58 @@
 import * as React from "react";
-import { Panel, View, Group, InfoRow, Div, List, Button, Cell, Avatar, ModalRoot, ModalPage, ModalPageHeader, HeaderButton, IS_PLATFORM_ANDROID, IS_PLATFORM_IOS } from "@vkontakte/vkui";
+import { Panel, View, Group, Div, Button, Cell, Avatar } from "@vkontakte/vkui";
 import Icon16Add from "@vkontakte/icons/dist/16/add";
 import Icon20Info from "@vkontakte/icons/dist/20/info";
 import Icon20ArticleOutline from "@vkontakte/icons/dist/20/article_outline";
 import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
-import Icon24Dismiss from "@vkontakte/icons/dist/24/dismiss";
-import Icon24Cancel from "@vkontakte/icons/dist/24/cancel";
 
 import { Post } from "@/components/blocks/Post";
 import { PureView } from "@/utils/Components";
+import { MoreActionsPopover } from "@/components/popovers/MoreActionsPopover";
 import { SubscriptionPopover } from "@/components/popovers/SubscriptionPopover";
+import { AdditionalInfoPopover } from "@/components/popovers/AdditionalInfoPopover";
 
 import "./styles.scss";
-import { MoreActionsPopover } from "../../popovers/MoreActionsPopover";
 
 interface IProps {
     id: string;
 }
 interface IState {
     activePanel: string;
-    activeModal: string;
+    isModalShown: boolean;
     isPopupShown: boolean;
     isActionSheetShown: boolean;
 }
-
-const MODAL_PAGE_ADDITIONAL_INFO = "MODAL_PAGE_ADDITIONAL_INFO";
 
 export default class ProfileView extends PureView<IProps, IState> {
     constructor(props) {
         super(props);
 
-        this.updateSubscriptionVisibility = this.updateSubscriptionVisibility.bind(this);
+        this.updateModalVisibility = this.updateModalVisibility.bind(this);
         this.updateActionSheetVisibility = this.updateActionSheetVisibility.bind(this);
+        this.updateSubscriptionVisibility = this.updateSubscriptionVisibility.bind(this);
     }
 
     state = {
         activePanel: "profile",
-        activeModal: null,
+        isModalShown: false,
         isPopupShown: false,
         isActionSheetShown: false
     };
 
-    updateSubscriptionVisibility = (visible: boolean) => {
-        this.setState({ isPopupShown: visible });
+    updateModalVisibility = (visible: boolean) => {
+        this.setState({ isModalShown: visible });
     }
 
     updateActionSheetVisibility = (visible: boolean) => {
         this.setState({ isActionSheetShown: visible });
     }
 
+    updateSubscriptionVisibility = (visible: boolean) => {
+        this.setState({ isPopupShown: visible });
+    }
+
     render() {
-        const { activePanel, activeModal, isPopupShown, isActionSheetShown } = this.state;
+        const { activePanel, isModalShown, isPopupShown, isActionSheetShown } = this.state;
 
         const profileMocks = {
             name: "Sports.Ru",
@@ -70,49 +72,18 @@ export default class ProfileView extends PureView<IProps, IState> {
             }
         };
 
-        const addInfoModal = (
-            <ModalRoot activeModal={activeModal}>
-                <ModalPage
-                    id={MODAL_PAGE_ADDITIONAL_INFO}
-                    header={
-                        <ModalPageHeader
-                            left={IS_PLATFORM_ANDROID && <HeaderButton onClick={() => this.setState({ activeModal: null })}><Icon24Cancel /></HeaderButton>}
-                            right={IS_PLATFORM_IOS && <HeaderButton onClick={() => this.setState({ activeModal: null })}><Icon24Dismiss /></HeaderButton>}
-                        >
-                            Подробная информация
-                        </ModalPageHeader>
-                    }
-                    onClose={() => this.setState({ activeModal: null })}
-                >
-                    <List>
-                        <Cell>
-                            <InfoRow title="Название канала">
-                                {profileMocks.name}
-                            </InfoRow>
-                        </Cell>
-                        <Cell>
-                            <InfoRow title="Категория">
-                                {profileMocks.category}
-                            </InfoRow>
-                        </Cell>
-                        <Cell>
-                            <InfoRow title="Описание">
-                                {profileMocks.description}
-                            </InfoRow>
-                        </Cell>
-                    </List>
-                </ModalPage>
-            </ModalRoot>
-        );
-
         const activePopover = (
-            isPopupShown ? <SubscriptionPopover onUpdateVisibility={this.updateSubscriptionVisibility}/> : (
-                isActionSheetShown ? <MoreActionsPopover onUpdateVisibility={this.updateActionSheetVisibility}/> : null
+            isPopupShown ? <SubscriptionPopover onUpdateVisibility={this.updateSubscriptionVisibility} /> : (
+                isActionSheetShown ? <MoreActionsPopover onUpdateVisibility={this.updateActionSheetVisibility} /> : null
             )
         );
 
+        const activeModal = (
+            isModalShown ? <AdditionalInfoPopover onUpdateVisibility={this.updateModalVisibility} /> : null
+        );
+
         return (
-            <View header={false} id={this.props.id} activePanel={activePanel} modal={addInfoModal} popout={activePopover} className="profile-view">
+            <View header={false} id={this.props.id} activePanel={activePanel} modal={activeModal} popout={activePopover} className="profile-view">
                 <Panel id="profile">
                     <div className="profile-view__panel-header-block"></div>
                     <Group className="profile-view__main-block">
@@ -148,7 +119,7 @@ export default class ProfileView extends PureView<IProps, IState> {
                             <Icon20ArticleOutline /> {profileMocks.description}
                         </Div>
                         <Div className="profile-view__description-additional-info"
-                            onClick={() => this.setState({ activeModal: MODAL_PAGE_ADDITIONAL_INFO })}>
+                            onClick={() => this.setState({ isModalShown: true })}>
                             <Icon20Info /> Подробная информация
                         </Div>
                     </Group>
