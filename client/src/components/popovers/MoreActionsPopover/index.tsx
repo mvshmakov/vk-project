@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ActionSheet, ActionSheetItem, platform, IOS } from "@vkontakte/vkui";
+import { ActionSheet, ActionSheetItem, IS_PLATFORM_IOS } from "@vkontakte/vkui";
 
 import "./styles.scss";
 
@@ -7,8 +7,7 @@ interface IProps {
     onUpdateVisibility: Function;
 }
 
-const osname = platform();
-
+// TODO: change to React.PureComponent
 export class MoreActionsPopover extends React.Component<IProps> {
     constructor(props) {
         super(props);
@@ -22,7 +21,7 @@ export class MoreActionsPopover extends React.Component<IProps> {
 
     render() {
         return (
-            <ActionSheet onClose={() => this.updateVisibility()}>
+            <ActionSheet onClose={this.updateVisibility}>
                 <ActionSheetItem autoclose>
                     Скопировать
                     </ActionSheetItem>
@@ -32,7 +31,7 @@ export class MoreActionsPopover extends React.Component<IProps> {
                 <ActionSheetItem autoclose>
                     Удалить
                     </ActionSheetItem>
-                {osname === IOS && <ActionSheetItem autoclose theme="cancel">Отменить</ActionSheetItem>}
+                {IS_PLATFORM_IOS && <ActionSheetItem autoclose theme="cancel">Отменить</ActionSheetItem>}
             </ActionSheet>
         );
     }

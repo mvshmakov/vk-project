@@ -14,11 +14,13 @@ import Icon24Dismiss from "@vkontakte/icons/dist/24/dismiss";
 import Icon24Cancel from "@vkontakte/icons/dist/24/cancel";
 
 import "./styles.scss";
+import { profileMocks } from "@/components/views/Profile/__mocks__";
 
 interface IProps {
     onUpdateVisibility: Function;
 }
 
+// TODO: change to React.PureComponent
 export class AdditionalInfoPopover extends React.Component<IProps> {
     constructor(props) {
         super(props);
@@ -31,25 +33,19 @@ export class AdditionalInfoPopover extends React.Component<IProps> {
     }
 
     render() {
-        const profileMocks = {
-            name: "Sports.Ru",
-            category: "Спорт, Интернет-СМИ",
-            description: "Sports.Ru - ведущий российский спортивный сайт, обладающий аудиторией более 14 млн. человек...",
-        };
-
         return (
             <ModalRoot activeModal={"ADDITIONAL_INFO_MODAL"}>
                 <ModalPage
-                    id={"ADDITIONAL_INFO_MODAL"}
+                    id="ADDITIONAL_INFO_MODAL"
                     header={
                         <ModalPageHeader
-                            left={IS_PLATFORM_ANDROID && <HeaderButton onClick={() => this.updateVisibility()}><Icon24Cancel /></HeaderButton>}
-                            right={IS_PLATFORM_IOS && <HeaderButton onClick={() => this.updateVisibility()}><Icon24Dismiss /></HeaderButton>}
+                            left={IS_PLATFORM_ANDROID && <HeaderButton onClick={this.updateVisibility}><Icon24Cancel /></HeaderButton>}
+                            right={IS_PLATFORM_IOS && <HeaderButton onClick={this.updateVisibility}><Icon24Dismiss /></HeaderButton>}
                         >
                             Подробная информация
                         </ModalPageHeader>
                     }
-                    onClose={() => this.setState({ activeModal: null })}
+                    onClose={this.updateVisibility}
                 >
                     <List>
                         <Cell>

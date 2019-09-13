@@ -12,10 +12,12 @@ import { SubscriptionPopover } from "@/components/popovers/SubscriptionPopover";
 import { AdditionalInfoPopover } from "@/components/popovers/AdditionalInfoPopover";
 
 import "./styles.scss";
+import { profileMocks, postMocks } from "./__mocks__";
 
 interface IProps {
     id: string;
 }
+
 interface IState {
     activePanel: string;
     isModalShown: boolean;
@@ -52,38 +54,26 @@ export default class ProfileView extends PureView<IProps, IState> {
     }
 
     render() {
+        const posts = [1, 2, 3];
+
         const { activePanel, isModalShown, isPopupShown, isActionSheetShown } = this.state;
 
-        const profileMocks = {
-            name: "Sports.Ru",
-            category: "Спорт, Интернет-СМИ",
-            description: "Sports.Ru - ведущий российский спортивный сайт, обладающий аудиторией более 14 млн. человек...",
-        };
-
-        const postMocks = {
-            name: "Sports.Ru",
-            date: "12 авг 2019 г.",
-            img: "https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg",
-            attachment: {
-                text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam asperiores aspernatur" +
-                    "atque autem commodi cumque, deserunt dicta dolore doloremque eius eligendi est ex fugiat hic " +
-                    "illo laboriosam minima obcaecati odit pariatur possimus quam qui repellat repellendus rerum " +
-                    "sapiente tempora velit! Asperiores beatae cum ducimus enim et, fugit itaque iure minus."
+        const activePopover = () => {
+            if (isPopupShown) {
+                return <SubscriptionPopover onUpdateVisibility={this.updateSubscriptionVisibility} />;
+            } else if (isActionSheetShown) {
+                return <MoreActionsPopover onUpdateVisibility={this.updateActionSheetVisibility} />;
+            } else {
+                return null;
             }
         };
-
-        const activePopover = (
-            isPopupShown ? <SubscriptionPopover onUpdateVisibility={this.updateSubscriptionVisibility} /> : (
-                isActionSheetShown ? <MoreActionsPopover onUpdateVisibility={this.updateActionSheetVisibility} /> : null
-            )
-        );
 
         const activeModal = (
             isModalShown ? <AdditionalInfoPopover onUpdateVisibility={this.updateModalVisibility} /> : null
         );
 
         return (
-            <View header={false} id={this.props.id} activePanel={activePanel} modal={activeModal} popout={activePopover} className="profile-view">
+            <View header={false} id={this.props.id} activePanel={activePanel} modal={activeModal} popout={activePopover()} className="profile-view">
                 <Panel id="profile">
                     <div className="profile-view__panel-header-block"></div>
                     <Group className="profile-view__main-block">
@@ -137,21 +127,14 @@ export default class ProfileView extends PureView<IProps, IState> {
                             </div>
                         </div>
                     </Group>
-                    <Post name={postMocks.name}
-                        img={postMocks.img}
-                        date={postMocks.date}
-                        attachments={postMocks.attachment}
-                        onUpdateVisibility={this.updateActionSheetVisibility} />
-                    <Post name={postMocks.name}
-                        img={postMocks.img}
-                        date={postMocks.date}
-                        attachments={postMocks.attachment}
-                        onUpdateVisibility={this.updateActionSheetVisibility} />
-                    <Post name={postMocks.name}
-                        img={postMocks.img}
-                        date={postMocks.date}
-                        attachments={postMocks.attachment}
-                        onUpdateVisibility={this.updateActionSheetVisibility} />
+                    {posts.map((post, i) =>
+                        <Post key={i}
+                            name={postMocks.name}
+                            img={postMocks.img}
+                            date={postMocks.date}
+                            attachments={postMocks.attachment}
+                            onUpdateVisibility={this.updateActionSheetVisibility} />
+                    )}
                 </Panel>
             </View>
         );

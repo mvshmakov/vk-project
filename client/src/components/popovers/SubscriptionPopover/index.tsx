@@ -5,13 +5,14 @@ import Icon24Dismiss from "@vkontakte/icons/dist/24/dismiss";
 import "./styles.scss";
 
 interface IProps {
-    onUpdateVisibility;
+    onUpdateVisibility: Function;
 }
 
 interface IState {
     slideIndex: number;
 }
 
+// TODO: change to React.PureComponent
 export class SubscriptionPopover extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
@@ -27,6 +28,10 @@ export class SubscriptionPopover extends React.Component<IProps, IState> {
         this.props.onUpdateVisibility(false);
     }
 
+    onSlideChange = (slideIndex: number) => {
+        this.setState({ slideIndex });
+    }
+
     render() {
         const { slideIndex } = this.state;
 
@@ -34,7 +39,7 @@ export class SubscriptionPopover extends React.Component<IProps, IState> {
             <PopoutWrapper v="center" h="center">
                 <div className="subscription-popover">
                     <Div className="subscription-popover__close">
-                        <Icon24Dismiss onClick={() => this.updateVisibility()} />
+                        <Icon24Dismiss onClick={this.updateVisibility} />
                     </Div>
                     <Group title="">
                         <Gallery
@@ -42,7 +47,7 @@ export class SubscriptionPopover extends React.Component<IProps, IState> {
                             align="center"
                             bullets="light"
                             slideIndex={slideIndex}
-                            onChange={(slideIndex: number) => this.setState({ slideIndex })}
+                            onChange={this.onSlideChange}
                             style={{ marginTop: 30, height: 350 }}
                         >
                             <div style={{ backgroundColor: "#3d9fac" }}>Subscription 1</div>
