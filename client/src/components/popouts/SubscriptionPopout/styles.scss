@@ -1,0 +1,36 @@
+.subscription-popover {
+  width: 325px;
+  height: 510px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  background-color: white;
+
+  &__close {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__gallery-card {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .Gallery__layer {
+    .Gallery__slide:nth-child(1) {
+      background-color: #3d9fac;
+    }
+    .Gallery__slide:nth-child(2) {
+      background-color: #feb836;
+    }
+    .Gallery__slide:nth-child(3) {
+      background-color: #5b4470;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
+}

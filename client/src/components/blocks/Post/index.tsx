@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Avatar, Cell, Separator, Div, Group } from "@vkontakte/vkui";
-import Icon16MoreHorizontal from "@vkontakte/icons/dist/16/more_horizontal";
+import { Avatar, Cell, Separator, Div, Group, Button } from "@vkontakte/vkui";
+import Icon24MoreHorizontal from "@vkontakte/icons/dist/24/more_horizontal";
 import { IPostProps } from "@/entities/Post";
 
 import "./styles.scss";
@@ -12,6 +12,8 @@ interface IState {
 export class Post extends React.Component<IPostProps, IState> {
     constructor(props) {
         super(props);
+
+        this.showMoreActions = this.showMoreActions.bind(this);
     }
 
     state = {
@@ -24,8 +26,8 @@ export class Post extends React.Component<IPostProps, IState> {
         });
     }
 
-    private showMoreActions = (): void => {
-        console.log("Show more button clicked!");
+    showMoreActions() {
+        this.props.onUpdateVisibility(true);
     }
 
     render() {
@@ -37,7 +39,12 @@ export class Post extends React.Component<IPostProps, IState> {
                 <Group className="post-block">
                     <Cell size="l"
                         before={<Avatar src={this.props.img} />}
-                        asideContent={<Icon16MoreHorizontal onClick={this.showMoreActions}/>}
+                        asideContent={
+                            <div className="post-block__aside-content">
+                                <Button level="outline" className="post-block__aside-content-button">Demo</Button>
+                                <Icon24MoreHorizontal onClick={this.showMoreActions}/>
+                            </div>
+                        }
                         bottomContent={this.props.date}
                         className="post-block__header">
                         {this.props.name}
