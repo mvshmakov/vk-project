@@ -33,6 +33,8 @@ export class SubscriptionPopout extends React.Component<IProps, IState> {
     }
 
     render() {
+        const subscriptionCards = [1, 2, 3];
+
         const { slideIndex } = this.state;
 
         return (
@@ -49,10 +51,11 @@ export class SubscriptionPopout extends React.Component<IProps, IState> {
                             slideIndex={slideIndex}
                             onChange={this.onSlideChange}
                             style={{ marginTop: 30, height: 350 }}
+                            className="subscription-popover__gallery"
                         >
-                            <div style={{ backgroundColor: "#3d9fac" }}>Subscription 1</div>
-                            <div style={{ backgroundColor: "#feb836" }}>Subscription 2</div>
-                            <div style={{ backgroundColor: "#5b4470" }}>Subscription 3</div>
+                            {subscriptionCards.map((card, i) =>
+                                <div key={i} className="subscription-popover__gallery-card">Subscription {i + 1}</div>
+                            )}
                         </Gallery>
                     </Group>
                     <Div className="subscription-popover__button">

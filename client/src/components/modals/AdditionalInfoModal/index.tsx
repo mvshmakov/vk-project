@@ -33,18 +33,20 @@ export class AdditionalInfoModal extends React.Component<IProps> {
     }
 
     render() {
+        const modalPageHeader = (
+            <ModalPageHeader
+                left={IS_PLATFORM_ANDROID && <HeaderButton onClick={this.updateVisibility}><Icon24Cancel /></HeaderButton>}
+                right={IS_PLATFORM_IOS && <HeaderButton onClick={this.updateVisibility}><Icon24Dismiss /></HeaderButton>}
+            >
+                Подробная информация
+            </ModalPageHeader>
+        );
+
         return (
             <ModalRoot activeModal={"ADDITIONAL_INFO_MODAL"}>
                 <ModalPage
                     id="ADDITIONAL_INFO_MODAL"
-                    header={
-                        <ModalPageHeader
-                            left={IS_PLATFORM_ANDROID && <HeaderButton onClick={this.updateVisibility}><Icon24Cancel /></HeaderButton>}
-                            right={IS_PLATFORM_IOS && <HeaderButton onClick={this.updateVisibility}><Icon24Dismiss /></HeaderButton>}
-                        >
-                            Подробная информация
-                        </ModalPageHeader>
-                    }
+                    header={modalPageHeader}
                     onClose={this.updateVisibility}
                 >
                     <List>
