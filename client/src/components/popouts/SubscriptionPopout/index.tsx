@@ -13,7 +13,7 @@ interface IState {
 }
 
 // TODO: change to React.PureComponent
-export class SubscriptionPopover extends React.Component<IProps, IState> {
+export class SubscriptionPopout extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
 

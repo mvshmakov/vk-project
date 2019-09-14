@@ -21,7 +21,7 @@ interface IProps {
 }
 
 // TODO: change to React.PureComponent
-export class AdditionalInfoPopover extends React.Component<IProps> {
+export class AdditionalInfoModal extends React.Component<IProps> {
     constructor(props) {
         super(props);
 

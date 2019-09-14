@@ -7,9 +7,9 @@ import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
 
 import { Post } from "@/components/blocks/Post";
 import { PureView } from "@/utils/Components";
-import { MoreActionsPopover } from "@/components/popovers/MoreActionsPopover";
-import { SubscriptionPopover } from "@/components/popovers/SubscriptionPopover";
-import { AdditionalInfoPopover } from "@/components/popovers/AdditionalInfoPopover";
+import { PostActionSheet } from "@/components/action_sheets/PostActionSheet";
+import { SubscriptionPopout } from "@/components/popouts/SubscriptionPopout";
+import { AdditionalInfoModal } from "@/components/modals/AdditionalInfoModal";
 
 import "./styles.scss";
 import { profileMocks, postMocks } from "./__mocks__";
@@ -60,16 +60,16 @@ export default class ProfileView extends PureView<IProps, IState> {
 
         const activePopover = () => {
             if (isPopupShown) {
-                return <SubscriptionPopover onUpdateVisibility={this.updateSubscriptionVisibility} />;
+                return <SubscriptionPopout onUpdateVisibility={this.updateSubscriptionVisibility} />;
             } else if (isActionSheetShown) {
-                return <MoreActionsPopover onUpdateVisibility={this.updateActionSheetVisibility} />;
+                return <PostActionSheet onUpdateVisibility={this.updateActionSheetVisibility} />;
             } else {
                 return null;
             }
         };
 
         const activeModal = (
-            isModalShown ? <AdditionalInfoPopover onUpdateVisibility={this.updateModalVisibility} /> : null
+            isModalShown ? <AdditionalInfoModal onUpdateVisibility={this.updateModalVisibility} /> : null
         );
 
         return (

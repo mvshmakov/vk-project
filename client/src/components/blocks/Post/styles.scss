@@ -13,6 +13,19 @@
     padding: 5px 8px 0;
   }
 
+  &__aside-content {
+    display: flex;
+    align-items: center;
+
+    &-button {
+      margin-right: 15px;
+
+      .Button__content {
+        line-height: 5px;
+      }
+    }
+  }
+
   &__text {
     padding: 0 20px 10px;
     text-align: justify;

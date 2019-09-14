@@ -8,7 +8,7 @@ interface IProps {
 }
 
 // TODO: change to React.PureComponent
-export class MoreActionsPopover extends React.Component<IProps> {
+export class PostActionSheet extends React.Component<IProps> {
     constructor(props) {
         super(props);
 
@@ -23,13 +23,13 @@ export class MoreActionsPopover extends React.Component<IProps> {
         return (
             <ActionSheet onClose={this.updateVisibility}>
                 <ActionSheetItem autoclose>
-                    Скопировать
+                    Скопировать ссылку
                     </ActionSheetItem>
                 <ActionSheetItem autoclose>
-                    Изменить
+                    Добавить в избранное
                     </ActionSheetItem>
                 <ActionSheetItem autoclose>
-                    Удалить
+                    Пожаловаться
                     </ActionSheetItem>
                 {IS_PLATFORM_IOS && <ActionSheetItem autoclose theme="cancel">Отменить</ActionSheetItem>}
             </ActionSheet>
