@@ -17,7 +17,7 @@ import "./styles.scss";
 import { profileMocks } from "@/components/views/Profile/__mocks__";
 
 interface IProps {
-    onUpdateVisibility: Function;
+    onUpdateVisibility: (value: boolean) => void;
 }
 
 // TODO: change to React.PureComponent

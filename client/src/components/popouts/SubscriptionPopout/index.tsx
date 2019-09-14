@@ -5,7 +5,7 @@ import Icon24Dismiss from "@vkontakte/icons/dist/24/dismiss";
 import "./styles.scss";
 
 interface IProps {
-    onUpdateVisibility: Function;
+    onUpdateVisibility: (value: boolean) => void;
 }
 
 interface IState {

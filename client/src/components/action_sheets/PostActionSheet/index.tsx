@@ -4,7 +4,7 @@ import { ActionSheet, ActionSheetItem, IS_PLATFORM_IOS } from "@vkontakte/vkui";
 import "./styles.scss";
 
 interface IProps {
-    onUpdateVisibility: Function;
+    onUpdateVisibility: (value: boolean) => void;
 }
 
 // TODO: change to React.PureComponent
