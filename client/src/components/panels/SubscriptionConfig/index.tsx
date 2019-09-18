@@ -67,11 +67,6 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
     }
 
     onSaveButtonClick = () => {
-        for (let key in this.state) {
-            console.log(this.state[key], (document.getElementsByName(String(key))[0] as any).value);
-            // this.state[key] = (document.getElementsByName(String(key))[0] as any).defaultValue;
-        }
-
         const finalObject = {
             subscriptionName: this.state.subscriptionName,
             subscriptionType: this.state.subscriptionType,
@@ -84,6 +79,8 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
             privateChat: this.state.privateChat,
             comments: this.state.comments,
         };
+
+        console.log(`obj: ${finalObject}`);
 
         // TODO: some post actions to db
         postSubscription(finalObject).then(res => console.log(res));
