@@ -1,28 +1,20 @@
 version: '3.3'
 
 services:
-  # nginx:
-  #   image: nginx:latest
-  #   container_name: nginx
-  #   volumes:
-  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-  #   links:
-  #       - client
-  #       - server
-  #       - mongo
-  #       - elk
-  #   ports:
-  #       - 80:80
-  #       - 443:433
-
-  #       - 3000:3000
-  #       - 8080:8080
-  
-  #       - 27017:27017
-  
-  #       - 5601:5601
-  #       - 9200:9200
-  #       - 5044:5044
+  nginx:
+    build:
+      context: ./nginx/
+      dockerfile: dev.Dockerfile
+    image: nginx    
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf
+    links:
+      - client
+      - server
+    ports:
+      - 80:80
+      - 8080:80
 
   client:
     build:
@@ -34,14 +26,11 @@ services:
       - ./client/:/usr/src/app/
       - /usr/src/app/node_modules
     links:
-      - mongo:mongo
+      - server:server
     depends_on:
       - server
-    
-    ports:
-      - 8080:8080
-    # expose:
-    #   - 8080
+    expose:
+      - 8080
 
   server:
     build:
@@ -53,15 +42,12 @@ services:
       - ./server/:/usr/src/api/
       - /usr/src/api/node_modules
     env_file: ./server/.env
-    depends_on:
-      - mongo
     links:
       - mongo:mongo
-    
-    ports:
-      - 3000:3000
-    # expose:
-    #   - 8080
+    depends_on:
+      - mongo
+    expose:
+      - 3000
   
   mongo:
     image: mongo:latest

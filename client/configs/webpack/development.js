@@ -27,6 +27,10 @@ module.exports = merge(commonConfig, {
         progress: false,
         clientLogLevel: "warn"
     },
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000
+    },
     devtool: "cheap-module-eval-source-map",
     plugins: [
         new webpack.HotModuleReplacementPlugin(), // enable HMR globally
