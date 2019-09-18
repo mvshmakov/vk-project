@@ -4,3 +4,4 @@ node_modules/
 webpack-bundle-analyzer.html
 package-lock.json
 mongo/
+docker-mongo.err

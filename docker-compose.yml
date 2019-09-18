@@ -1,63 +1,86 @@
-version: '2'
+version: '3.3'
+
 services:
-  nginx:
-    image: nginx
-    build: ./nginx/
-    links:
-        - client:client
-        - server:server
-        - mongodb:mongodb
-    ports:
-        - "80:80"
+  # nginx:
+  #   image: nginx:latest
+  #   container_name: nginx
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #   links:
+  #       - client
+  #       - server
+  #       - mongo
+  #       - elk
+  #   ports:
+  #       - 80:80
+  #       - 443:433
+
+  #       - 3000:3000
+  #       - 8080:8080
+  
+  #       - 27017:27017
+  
+  #       - 5601:5601
+  #       - 9200:9200
+  #       - 5044:5044
 
   client:
     build:
       context: ./client/
-    command: npm run bootstrap
+      dockerfile: dev.Dockerfile
+    image: client
+    container_name: client
     volumes:
-      - ./client/:/usr/app
-      - /usr/app/node_modules
+      - ./client/:/usr/src/app/
+      - /usr/src/app/node_modules
+    links:
+      - mongo:mongo
     depends_on:
       - server
+    
     ports:
-      - "3000:3000"
+      - 8080:8080
+    # expose:
+    #   - 8080
 
   server:
     build:
       context: ./server/
-    command: npm run bootstrap
+      dockerfile: dev.Dockerfile
+    image: server
+    container_name: server
     volumes:
-      - ./server/:/usr/app
-      - /usr/app/node_modules
-    ports:
-      - "8080:8080"
-    # env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
+      - ./server/:/usr/src/api/
+      - /usr/src/api/node_modules
+    env_file: ./server/.env
     depends_on:
-      mongodb:
-        condition: service_healthy
-    # volumes:
-      # - ./app:/server # volume in host -> $(pwd)/app
-  
-  mongodb:
-    container_name: mongo
-    image: mongo
-    volumes:
-      - ./mongo/db:/data/db
+      - mongo
+    links:
+      - mongo:mongo
+    
     ports:
-      - "27017:27017"
+      - 3000:3000
+    # expose:
+    #   - 8080
+  
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    volumes:
+      - ./mongo/:/data/
     healthcheck:
       test: ["CMD", "echo", "show dbs", "|", "mongo"]
       interval: 30s
       timeout: 10s
       retries: 3
-    command: mongod --smallfiles
+    expose:
+      - 27017
+    command: mongod
 
-  elk:
-    image: sebp/elk
-    ports:
-      - "5601:5601"
-      - "9200:9200"
-      - "5044:5044"
+  # elk:
+  #   image: sebp/elk:latest
+  #   container_name: elk
+  #   expose:
+  #     - 5601
+  #     - 9200
+  #     - 5044

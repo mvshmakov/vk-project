@@ -18,7 +18,11 @@ const app = express();
 
 // MongoDB (mongoose)
 mongoose
-    .connect(env.MONGODB_URI, { useNewUrlParser: true });
+    .connect(env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+    });
 
 mongoose
     .connection
@@ -45,9 +49,6 @@ app.use(cookieParser());
 
 // Log before the routes
 app.use(logger);
-
-// Set static root
-app.use(express.static(env.STATIC_DIR));
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));

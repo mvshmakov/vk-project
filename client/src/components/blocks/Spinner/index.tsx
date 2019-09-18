@@ -8,6 +8,6 @@ interface IProps {
 export default ({ show }: IProps) =>
     show ? (
         <Div>
-            <Spinner />
+            <Spinner size="regular" />
         </Div>
     ) : null;
