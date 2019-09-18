@@ -3,7 +3,7 @@ export interface IPostProps {
     date: string;
     img: string;
     attachments: IAttachments;
-    onUpdateVisibility: Function;
+    onUpdateVisibility: (value: boolean) => void;
 }
 
 export interface IAttachments {

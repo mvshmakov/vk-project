@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, PanelHeader, Panel, Group, List } from "@vkontakte/vkui";
+import { View, PanelHeader, Panel, Group, List, Cell } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import SettingsSnippetBlock from "@/components/blocks/SettingsSnippet";
@@ -7,6 +7,7 @@ import { PureView } from "@/utils/Components";
 
 import "./styles.scss";
 import { IUser } from "@/entities/User";
+import { SubscriptionConfigPanel } from "@/components/panels/SubscriptionConfig";
 
 export interface IStateProps {
     user: IUser;
@@ -19,10 +20,7 @@ interface IState {
     activePanel: string;
 }
 
-export default class SettingsView extends PureView<
-    IProps & IStateProps,
-    IState
-> {
+export default class SettingsView extends PureView<IProps & IStateProps, IState> {
     state = {
         activePanel: "main"
     };
@@ -46,8 +44,15 @@ export default class SettingsView extends PureView<
                             />
                         </List>
                     </Group>
+                    <Group title="Настройки">
+                        <List>
+                            <Cell expandable onClick={() => this.setState({ activePanel: "config" })}>
+                                Конфигурация подписки
+                        </Cell>
+                        </List>
+                    </Group>
                 </Panel>
-                <Panel id="more" />
+                <SubscriptionConfigPanel id="config" onBackButtonClick={this.changePanel("main")} />
             </View>
         );
     }

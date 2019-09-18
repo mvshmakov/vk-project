@@ -142,4 +142,49 @@
       }
     }
   }
+
+  &__subscription-gallery {
+    background: rgb(235, 237, 240);
+
+    &-card {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    &-text {
+      width: 100%;
+      margin-top: 20px;
+
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+    }
+
+    &-button {
+      width: 90%;
+      height: 40px;
+      margin-top: 120px;
+
+      color: white;
+      border: 2px solid #FFFFFF;
+    }
+
+    .Gallery__layer {
+      .Gallery__slide:nth-child(1) {
+        margin-right: 30px;
+        background-color: #3d9fac;
+      }
+      .Gallery__slide:nth-child(2) {
+        margin-right: 30px;
+        background-color: #feb836;
+      }
+      .Gallery__slide:nth-child(3) {
+        margin-right: 30px;
+        background-color: #5b4470;
+      }
+    }
+  }
 }

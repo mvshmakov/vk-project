@@ -83,10 +83,6 @@ export default class SearchPanel extends PurePanel<
             </List>
         );
 
-        const attachment = {
-            text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam asperiores aspernatur atque autem commodi cumque, deserunt dicta dolore doloremque eius eligendi est ex fugiat hic illo laboriosam minima obcaecati odit pariatur possimus quam qui repellat repellendus rerum sapiente tempora velit! Asperiores beatae cum ducimus enim et, fugit itaque iure minus."
-        };
-
         return (
             <Panel id={id}>
                 <PanelHeader noShadow={true}>Поиск</PanelHeader>

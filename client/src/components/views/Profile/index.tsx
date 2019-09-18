@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Panel, View, Group, Div, Button, Cell, Avatar } from "@vkontakte/vkui";
+import { Panel, View, Group, Div, Button, Cell, Avatar, Gallery } from "@vkontakte/vkui";
 import Icon16Add from "@vkontakte/icons/dist/16/add";
 import Icon20Info from "@vkontakte/icons/dist/20/info";
 import Icon20ArticleOutline from "@vkontakte/icons/dist/20/article_outline";
@@ -7,9 +7,9 @@ import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
 
 import { Post } from "@/components/blocks/Post";
 import { PureView } from "@/utils/Components";
-import { PostActionSheet } from "@/components/action_sheets/PostActionSheet";
-import { SubscriptionPopout } from "@/components/popouts/SubscriptionPopout";
-import { AdditionalInfoModal } from "@/components/modals/AdditionalInfoModal";
+import { PostActionSheet } from "@/components/blocks/PostActionSheet";
+import { SubscriptionPopout } from "@/components/blocks/SubscriptionPopout";
+import { AdditionalInfoModal } from "@/components/blocks/AdditionalInfoModal";
 
 import "./styles.scss";
 import { profileMocks, postMocks } from "./__mocks__";
@@ -20,6 +20,7 @@ interface IProps {
 
 interface IState {
     activePanel: string;
+    subscriptionSlideIndex: number;
     isModalShown: boolean;
     isPopupShown: boolean;
     isActionSheetShown: boolean;
@@ -36,6 +37,7 @@ export default class ProfileView extends PureView<IProps, IState> {
 
     state = {
         activePanel: "profile",
+        subscriptionSlideIndex: null,
         isModalShown: false,
         isPopupShown: false,
         isActionSheetShown: false
@@ -53,10 +55,16 @@ export default class ProfileView extends PureView<IProps, IState> {
         this.setState({ isPopupShown: visible });
     }
 
+    onSlideChange = (slideIndex: number) => {
+        this.setState({ subscriptionSlideIndex: slideIndex });
+    }
+
     render() {
         const posts = [1, 2, 3];
 
-        const { activePanel, isModalShown, isPopupShown, isActionSheetShown } = this.state;
+        const subscriptionCards = [1, 2, 3];
+
+        const { activePanel, subscriptionSlideIndex, isModalShown, isPopupShown, isActionSheetShown } = this.state;
 
         const activePopover = () => {
             if (isPopupShown) {
@@ -81,8 +89,8 @@ export default class ProfileView extends PureView<IProps, IState> {
                             size="l"
                             className="profile-view__cell"
                             description={profileMocks.category}
-                            photo="https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg"
-                            asideContent={<Avatar src="https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg" size={80} />}
+                            photo="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png"
+                            asideContent={<Avatar src="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png" size={80} />}
                         >
                             Sports.Ru
                         </Cell>
@@ -126,6 +134,23 @@ export default class ProfileView extends PureView<IProps, IState> {
                                 <div className="profile-view__subscription-block-info-text">Доступ к уникальному контенту, коммьюнити и многое другое...</div>
                             </div>
                         </div>
+                    </Group>
+                    <Group className="profile-view__subscription-gallery">
+                        <Gallery
+                            slideWidth="65%"
+                            align="center"
+                            bullets="light"
+                            slideIndex={subscriptionSlideIndex}
+                            onChange={this.onSlideChange}
+                            style={{ marginTop: 15, marginBottom: 15, height: 290 }}
+                        >
+                            {subscriptionCards.map((card, i) =>
+                                <div key={i} className="profile-view__subscription-gallery-card">
+                                    <div className="profile-view__subscription-gallery-text">Subscription {i + 1}</div>
+                                    <Button level="outline" className="profile-view__subscription-gallery-button">Купить</Button>
+                                </div>
+                            )}
+                        </Gallery>
                     </Group>
                     {posts.map((post, i) =>
                         <Post key={i}
