@@ -49,10 +49,20 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
         stickers: false,
         privateChat: false,
         comments: false,
+
+        isSubscriptionNameFieldEmpty: null,
+        isSubscriptionPriceFieldEmpty: null,
+        isSubscriptionPeriodFieldEmpty: null
     };
 
     onChange(e) {
         const { name, value } = e.currentTarget;
+
+        const { subscriptionName, subscriptionPrice, subscriptionPeriod } = this.state;
+
+        this.setState({ isSubscriptionNameFieldEmpty: subscriptionName.length === 0 });
+        this.setState({ isSubscriptionPriceFieldEmpty: subscriptionPrice.length === 0 });
+        this.setState({ isSubscriptionPeriodFieldEmpty: subscriptionPeriod.length === 0 });
 
         this.setState({ [name]: value } as Pick<ISubscription, keyof ISubscription>);
     }
@@ -67,23 +77,46 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
     }
 
     onSaveButtonClick = () => {
-        const finalObject = {
-            subscriptionName: this.state.subscriptionName,
-            subscriptionType: this.state.subscriptionType,
-            subscriptionColor: this.state.subscriptionColor,
-            subscriptionBriefDescription: this.state.subscriptionBriefDescription,
-            contentType: this.state.contentType,
-            subscriptionPrice: this.state.subscriptionPrice,
-            subscriptionPeriod: this.state.subscriptionPeriod,
-            stickers: this.state.stickers,
-            privateChat: this.state.privateChat,
-            comments: this.state.comments,
-        };
+        const {
+            subscriptionName,
+            subscriptionPrice,
+            subscriptionPeriod,
+            isSubscriptionNameFieldEmpty,
+            isSubscriptionPriceFieldEmpty,
+            isSubscriptionPeriodFieldEmpty
+        } = this.state;
 
-        console.log(`obj: ${finalObject}`);
+        this.setState({ isSubscriptionNameFieldEmpty: subscriptionName.length === 0 });
+        this.setState({ isSubscriptionPriceFieldEmpty: subscriptionPrice.length === 0 });
+        this.setState({ isSubscriptionPeriodFieldEmpty: subscriptionPeriod.length === 0 });
 
-        // TODO: some post actions to db
-        postSubscription(finalObject).then(res => console.log(res));
+        console.log(isSubscriptionNameFieldEmpty);
+        console.log(isSubscriptionPriceFieldEmpty);
+        console.log(isSubscriptionPeriodFieldEmpty);
+
+        if (!isSubscriptionNameFieldEmpty && isSubscriptionNameFieldEmpty != null
+            && !isSubscriptionPriceFieldEmpty && isSubscriptionPriceFieldEmpty != null
+            && !isSubscriptionPeriodFieldEmpty && isSubscriptionPeriodFieldEmpty != null) {
+            const finalObject = {
+                subscriptionName: this.state.subscriptionName,
+                subscriptionType: this.state.subscriptionType,
+                subscriptionColor: this.state.subscriptionColor,
+                subscriptionBriefDescription: this.state.subscriptionBriefDescription,
+                contentType: this.state.contentType,
+                subscriptionPrice: this.state.subscriptionPrice,
+                subscriptionPeriod: this.state.subscriptionPeriod,
+                stickers: this.state.stickers,
+                privateChat: this.state.privateChat,
+                comments: this.state.comments,
+            };
+
+            console.log(`obj: ${finalObject}`);
+
+            // TODO: some post actions to db
+            postSubscription(finalObject).then(() =>
+                this.props.onBackButtonClick()
+            );
+        }
     }
 
     render() {
@@ -96,7 +129,10 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
             subscriptionBriefDescription,
             contentType,
             subscriptionPrice,
-            subscriptionPeriod
+            subscriptionPeriod,
+            isSubscriptionNameFieldEmpty,
+            isSubscriptionPriceFieldEmpty,
+            isSubscriptionPeriodFieldEmpty
         } = this.state;
 
         return (
@@ -117,15 +153,16 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
                             name="subscriptionName"
                             value={subscriptionName}
                             onChange={this.onChange}
-                            status={subscriptionName ? "valid" : "error"}
-                            bottom={!subscriptionName ? "Заполните это поле" : ""}
+                            status={isSubscriptionNameFieldEmpty == null ? "default"
+                                : (!isSubscriptionNameFieldEmpty ? "valid" : "error")}
+                            bottom={isSubscriptionNameFieldEmpty ? "Заполните это поле" : ""}
                         />
 
                         <FormLayoutGroup className="subscription-config-form__divided">
                             <div style={{ display: "flex", justifyContent: "space-between" }}>
                                 <InfoRow title="Тип подписки" className="subscription-config-form__inforow-type">
                                     <Select
-                                        defaultValue="Demo_2"
+                                        placeholder=" "
                                         name="subscriptionType"
                                         value={subscriptionType}
                                         onChange={this.onChange}
@@ -136,7 +173,7 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
                                 </InfoRow>
                                 <InfoRow title="Цвет подписки" className="subscription-config-form__inforow-color">
                                     <Select
-                                        defaultValue="Turquoise"
+                                        placeholder=" "
                                         name="subscriptionColor"
                                         value={subscriptionColor}
                                         onChange={this.onChange}
@@ -180,16 +217,18 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
                                         name="subscriptionPrice"
                                         value={subscriptionPrice}
                                         onChange={this.onChange}
-                                        status={subscriptionPrice ? "valid" : "error"}
-                                        bottom={!subscriptionPrice ? "Заполните это поле" : ""}
+                                        status={isSubscriptionPriceFieldEmpty == null ? "default"
+                                            : (!isSubscriptionPriceFieldEmpty ? "valid" : "error")}
                                     />
                                 </InfoRow>
                                 <InfoRow title="Период списания" className="subscription-config-form__inforow-period">
                                     <Select
-                                        defaultValue="monthly"
+                                        placeholder=" "
                                         name="subscriptionPeriod"
                                         value={subscriptionPeriod}
                                         onChange={this.onChange}
+                                        status={isSubscriptionPeriodFieldEmpty == null ? "default"
+                                            : (!isSubscriptionPeriodFieldEmpty ? "valid" : "error")}
                                     >
                                         <option value="monthly">Каждый месяц</option>
                                         <option value="annually">Раз в год</option>

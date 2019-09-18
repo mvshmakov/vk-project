@@ -9,4 +9,8 @@ export interface ISubscription {
     stickers: boolean;
     privateChat: boolean;
     comments: boolean;
+
+    isSubscriptionNameFieldEmpty?: boolean;
+    isSubscriptionPriceFieldEmpty?: boolean;
+    isSubscriptionPeriodFieldEmpty?: boolean;
 }

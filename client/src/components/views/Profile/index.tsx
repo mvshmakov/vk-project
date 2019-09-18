@@ -7,7 +7,9 @@ import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
 
 import { Post } from "@/components/blocks/Post";
 import { PureView } from "@/utils/Components";
+import { ISubscription } from "@/entities/Subscription";
 import { PostActionSheet } from "@/components/blocks/PostActionSheet";
+import { getSubscriptions } from "@/api/subscriptions";
 import { SubscriptionPopout } from "@/components/blocks/SubscriptionPopout";
 import { AdditionalInfoModal } from "@/components/blocks/AdditionalInfoModal";
 
@@ -20,10 +22,11 @@ interface IProps {
 
 interface IState {
     activePanel: string;
-    subscriptionSlideIndex: number;
     isModalShown: boolean;
     isPopupShown: boolean;
     isActionSheetShown: boolean;
+    subscriptionSlideIndex: number;
+    subscriptionCards: ISubscription[];
 }
 
 export default class ProfileView extends PureView<IProps, IState> {
@@ -37,11 +40,17 @@ export default class ProfileView extends PureView<IProps, IState> {
 
     state = {
         activePanel: "profile",
-        subscriptionSlideIndex: null,
         isModalShown: false,
         isPopupShown: false,
-        isActionSheetShown: false
+        isActionSheetShown: false,
+        subscriptionSlideIndex: null,
+        subscriptionCards: [],
     };
+
+    async componentWillMount() {
+        const subscriptionCards: ISubscription[] = await getSubscriptions();
+        this.setState({ subscriptionCards });
+    }
 
     updateModalVisibility = (visible: boolean) => {
         this.setState({ isModalShown: visible });
@@ -62,9 +71,14 @@ export default class ProfileView extends PureView<IProps, IState> {
     render() {
         const posts = [1, 2, 3];
 
-        const subscriptionCards = [1, 2, 3];
-
-        const { activePanel, subscriptionSlideIndex, isModalShown, isPopupShown, isActionSheetShown } = this.state;
+        const {
+            activePanel,
+            isModalShown,
+            isPopupShown,
+            isActionSheetShown,
+            subscriptionSlideIndex,
+            subscriptionCards,
+        } = this.state;
 
         const activePopover = () => {
             if (isPopupShown) {
@@ -135,24 +149,30 @@ export default class ProfileView extends PureView<IProps, IState> {
                             </div>
                         </div>
                     </Group>
-                    <Group className="profile-view__subscription-gallery">
-                        <Gallery
-                            slideWidth="65%"
-                            align="center"
-                            bullets="light"
-                            slideIndex={subscriptionSlideIndex}
-                            onChange={this.onSlideChange}
-                            style={{ marginTop: 15, marginBottom: 15, height: 290 }}
-                        >
-                            {subscriptionCards.map((card, i) =>
-                                <div key={i} className="profile-view__subscription-gallery-card">
-                                    <div className="profile-view__subscription-gallery-text">Subscription {i + 1}</div>
-                                    <Button level="outline" className="profile-view__subscription-gallery-button">Купить</Button>
-                                </div>
-                            )}
-                        </Gallery>
-                    </Group>
-                    {posts.map((post, i) =>
+
+                    {subscriptionCards &&
+                        <Group className="profile-view__subscription-gallery">
+                            <Gallery
+                                slideWidth="65%"
+                                align="center"
+                                bullets="light"
+                                slideIndex={subscriptionSlideIndex}
+                                onChange={this.onSlideChange}
+                                style={{ marginTop: 15, marginBottom: 15, height: 290 }}
+                            >
+                                {subscriptionCards.map((card, i) =>
+                                    <div key={i} className="profile-view__subscription-gallery-card">
+                                        <div className="profile-view__subscription-gallery-text">{card.subscriptionName}</div>
+                                        <div className="profile-view__subscription-gallery-text">{card.subscriptionBriefDescription}</div>
+                                        <div className="profile-view__subscription-gallery-text">{card.subscriptionPrice + " руб."}</div>
+                                        <Button level="outline" className="profile-view__subscription-gallery-button">Купить</Button>
+                                    </div>
+                                )}
+                            </Gallery>
+                        </Group>
+                    }
+
+                    {posts && posts.map((post, i) =>
                         <Post key={i}
                             name={postMocks.name}
                             img={postMocks.img}

@@ -65,38 +65,38 @@ subscriptionRoutes.post("/api/v1/subscriptions/", ({ body: requestBody }, res) =
 subscriptionRoutes.delete("/api/v1/subscriptions/:id", ({ params: requestParams }, res) => {
     const { id } = requestParams;
 
-    SubscriptionModel.findByIdAndDelete(id, (err, user) => {
+    SubscriptionModel.findByIdAndDelete(id, (err, subscription) => {
         if (err) {
             console.log(err);
             res.sendStatus(400);
             return;
         }
 
-        res.send(user);
+        res.send(subscription);
     });
 });
 
-subscriptionRoutes.put("/api/v1/subscriptions/:id", ({ params: requestParams, body: requestBody }, res) => {
-    if (!requestBody) {
-        res.sendStatus(400);
-        return;
-    }
+// subscriptionRoutes.put("/api/v1/subscriptions/:id", ({ params: requestParams, body: requestBody }, res) => {
+//     if (!requestBody) {
+//         res.sendStatus(400);
+//         return;
+//     }
 
-    const { username, email } = requestBody;
+//     const { username, email } = requestBody;
 
-    SubscriptionModel.findOneAndUpdate(
-        { _id: requestParams.id },
-        { username, email },
-        { new: true },
-        (err, user) => {
-            if (err) {
-                console.log(err);
-                res.sendStatus(400);
-                return;
-            }
+//     SubscriptionModel.findOneAndUpdate(
+//         { _id: requestParams.id },
+//         { username, email },
+//         { new: true },
+//         (err, user) => {
+//             if (err) {
+//                 console.log(err);
+//                 res.sendStatus(400);
+//                 return;
+//             }
 
-        res.send(user);
-    });
-});
+//         res.send(user);
+//     });
+// });
 
 export default subscriptionRoutes;

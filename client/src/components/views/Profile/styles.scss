@@ -155,7 +155,7 @@
 
     &-text {
       width: 100%;
-      margin-top: 20px;
+      margin-top: 10px;
 
       text-align: center;
       font-size: 22px;
@@ -166,22 +166,21 @@
     &-button {
       width: 90%;
       height: 40px;
-      margin-top: 120px;
 
       color: white;
       border: 2px solid #FFFFFF;
     }
 
     .Gallery__layer {
-      .Gallery__slide:nth-child(1) {
+      .Gallery__slide:nth-child(n) {
         margin-right: 30px;
         background-color: #3d9fac;
       }
-      .Gallery__slide:nth-child(2) {
+      .Gallery__slide:nth-child(2n) {
         margin-right: 30px;
         background-color: #feb836;
       }
-      .Gallery__slide:nth-child(3) {
+      .Gallery__slide:nth-child(3n) {
         margin-right: 30px;
         background-color: #5b4470;
       }
