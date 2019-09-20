@@ -41,7 +41,9 @@ services:
     volumes:
       - ./server/:/usr/src/api/
       - /usr/src/api/node_modules
-    env_file: ./server/.env
+    # env_file: ./server/.env
+    environment:
+      - MONGODB_URI_LOCAL=mongodb://mongo:27017/test
     links:
       - mongo:mongo
     depends_on:
