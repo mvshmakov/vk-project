@@ -8,3 +8,11 @@ export const isValidUserModel = user => {
 
     return validationResult(user);
 };
+
+export const isValidPostModel = post => {
+    check("text", "text is not valid").isString();
+    check("video", "video url is not blank").isLength({ min: 1 }).isURL();
+    check("audio", "audio url is not blank").isLength({ min: 1 }).isURL();
+    check("img", "img url is not blank").isLength({ min: 1 }).isURL();
+    return validationResult(post);
+};
