@@ -17,7 +17,7 @@ import "./styles.scss";
 import { IUser } from "@/entities/User";
 
 interface IProps {
-    user: IUser;
+    user: IUser | undefined;
     onUpdateVisibility: (value: boolean) => void;
 }
 
@@ -34,8 +34,6 @@ export class AdditionalInfoModal extends React.Component<IProps> {
     }
 
     render() {
-        const { user } = this.props;
-
         const modalPageHeader = (
             <ModalPageHeader
                 left={IS_PLATFORM_ANDROID && <HeaderButton onClick={this.updateVisibility}><Icon24Cancel /></HeaderButton>}
@@ -55,17 +53,17 @@ export class AdditionalInfoModal extends React.Component<IProps> {
                     <List>
                         <Cell>
                             <InfoRow title="Название канала">
-                                {user && user.profileName}
+                                {this.props.user && this.props.user.profileName}
                             </InfoRow>
                         </Cell>
                         <Cell>
                             <InfoRow title="Категория">
-                                {user && user.category}
+                                {this.props.user && this.props.user.category}
                             </InfoRow>
                         </Cell>
                         <Cell>
                             <InfoRow title="Описание">
-                                {user && user.profileDescription}
+                                {this.props.user && this.props.user.profileDescription}
                             </InfoRow>
                         </Cell>
                     </List>

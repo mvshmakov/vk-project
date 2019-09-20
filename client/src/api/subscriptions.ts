@@ -1,6 +1,6 @@
 import { ISubscription } from "@/entities/Subscription";
 
-const API_BASE_SEARCH = "http://localhost:3000/api/v1/subscriptions";
+const API_BASE_SEARCH = "http://localhost/api/v1/subscriptions";
 
 export const getSubscriptions = async (): Promise<ISubscription[] | undefined> => {
     const response = await fetch(API_BASE_SEARCH, { method: "GET" });

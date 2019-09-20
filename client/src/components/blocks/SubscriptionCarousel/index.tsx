@@ -1,16 +1,17 @@
 import * as React from "react";
 import { Gallery, Group, Button } from "@vkontakte/vkui";
 
-import "./styles.scss";
 import { ISubscription } from "@/entities/Subscription";
+import { PureBlock } from "@/utils/Components";
+
+import "./styles.scss";
 
 interface IProps {
     subscriptionCards: ISubscription[];
     onSlideChange: (index: number) => void;
 }
 
-// TODO: change to React.PureComponent
-export class SubscriptionCarousel extends React.Component<IProps> {
+export class SubscriptionCarousel extends PureBlock<IProps, null> {
     constructor(props) {
         super(props);
 
