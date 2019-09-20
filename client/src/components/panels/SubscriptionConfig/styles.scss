@@ -1,0 +1,37 @@
+.subscription-config-form {
+  &__divided {
+    .InfoRow__title {
+      margin-left: 12px;
+    }
+  }
+
+  &__inforow {
+    &-type {
+      width: 60%;
+    }
+
+    &-color {
+      width: 40%;
+
+      & .Select__el option[value="Turquoise"] {
+        background: #3d9fac;
+      }
+
+      & .Select__el option[value="Mustard"] {
+        background: #feb836;
+      }
+
+      & .Select__el option[value="Lilac"] {
+        background: #5b4470;
+      }
+    }
+
+    &-price {
+      width: 50%;
+    }
+
+    &-period {
+      width: 50%;
+    }
+  }
+}

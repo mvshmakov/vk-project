@@ -14,9 +14,10 @@ import Icon24Dismiss from "@vkontakte/icons/dist/24/dismiss";
 import Icon24Cancel from "@vkontakte/icons/dist/24/cancel";
 
 import "./styles.scss";
-import { profileMocks } from "@/components/views/Profile/__mocks__";
+import { IUser } from "@/entities/User";
 
 interface IProps {
+    user: IUser | undefined;
     onUpdateVisibility: (value: boolean) => void;
 }
 
@@ -52,17 +53,17 @@ export class AdditionalInfoModal extends React.Component<IProps> {
                     <List>
                         <Cell>
                             <InfoRow title="Название канала">
-                                {profileMocks.name}
+                                {this.props.user && this.props.user.profileName}
                             </InfoRow>
                         </Cell>
                         <Cell>
                             <InfoRow title="Категория">
-                                {profileMocks.category}
+                                {this.props.user && this.props.user.category}
                             </InfoRow>
                         </Cell>
                         <Cell>
                             <InfoRow title="Описание">
-                                {profileMocks.description}
+                                {this.props.user && this.props.user.profileDescription}
                             </InfoRow>
                         </Cell>
                     </List>

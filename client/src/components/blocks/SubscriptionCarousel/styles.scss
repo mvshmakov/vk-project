@@ -1,0 +1,77 @@
+.subscription-carousel {
+  &__gallery {
+    background: rgb(235, 237, 240);
+
+    &-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+
+      &-top {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: flex-start;
+        padding-top: 10px;
+      }
+
+      &-bottom {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: flex-end;
+        padding-bottom: 30px;
+      }
+    }
+
+    &-text {
+      width: 100%;
+      margin-bottom: 10px;
+
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+    }
+
+    &-list {
+      width: 100%;
+      margin: 5px 0;
+      padding-right: 10px;
+
+      text-align: left;
+      font-size: 17px;
+      font-weight: bold;
+      color: white;
+
+      & li {
+        padding: 5px 0;
+      }
+    }
+
+    &-button {
+      width: 90%;
+      height: 40px;
+
+      color: white;
+      border: 2px solid #ffffff;
+    }
+
+    .Gallery__layer {
+      .Gallery__slide:nth-child(n) {
+        margin-right: 30px;
+        background-color: #3d9fac;
+      }
+      .Gallery__slide:nth-child(2n) {
+        margin-right: 30px;
+        background-color: #feb836;
+      }
+      .Gallery__slide:nth-child(3n) {
+        margin-right: 30px;
+        background-color: #5b4470;
+      }
+    }
+  }
+}

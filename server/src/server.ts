@@ -12,6 +12,7 @@ import logger from "./utils/logger";
 
 import commonRoutes from "./routes";
 import userRoutes from "./routes/api/v1/users";
+import subscriptionRoutes from "./routes/api/v1/subscriptions";
 
 // Setup an app
 const app = express();
@@ -56,6 +57,7 @@ app.use(bodyParser.json());
 // Routes
 app.use(commonRoutes);
 app.use(userRoutes);
+app.use(subscriptionRoutes);
 
 app.use((_req, res, next) => {
     res.status(404);

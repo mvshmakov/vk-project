@@ -19,10 +19,10 @@ const SettingsSnippetBlock: IFunctionalBlock<IProps> = ({
 }: IProps) => (
     <Cell
         before={<Avatar />}
-        description={user.description}
+        description={user && user.description}
         onClick={onSnippetClick}
     >
-        {user.label}
+        {user && user.label}
     </Cell>
 );
 
