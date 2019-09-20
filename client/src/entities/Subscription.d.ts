@@ -10,6 +10,7 @@ export interface ISubscription {
     privateChat: boolean;
     comments: boolean;
 
+    isError?: boolean;
     isSubscriptionNameFieldEmpty?: boolean;
     isSubscriptionPriceFieldEmpty?: boolean;
     isSubscriptionPeriodFieldEmpty?: boolean;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Panel, View, Group, Div, Button, Cell, Avatar, Gallery } from "@vkontakte/vkui";
+import { Panel, View, Group, Div, Button, Cell, Avatar } from "@vkontakte/vkui";
 import Icon16Add from "@vkontakte/icons/dist/16/add";
 import Icon20Info from "@vkontakte/icons/dist/20/info";
 import Icon20ArticleOutline from "@vkontakte/icons/dist/20/article_outline";
@@ -12,9 +12,12 @@ import { PostActionSheet } from "@/components/blocks/PostActionSheet";
 import { getSubscriptions } from "@/api/subscriptions";
 import { SubscriptionPopout } from "@/components/blocks/SubscriptionPopout";
 import { AdditionalInfoModal } from "@/components/blocks/AdditionalInfoModal";
+import { SubscriptionCarousel } from "@/components/blocks/SubscriptionCarousel";
 
 import "./styles.scss";
-import { profileMocks, postMocks } from "./__mocks__";
+import { postMocks } from "./__mocks__";
+import { getUsers } from "@/api/users";
+import { IUser } from "@/entities/User";
 
 interface IProps {
     id: string;
@@ -26,6 +29,7 @@ interface IState {
     isPopupShown: boolean;
     isActionSheetShown: boolean;
     subscriptionSlideIndex: number;
+    currentUser: IUser;
     subscriptionCards: ISubscription[];
 }
 
@@ -44,12 +48,14 @@ export default class ProfileView extends PureView<IProps, IState> {
         isPopupShown: false,
         isActionSheetShown: false,
         subscriptionSlideIndex: null,
+        currentUser: null,
         subscriptionCards: [],
     };
 
     async componentWillMount() {
         const subscriptionCards: ISubscription[] = await getSubscriptions();
-        this.setState({ subscriptionCards });
+        const users = await getUsers();
+        this.setState({ subscriptionCards, currentUser: users[0] });
     }
 
     updateModalVisibility = (visible: boolean) => {
@@ -72,11 +78,11 @@ export default class ProfileView extends PureView<IProps, IState> {
         const posts = [1, 2, 3];
 
         const {
+            currentUser,
             activePanel,
             isModalShown,
             isPopupShown,
             isActionSheetShown,
-            subscriptionSlideIndex,
             subscriptionCards,
         } = this.state;
 
@@ -91,7 +97,7 @@ export default class ProfileView extends PureView<IProps, IState> {
         };
 
         const activeModal = (
-            isModalShown ? <AdditionalInfoModal onUpdateVisibility={this.updateModalVisibility} /> : null
+            isModalShown ? <AdditionalInfoModal user={currentUser} onUpdateVisibility={this.updateModalVisibility} /> : null
         );
 
         return (
@@ -102,11 +108,10 @@ export default class ProfileView extends PureView<IProps, IState> {
                         <Cell
                             size="l"
                             className="profile-view__cell"
-                            description={profileMocks.category}
-                            photo="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png"
+                            description={currentUser && currentUser.category}
                             asideContent={<Avatar src="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png" size={80} />}
                         >
-                            Sports.Ru
+                            {currentUser && currentUser.profileName}
                         </Cell>
                         <Div className="profile-view__main-buttons-wrapper">
                             <Button size="l"
@@ -128,7 +133,7 @@ export default class ProfileView extends PureView<IProps, IState> {
                             <Icon20FollowersOutline /> 865,2K подписчиков
                         </Div>
                         <Div className="profile-view__description-article">
-                            <Icon20ArticleOutline /> {profileMocks.description}
+                            <Icon20ArticleOutline /> {currentUser && currentUser.profileDescription}
                         </Div>
                         <Div className="profile-view__description-additional-info"
                             onClick={() => this.setState({ isModalShown: true })}>
@@ -151,30 +156,12 @@ export default class ProfileView extends PureView<IProps, IState> {
                     </Group>
 
                     {subscriptionCards &&
-                        <Group className="profile-view__subscription-gallery">
-                            <Gallery
-                                slideWidth="65%"
-                                align="center"
-                                bullets="light"
-                                slideIndex={subscriptionSlideIndex}
-                                onChange={this.onSlideChange}
-                                style={{ marginTop: 15, marginBottom: 15, height: 290 }}
-                            >
-                                {subscriptionCards.map((card, i) =>
-                                    <div key={i} className="profile-view__subscription-gallery-card">
-                                        <div className="profile-view__subscription-gallery-text">{card.subscriptionName}</div>
-                                        <div className="profile-view__subscription-gallery-text">{card.subscriptionBriefDescription}</div>
-                                        <div className="profile-view__subscription-gallery-text">{card.subscriptionPrice + " руб."}</div>
-                                        <Button level="outline" className="profile-view__subscription-gallery-button">Купить</Button>
-                                    </div>
-                                )}
-                            </Gallery>
-                        </Group>
+                        <SubscriptionCarousel subscriptionCards={subscriptionCards} onSlideChange={this.onSlideChange}/>
                     }
 
                     {posts && posts.map((post, i) =>
                         <Post key={i}
-                            name={postMocks.name}
+                            name={currentUser && currentUser.profileName}
                             img={postMocks.img}
                             date={postMocks.date}
                             attachments={postMocks.attachment}

@@ -10,6 +10,7 @@ import {
     Textarea,
     Checkbox,
     FormLayout,
+    FormStatus,
     PanelHeader,
     HeaderButton,
     FormLayoutGroup,
@@ -50,6 +51,7 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
         privateChat: false,
         comments: false,
 
+        isError: null,
         isSubscriptionNameFieldEmpty: null,
         isSubscriptionPriceFieldEmpty: null,
         isSubscriptionPeriodFieldEmpty: null
@@ -68,12 +70,12 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
     }
 
     onCheckboxClick = event => {
-        const { name, checked } = event.currentTarget;
+        const { id, checked } = event.currentTarget;
 
         if (checked) {
-            return this.setState({ [name]: true } as Pick<ISubscription, keyof ISubscription>);
+            return this.setState({ [id]: true } as Pick<ISubscription, keyof ISubscription>);
         }
-        return this.setState({ [name]: false } as Pick<ISubscription, keyof ISubscription>);
+        return this.setState({ [id]: false } as Pick<ISubscription, keyof ISubscription>);
     }
 
     onSaveButtonClick = () => {
@@ -90,13 +92,10 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
         this.setState({ isSubscriptionPriceFieldEmpty: subscriptionPrice.length === 0 });
         this.setState({ isSubscriptionPeriodFieldEmpty: subscriptionPeriod.length === 0 });
 
-        console.log(isSubscriptionNameFieldEmpty);
-        console.log(isSubscriptionPriceFieldEmpty);
-        console.log(isSubscriptionPeriodFieldEmpty);
-
         if (!isSubscriptionNameFieldEmpty && isSubscriptionNameFieldEmpty != null
             && !isSubscriptionPriceFieldEmpty && isSubscriptionPriceFieldEmpty != null
             && !isSubscriptionPeriodFieldEmpty && isSubscriptionPeriodFieldEmpty != null) {
+
             const finalObject = {
                 subscriptionName: this.state.subscriptionName,
                 subscriptionType: this.state.subscriptionType,
@@ -116,6 +115,8 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
             postSubscription(finalObject).then(() =>
                 this.props.onBackButtonClick()
             );
+        } else {
+            this.setState({ isError: true });
         }
     }
 
@@ -123,13 +124,14 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
         const { id, onBackButtonClick } = this.props;
 
         const {
+            isError,
+            contentType,
             subscriptionName,
             subscriptionType,
             subscriptionColor,
-            subscriptionBriefDescription,
-            contentType,
             subscriptionPrice,
             subscriptionPeriod,
+            subscriptionBriefDescription,
             isSubscriptionNameFieldEmpty,
             isSubscriptionPriceFieldEmpty,
             isSubscriptionPeriodFieldEmpty
@@ -237,6 +239,12 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
 
                             </div>
                         </FormLayoutGroup>
+
+                        {isError &&
+                            <FormStatus title="Заполните все поля" state="error">
+                                Если ты уверен, что заполнил все поля - кликни "Сохранить" ещё раз (баг)
+                            </FormStatus>
+                        }
 
                         <Button size="xl" onClick={this.onSaveButtonClick}>Сохранить</Button>
                     </FormLayout>

@@ -46,7 +46,7 @@ export default class SettingsView extends PureView<IProps & IStateProps, IState>
                     </Group>
                     <Group title="Настройки">
                         <List>
-                            <Cell expandable onClick={() => this.setState({ activePanel: "config" })}>
+                            <Cell expandable onClick={this.changePanel("config")}>
                                 Конфигурация подписки
                         </Cell>
                         </List>

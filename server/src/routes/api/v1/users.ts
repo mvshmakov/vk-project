@@ -37,7 +37,7 @@ userRoutes.post("/api/v1/users/", ({ body: requestBody }, res) => {
         return;
     }
 
-    const userFields = pick(["username", "email"], requestBody);
+    const userFields = pick(["username", "email", "profileName", "profileDescription", "category"], requestBody);
 
     if (!isValidUserModel(userFields)) {
         console.error("invalid user object");

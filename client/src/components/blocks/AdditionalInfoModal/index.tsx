@@ -14,9 +14,10 @@ import Icon24Dismiss from "@vkontakte/icons/dist/24/dismiss";
 import Icon24Cancel from "@vkontakte/icons/dist/24/cancel";
 
 import "./styles.scss";
-import { profileMocks } from "@/components/views/Profile/__mocks__";
+import { IUser } from "@/entities/User";
 
 interface IProps {
+    user: IUser;
     onUpdateVisibility: (value: boolean) => void;
 }
 
@@ -33,6 +34,8 @@ export class AdditionalInfoModal extends React.Component<IProps> {
     }
 
     render() {
+        const { user } = this.props;
+
         const modalPageHeader = (
             <ModalPageHeader
                 left={IS_PLATFORM_ANDROID && <HeaderButton onClick={this.updateVisibility}><Icon24Cancel /></HeaderButton>}
@@ -52,17 +55,17 @@ export class AdditionalInfoModal extends React.Component<IProps> {
                     <List>
                         <Cell>
                             <InfoRow title="Название канала">
-                                {profileMocks.name}
+                                {user && user.profileName}
                             </InfoRow>
                         </Cell>
                         <Cell>
                             <InfoRow title="Категория">
-                                {profileMocks.category}
+                                {user && user.category}
                             </InfoRow>
                         </Cell>
                         <Cell>
                             <InfoRow title="Описание">
-                                {profileMocks.description}
+                                {user && user.profileDescription}
                             </InfoRow>
                         </Cell>
                     </List>

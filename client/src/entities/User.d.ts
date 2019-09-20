@@ -6,6 +6,10 @@ export interface IUser {
     type: "student" | "lecturer";
     additional: IUserAdditional;
     tags: any[];
+
+    profileName: string;
+    profileDescription: string;
+    category: string;
 }
 
 interface IUserAdditional {
