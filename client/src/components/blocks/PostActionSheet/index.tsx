@@ -8,7 +8,7 @@ interface IProps {
 }
 
 // TODO: change to React.PureComponent
-export class PostActionSheet extends React.Component<IProps> {
+export class PostActionSheet extends React.PureComponent<IProps> {
     constructor(props) {
         super(props);
 
@@ -21,7 +21,8 @@ export class PostActionSheet extends React.Component<IProps> {
 
     render() {
         return (
-            <ActionSheet onClose={this.updateVisibility}>
+            // TODO: Убрать insets с фиксом https://github.com/VKCOM/VKUI/issues/400
+            <ActionSheet insets={{}} onClose={this.updateVisibility}>
                 <ActionSheetItem autoclose>
                     Скопировать ссылку
                     </ActionSheetItem>

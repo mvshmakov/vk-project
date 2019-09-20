@@ -1,6 +1,6 @@
 import { IUser } from "@/entities/User";
 
-const API_BASE_SEARCH = "http://localhost:3000/api/v1/users";
+const API_BASE_SEARCH = "http://localhost/api/v1/users";
 
 export const getUsers = async (): Promise<IUser[] | undefined> => {
     const response = await fetch(API_BASE_SEARCH, { method: "GET" });

@@ -21,18 +21,16 @@
     },
     "homepage": "https://vk.com/vk-project",
     "main": "App.tsx",
-    "proxy": "http://server:8080",
     "scripts": {
-        "bootstrap": "npm run configure && npm run build:watch",
-        "build:prod": "npm run lint && npm run clean:dist && npm prune && webpack --progress -p --config=configs/webpack/production.js",
-        "build:watch": "webpack --watch --progress --config=configs/webpack/development.js",
-        "bundle-analyzer": "BUNDLE_ANALYZER=true && npm run build:prod",
+        "start:dev": "webpack-dev-server --mode development --config=configs/webpack/development.js",
+        "start:prod": "npm run lint && npm run clean:dist && npm prune && npm dedupe && webpack --progress -p --config=configs/webpack/production.js",
+        "bundle-analyzer": "BUNDLE_ANALYZER=true && webpack --progress -p --config=configs/webpack/production.js",
         "clean": "rm -rfd node_modules webpack-bundle-analyzer.html && npm run clean:dist",
         "clean:dist": "rm -rfd dist",
-        "configure": "npm install && bash ../scripts/configure.bash client",
+        "configure": "npm install && ln -sfn ../src ./node_modules/@",
         "lint": "tslint './src/**/*.ts*' --format stylish --force --fix",
-        "ncu": "./node_modules/.bin/npm-check-updates",
-        "ncu:update": "./node_modules/.bin/npm-check-updates -u",
+        "ncu": "npx npm-check-updates",
+        "ncu:update": "npx npm-check-updates -u",
         "test": "exit 0 && jest --watch --coverage --config=configs/jest.json"
     },
     "dependencies": {
@@ -60,6 +58,7 @@
         "@babel/core": "^7.5.5",
         "@babel/preset-env": "^7.5.5",
         "@babel/preset-react": "^7.0.0",
+        "@hot-loader/react-dom": "^16.8.6",
         "@types/jest": "^24.0.18",
         "@types/js-cookie": "^2.2.2",
         "@types/react": "^16.9.2",
@@ -77,6 +76,7 @@
         "image-webpack-loader": "^6.0.0",
         "jest": "^24.9.0",
         "node-sass": "^4.12.0",
+        "react-hot-loader": "^4.12.10",
         "sass-loader": "^8.0.0",
         "style-loader": "^1.0.0",
         "tslint": "^5.19.0",
@@ -88,6 +88,7 @@
         "webpack-cli": "^3.3.7",
         "webpack-config": "^7.5.0",
         "webpack-dev-middleware": "^3.7.1",
+        "webpack-dev-server": "^3.7.2",
         "webpack-merge": "^4.2.2"
     },
     "browserslist": [

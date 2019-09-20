@@ -31,4 +31,14 @@ const renderApp = (AppComponent: any) => {
 
 renderApp(App);
 
+// Hot Module Replacement API
+declare let module: { hot: any };
+
+if (module.hot) {
+    module.hot.accept("./App", () => {
+        renderApp(require("./App").default);
+    });
+}
+
+// For cache
 registerServiceWorker();
