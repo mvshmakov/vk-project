@@ -1,3 +1,4 @@
+const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 const commonConfig = require("./common");
@@ -25,7 +26,8 @@ module.exports = merge(commonConfig, {
         },
         compress: true,
         progress: false,
-        clientLogLevel: "warn"
+        clientLogLevel: "warn",
+        contentBase: path.resolve("static")
     },
     watchOptions: {
         aggregateTimeout: 300,
