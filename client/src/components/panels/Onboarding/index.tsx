@@ -7,7 +7,8 @@ import {
     SelectMimicry,
     Button,
     Checkbox,
-    Link
+    Link,
+    FormLayoutGroup
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
@@ -48,15 +49,18 @@ export class OnboardingPanel extends PurePanel<IProps, IState> {
                     группу
                 </div>
                 <FormLayout>
-                    <Select top="ВУЗ" placeholder="Выберите ВУЗ">
-                        <option value="hse">НИУ ВШЭ (ГУ-ВШЭ)</option>
-                        <option value="miet">МИЭТ</option>
-                    </Select>
-                    <SelectMimicry
-                        top="Группа"
-                        placeholder="Выберите Группу"
-                        onClick={onSearchGroupClick}
-                    />
+                    <FormLayoutGroup top="ВУЗ">
+                        <Select placeholder="Выберите ВУЗ">
+                            <option value="hse">НИУ ВШЭ (ГУ-ВШЭ)</option>
+                            <option value="miet">МИЭТ</option>
+                        </Select>
+                    </FormLayoutGroup>
+                    <FormLayoutGroup top="Группа">
+                        <SelectMimicry
+                            placeholder="Выберите Группу"
+                            onClick={onSearchGroupClick}
+                        />
+                    </FormLayoutGroup>
                     <Checkbox onClick={this.onCheckboxClick}>
                         Я прочитал и согласен с{" "}
                         <Link href="#">правилами</Link>

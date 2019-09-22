@@ -17,20 +17,24 @@ import {
 
 import Tabbar from "@/components/blocks/Tabbar";
 import SearchView from "@/components/views/Search";
-import ProfileView from "@/components/views/Profile";
+import ProfileView from "@/containers/views/Profile";
 import ScheduleView from "@/containers/views/Schedule";
 import SettingsView from "@/containers/views/Settings";
 import OnboardingView from "@/components/views/Onboarding";
 import { getUsers } from "@/api/users";
 import { fetchUser } from "@/api/search";
 import { fetchSchedule } from "@/api/schedule";
+import { getSubscriptions } from "@/api/subscriptions";
 import { initUserAction, initScheduleAction } from "@/actions/initial";
+import { getSubscriptionAction } from "@/actions/subscription";
+import { ISubscription } from "@/entities/Subscription";
 
 interface IProps {
     pageId: string;
     pushStory: (...args) => {};
     initUserAction: (...args) => {};
     initScheduleAction: (...args) => {};
+    getSubscriptionAction: (...args) => {};
 }
 interface IState {
     activePanel: "search" | any;
@@ -44,11 +48,12 @@ class App extends React.PureComponent<IProps, IState> {
     };
 
     async componentDidMount() {
-        const user = await fetchUser("Шмаков");
+        // const fetchUser = await fetchUser("Шмаков");
         const schedule = await fetchSchedule("Шмаков");
+        const subscriptionCards: ISubscription[] = await getSubscriptions();
 
-        const backend = await getUsers();
-        console.log(backend);
+        const user = await getUsers();
+        console.log(user);
 
         VKConnect.subscribe(event => {
             if (event.detail.type === "VKWebAppGetUserInfoResult") {
@@ -63,6 +68,7 @@ class App extends React.PureComponent<IProps, IState> {
 
         this.props.initUserAction(user[0]);
         this.props.initScheduleAction(schedule);
+        this.props.getSubscriptionAction(subscriptionCards);
     }
 
     changeView = (activePanel: string) => {
@@ -127,6 +133,7 @@ const mapDispatchToProps = dispatch => {
         {
             initUserAction,
             initScheduleAction,
+            getSubscriptionAction,
             pushStory: story => push("/" + story)
         },
         dispatch

@@ -1,21 +1,16 @@
 export interface IUser {
     _id: string;
     id: number;
-    label: string;
-    description: string;
-    type: "student" | "lecturer";
-    additional: IUserAdditional;
-    tags: any[];
-
+    username: string;
+    email: string;
+    role: TUserRole;
     profileName: string;
     profileDescription: string;
     category: string;
+    avatar_url?: string;
 }
 
-interface IUserAdditional {
-    group_name: string;
-    group: number;
-    email: string;
-    email_original?: string;
-    avatar_url?: string;
+export type TUserRole = {
+    SUBSCRIBER: "SUBSCRIBER",
+    CONTENT_MAKER: "CONTENT_MAKER"
 }

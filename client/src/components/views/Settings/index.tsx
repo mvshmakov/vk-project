@@ -7,7 +7,7 @@ import { PureView } from "@/utils/Components";
 
 import "./styles.scss";
 import { IUser } from "@/entities/User";
-import { SubscriptionConfigPanel } from "@/components/panels/SubscriptionConfig";
+import SubscriptionConfigPanel from "@/containers/panels/SubscriptionConfig";
 
 export interface IStateProps {
     user: IUser;

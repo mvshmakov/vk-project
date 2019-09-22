@@ -37,7 +37,7 @@ userRoutes.post("/api/v1/users/", ({ body: requestBody }, res) => {
         return;
     }
 
-    const userFields = pick(["username", "email", "profileName", "profileDescription", "category"], requestBody);
+    const userFields = pick(["username", "email", "role", "profileName", "profileDescription", "category", "avatar_url"], requestBody);
 
     if (!isValidUserModel(userFields)) {
         console.error("invalid user object");
@@ -71,27 +71,29 @@ userRoutes.delete("/api/v1/users/:id", ({ params: requestParams }, res) => {
     });
 });
 
-userRoutes.put("/api/v1/users/:id", ({ params: requestParams, body: requestBody }, res) => {
-    if (!requestBody) {
-        res.sendStatus(400);
-        return;
-    }
+// TODO: rewrite PUT method
 
-    const { username, email } = requestBody;
+// userRoutes.put("/api/v1/users/:id", ({ params: requestParams, body: requestBody }, res) => {
+//     if (!requestBody) {
+//         res.sendStatus(400);
+//         return;
+//     }
 
-    UserModel.findOneAndUpdate(
-        { _id: requestParams.id },
-        { username, email },
-        { new: true },
-        (err, user) => {
-            if (err) {
-                console.log(err);
-                res.sendStatus(400);
-                return;
-            }
+//     const { username, email } = requestBody;
 
-        res.send(user);
-    });
-});
+//     UserModel.findOneAndUpdate(
+//         { _id: requestParams.id },
+//         { username, email },
+//         { new: true },
+//         (err, user) => {
+//             if (err) {
+//                 console.log(err);
+//                 res.sendStatus(400);
+//                 return;
+//             }
+
+//         res.send(user);
+//     });
+// });
 
 export default userRoutes;

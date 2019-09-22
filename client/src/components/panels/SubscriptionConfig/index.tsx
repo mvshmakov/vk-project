@@ -27,12 +27,16 @@ import "./styles.scss";
 import { ISubscription } from "@/entities/Subscription";
 import { postSubscription } from "@/api/subscriptions";
 
+export interface IActionsProps {
+    postSubscriptionAction: (...args: any[]) => any;
+}
+
 interface IProps {
     id: string;
     onBackButtonClick: () => any;
 }
 
-export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
+export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, ISubscription> {
     constructor(props) {
         super(props);
 
@@ -58,7 +62,7 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
     };
 
     onChange(e) {
-        const { name, value } = e.currentTarget;
+        const { id, value } = e.currentTarget;
 
         const { subscriptionName, subscriptionPrice, subscriptionPeriod } = this.state;
 
@@ -66,7 +70,13 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
         this.setState({ isSubscriptionPriceFieldEmpty: subscriptionPrice.length === 0 });
         this.setState({ isSubscriptionPeriodFieldEmpty: subscriptionPeriod.length === 0 });
 
-        this.setState({ [name]: value } as Pick<ISubscription, keyof ISubscription>);
+        this.setState({ [id]: value } as Pick<ISubscription, keyof ISubscription>);
+    }
+
+    getReferenceElement = element => {
+        const { id, value } = element;
+
+        this.setState({ [id]: value } as Pick<ISubscription, keyof ISubscription>);
     }
 
     onCheckboxClick = event => {
@@ -95,6 +105,7 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
         if (!isSubscriptionNameFieldEmpty && isSubscriptionNameFieldEmpty != null
             && !isSubscriptionPriceFieldEmpty && isSubscriptionPriceFieldEmpty != null
             && !isSubscriptionPeriodFieldEmpty && isSubscriptionPeriodFieldEmpty != null) {
+            this.setState({ isError: false });
 
             const finalObject = {
                 subscriptionName: this.state.subscriptionName,
@@ -109,12 +120,11 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
                 comments: this.state.comments,
             };
 
-            console.log(`obj: ${finalObject}`);
-
-            // TODO: some post actions to db
             postSubscription(finalObject).then(() =>
                 this.props.onBackButtonClick()
             );
+
+            // this.props.postSubscriptionAction;
         } else {
             this.setState({ isError: true });
         }
@@ -149,23 +159,27 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
                         Конфигурация подписки
                     </Header>
                     <FormLayout className="subscription-config-form">
-                        <Input
-                            type="text"
+                        <FormLayoutGroup
                             top="Название подписки"
-                            name="subscriptionName"
-                            value={subscriptionName}
-                            onChange={this.onChange}
-                            status={isSubscriptionNameFieldEmpty == null ? "default"
-                                : (!isSubscriptionNameFieldEmpty ? "valid" : "error")}
                             bottom={isSubscriptionNameFieldEmpty ? "Заполните это поле" : ""}
-                        />
+                        >
+                            <Input
+                                type="text"
+                                getRef={this.getReferenceElement}
+                                id="subscriptionName"
+                                onChange={this.onChange}
+                                status={isSubscriptionNameFieldEmpty == null ? "default"
+                                    : (!isSubscriptionNameFieldEmpty ? "valid" : "error")}
+                            />
+                        </FormLayoutGroup>
 
                         <FormLayoutGroup className="subscription-config-form__divided">
                             <div style={{ display: "flex", justifyContent: "space-between" }}>
                                 <InfoRow title="Тип подписки" className="subscription-config-form__inforow-type">
                                     <Select
                                         placeholder=" "
-                                        name="subscriptionType"
+                                        id="subscriptionType"
+                                        getRef={this.getReferenceElement}
                                         value={subscriptionType}
                                         onChange={this.onChange}
                                     >
@@ -176,7 +190,8 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
                                 <InfoRow title="Цвет подписки" className="subscription-config-form__inforow-color">
                                     <Select
                                         placeholder=" "
-                                        name="subscriptionColor"
+                                        id="subscriptionColor"
+                                        getRef={this.getReferenceElement}
                                         value={subscriptionColor}
                                         onChange={this.onChange}
                                     >
@@ -188,23 +203,27 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
                             </div>
                         </FormLayoutGroup>
 
-                        <Textarea
-                            top="Краткое описание"
-                            name="subscriptionBriefDescription"
-                            value={subscriptionBriefDescription}
-                            onChange={this.onChange}
-                        />
+                        <FormLayoutGroup top="Краткое описание">
+                            <Textarea
+                                id="subscriptionBriefDescription"
+                                getRef={this.getReferenceElement}
+                                value={subscriptionBriefDescription}
+                                onChange={this.onChange}
+                            />
+                        </FormLayoutGroup>
 
-                        <Select
-                            top="Тип контента"
-                            placeholder="Выберите тип контента"
-                            name="contentType"
-                            value={contentType}
-                            onChange={this.onChange}
-                        >
-                            <option value="Type_1">Type 1</option>
-                            <option value="Type_2">Type 2</option>
-                        </Select>
+                        <FormLayoutGroup top="Тип контента">
+                            <Select
+                                placeholder="Выберите тип контента"
+                                id="contentType"
+                                getRef={this.getReferenceElement}
+                                value={contentType}
+                                onChange={this.onChange}
+                            >
+                                <option value="Type_1">Type 1</option>
+                                <option value="Type_2">Type 2</option>
+                            </Select>
+                        </FormLayoutGroup>
 
                         <FormLayoutGroup top="Дополнительно">
                             <Checkbox id="stickers" onClick={this.onCheckboxClick}>Стикеры</Checkbox>
@@ -216,8 +235,8 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
                             <div style={{ display: "flex", justifyContent: "space-between" }}>
                                 <InfoRow title="Стоимость, руб." className="subscription-config-form__inforow-price">
                                     <Input
-                                        name="subscriptionPrice"
-                                        value={subscriptionPrice}
+                                        id="subscriptionPrice"
+                                        getRef={this.getReferenceElement}
                                         onChange={this.onChange}
                                         status={isSubscriptionPriceFieldEmpty == null ? "default"
                                             : (!isSubscriptionPriceFieldEmpty ? "valid" : "error")}
@@ -226,7 +245,8 @@ export class SubscriptionConfigPanel extends PurePanel<IProps, ISubscription> {
                                 <InfoRow title="Период списания" className="subscription-config-form__inforow-period">
                                     <Select
                                         placeholder=" "
-                                        name="subscriptionPeriod"
+                                        id="subscriptionPeriod"
+                                        getRef={this.getReferenceElement}
                                         value={subscriptionPeriod}
                                         onChange={this.onChange}
                                         status={isSubscriptionPeriodFieldEmpty == null ? "default"
