@@ -120,11 +120,8 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
                 comments: this.state.comments,
             };
 
-            postSubscription(finalObject).then(() =>
-                this.props.onBackButtonClick()
-            );
-
-            // this.props.postSubscriptionAction;
+            this.props.postSubscriptionAction(finalObject);
+            this.props.onBackButtonClick();
         } else {
             this.setState({ isError: true });
         }
@@ -136,10 +133,8 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         const {
             isError,
             contentType,
-            subscriptionName,
             subscriptionType,
             subscriptionColor,
-            subscriptionPrice,
             subscriptionPeriod,
             subscriptionBriefDescription,
             isSubscriptionNameFieldEmpty,

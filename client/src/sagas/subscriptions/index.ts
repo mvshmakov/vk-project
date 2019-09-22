@@ -1,17 +1,18 @@
-// import { call, put } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 
-// import { getSubscriptions } from "@/api/subscriptions";
-// import { getSubscriptionAction, GetSubscriptionsAction } from "@/actions/subscription";
-// import { loadingStartAction, loadingEndAction } from "@/actions/loading";
+import { postSubscription } from "@/api/subscriptions";
+import { PostSubscriptionAction, postSubscriptionAction } from "@/actions/subscription";
+import { loadingStartAction, loadingEndAction } from "@/actions/loading";
 
-// export default function* ({ payload }: GetSubscriptionsAction) {
-//     yield put(loadingStartAction());
-//     try {
-//         const subscriptions = yield call(getSubscriptions);
-//         yield put(getSubscriptionAction(subscriptions));
-//     } catch (e) {
-//         // TODO: show notification
-//         yield put(getSubscriptionAction([]));
-//     }
-//     yield put(loadingEndAction());
-// }
+export default function* ({ payload }: PostSubscriptionAction) {
+    yield put(loadingStartAction());
+    try {
+        const subscription = yield call(postSubscription, payload.subscription);
+        yield put(postSubscriptionAction(subscription));
+    } catch (e) {
+        // TODO: show notification
+        console.log(e);
+        // yield put(postSubscriptionAction({}));
+    }
+    yield put(loadingEndAction());
+}

@@ -7,4 +7,4 @@ import SubscriptionConfigPanel, { IActionsProps } from "@/components/panels/Subs
 const mapDispatchToProps = (dispatch: Dispatch<PostSubscriptionAction>): IActionsProps =>
     bindActionCreators({ postSubscriptionAction }, dispatch);
 
-export default connect(mapDispatchToProps)(SubscriptionConfigPanel);
+export default connect(data => data, mapDispatchToProps)(SubscriptionConfigPanel);
