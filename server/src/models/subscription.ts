@@ -16,7 +16,10 @@ export type SubscriptionDocument = mongoose.Document & {
 
 // Subscription Collection
 const subscriptionSchema = new mongoose.Schema({
-    subscriptionName: String,
+    subscriptionName: {
+        type: String,
+        unique: true
+    },
     subscriptionType: String,
     subscriptionColor: String,
     subscriptionBriefDescription: String,

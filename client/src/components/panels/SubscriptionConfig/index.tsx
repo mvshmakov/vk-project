@@ -25,7 +25,6 @@ import { PurePanel } from "@/utils/Components";
 
 import "./styles.scss";
 import { ISubscription } from "@/entities/Subscription";
-import { postSubscription } from "@/api/subscriptions";
 
 export interface IActionsProps {
     postSubscriptionAction: (...args: any[]) => any;
@@ -74,9 +73,11 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
     }
 
     getReferenceElement = element => {
-        const { id, value } = element;
+        if (element) {
+            const { id, value } = element;
 
-        this.setState({ [id]: value } as Pick<ISubscription, keyof ISubscription>);
+            this.setState({ [id]: value } as Pick<ISubscription, keyof ISubscription>);
+        }
     }
 
     onCheckboxClick = event => {

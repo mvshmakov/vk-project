@@ -53,7 +53,6 @@ class App extends React.PureComponent<IProps, IState> {
         const subscriptionCards: ISubscription[] = await getSubscriptions();
 
         const user = await getUsers();
-        console.log(user);
 
         VKConnect.subscribe(event => {
             if (event.detail.type === "VKWebAppGetUserInfoResult") {

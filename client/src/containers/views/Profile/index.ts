@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import ProfileView, { IStateProps } from "@/components/views/Profile";
 
 const mapStateToProps = ({ account, subscriptions }): IStateProps => ({
-  currentUser: account.user,
+  currentUser: account && account.user,
   subscriptionCards: subscriptions
 });
 
