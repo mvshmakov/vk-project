@@ -65,11 +65,11 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
 
         const { subscriptionName, subscriptionPrice, subscriptionPeriod } = this.state;
 
+        this.setState({ [id]: value } as Pick<ISubscription, keyof ISubscription>);
+
         this.setState({ isSubscriptionNameFieldEmpty: subscriptionName.length === 0 });
         this.setState({ isSubscriptionPriceFieldEmpty: subscriptionPrice.length === 0 });
         this.setState({ isSubscriptionPeriodFieldEmpty: subscriptionPeriod.length === 0 });
-
-        this.setState({ [id]: value } as Pick<ISubscription, keyof ISubscription>);
     }
 
     getReferenceElement = element => {

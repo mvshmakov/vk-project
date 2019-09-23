@@ -24,14 +24,14 @@ import OnboardingView from "@/components/views/Onboarding";
 import { getUsers } from "@/api/users";
 import { fetchSchedule } from "@/api/schedule";
 import { initUserAction, initScheduleAction } from "@/actions/initial";
-import { getSubscriptionsActionPending } from "@/actions/subscription";
+import { getSubscriptionsAction } from "@/actions/subscription";
 
 interface IProps {
     pageId: string;
     pushStory: (...args) => {};
     initUserAction: (...args) => {};
     initScheduleAction: (...args) => {};
-    getSubscriptionsActionPending: (...args) => {};
+    getSubscriptionsAction: (...args) => {};
 }
 interface IState {
     activePanel: "search" | any;
@@ -63,7 +63,7 @@ class App extends React.PureComponent<IProps, IState> {
 
         this.props.initUserAction(user[0]);
         this.props.initScheduleAction(schedule);
-        this.props.getSubscriptionsActionPending();
+        this.props.getSubscriptionsAction();
     }
 
     changeView = (activePanel: string) => {
@@ -128,7 +128,7 @@ const mapDispatchToProps = dispatch => {
         {
             initUserAction,
             initScheduleAction,
-            getSubscriptionsActionPending,
+            getSubscriptionsAction,
             pushStory: story => push("/" + story)
         },
         dispatch
