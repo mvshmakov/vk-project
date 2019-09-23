@@ -3,7 +3,7 @@ import ProfileView, { IStateProps } from "@/components/views/Profile";
 
 const mapStateToProps = ({ account, subscriptions }): IStateProps => ({
   currentUser: account && account.user,
-  subscriptionCards: subscriptions
+  subscriptionCards: subscriptions && subscriptions.subscriptionsArray
 });
 
 export default connect(mapStateToProps)(ProfileView);

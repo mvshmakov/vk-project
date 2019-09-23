@@ -22,19 +22,16 @@ import ScheduleView from "@/containers/views/Schedule";
 import SettingsView from "@/containers/views/Settings";
 import OnboardingView from "@/components/views/Onboarding";
 import { getUsers } from "@/api/users";
-import { fetchUser } from "@/api/search";
 import { fetchSchedule } from "@/api/schedule";
-import { getSubscriptions } from "@/api/subscriptions";
 import { initUserAction, initScheduleAction } from "@/actions/initial";
-import { getSubscriptionAction } from "@/actions/subscription";
-import { ISubscription } from "@/entities/Subscription";
+import { getSubscriptionsActionPending } from "@/actions/subscription";
 
 interface IProps {
     pageId: string;
     pushStory: (...args) => {};
     initUserAction: (...args) => {};
     initScheduleAction: (...args) => {};
-    getSubscriptionAction: (...args) => {};
+    getSubscriptionsActionPending: (...args) => {};
 }
 interface IState {
     activePanel: "search" | any;
@@ -50,7 +47,6 @@ class App extends React.PureComponent<IProps, IState> {
     async componentDidMount() {
         // const fetchUser = await fetchUser("Шмаков");
         const schedule = await fetchSchedule("Шмаков");
-        const subscriptionCards: ISubscription[] = await getSubscriptions();
 
         const user = await getUsers();
 
@@ -67,7 +63,7 @@ class App extends React.PureComponent<IProps, IState> {
 
         this.props.initUserAction(user[0]);
         this.props.initScheduleAction(schedule);
-        this.props.getSubscriptionAction(subscriptionCards);
+        this.props.getSubscriptionsActionPending();
     }
 
     changeView = (activePanel: string) => {
@@ -132,7 +128,7 @@ const mapDispatchToProps = dispatch => {
         {
             initUserAction,
             initScheduleAction,
-            getSubscriptionAction,
+            getSubscriptionsActionPending,
             pushStory: story => push("/" + story)
         },
         dispatch

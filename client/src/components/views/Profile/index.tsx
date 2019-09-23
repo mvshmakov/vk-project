@@ -148,7 +148,7 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
                         </div>
                     </Group>
 
-                    {subscriptionCards &&
+                    {subscriptionCards.length !== 0 &&
                         <SubscriptionCarousel subscriptionCards={subscriptionCards} onSlideChange={this.onSlideChange} />
                     }
 
