@@ -9,15 +9,18 @@ import { Post } from "@/components/blocks/Post";
 import { PureView } from "@/utils/Components";
 import { ISubscription } from "@/entities/Subscription";
 import { PostActionSheet } from "@/components/blocks/PostActionSheet";
-import { getSubscriptions } from "@/api/subscriptions";
 import { SubscriptionPopout } from "@/components/blocks/SubscriptionPopout";
 import { AdditionalInfoModal } from "@/components/blocks/AdditionalInfoModal";
 import { SubscriptionCarousel } from "@/components/blocks/SubscriptionCarousel";
 
 import "./styles.scss";
 import { postMocks } from "./__mocks__";
-import { getUsers } from "@/api/users";
 import { IUser } from "@/entities/User";
+
+export interface IStateProps {
+    currentUser: IUser;
+    subscriptionCards: ISubscription[];
+}
 
 interface IProps {
     id: string;
@@ -29,11 +32,9 @@ interface IState {
     isPopupShown: boolean;
     isActionSheetShown: boolean;
     subscriptionSlideIndex: number;
-    currentUser: IUser;
-    subscriptionCards: ISubscription[];
 }
 
-export default class ProfileView extends PureView<IProps, IState> {
+export default class ProfileView extends PureView<IProps & IStateProps, IState> {
     constructor(props) {
         super(props);
 
@@ -48,15 +49,7 @@ export default class ProfileView extends PureView<IProps, IState> {
         isPopupShown: false,
         isActionSheetShown: false,
         subscriptionSlideIndex: null,
-        currentUser: null,
-        subscriptionCards: [],
     };
-
-    async componentWillMount() {
-        const subscriptionCards: ISubscription[] = await getSubscriptions();
-        const users = await getUsers();
-        this.setState({ subscriptionCards, currentUser: users[0] });
-    }
 
     updateModalVisibility = (visible: boolean) => {
         this.setState({ isModalShown: visible });
@@ -77,13 +70,13 @@ export default class ProfileView extends PureView<IProps, IState> {
     render() {
         const posts = [1, 2, 3];
 
+        const { currentUser, subscriptionCards } = this.props;
+
         const {
-            currentUser,
             activePanel,
             isModalShown,
             isPopupShown,
             isActionSheetShown,
-            subscriptionCards,
         } = this.state;
 
         const activePopover = () => {
@@ -109,7 +102,7 @@ export default class ProfileView extends PureView<IProps, IState> {
                             size="l"
                             className="profile-view__cell"
                             description={currentUser && currentUser.category}
-                            asideContent={<Avatar src="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png" size={80} />}
+                            asideContent={<Avatar src={currentUser.avatar_url} size={80} />}
                         >
                             {currentUser && currentUser.profileName}
                         </Cell>
@@ -155,14 +148,14 @@ export default class ProfileView extends PureView<IProps, IState> {
                         </div>
                     </Group>
 
-                    {subscriptionCards &&
-                        <SubscriptionCarousel subscriptionCards={subscriptionCards} onSlideChange={this.onSlideChange}/>
+                    {subscriptionCards.length !== 0 &&
+                        <SubscriptionCarousel subscriptionCards={subscriptionCards} onSlideChange={this.onSlideChange} />
                     }
 
                     {posts && posts.map((post, i) =>
                         <Post key={i}
                             name={currentUser && currentUser.profileName}
-                            img={postMocks.img}
+                            img={currentUser.avatar_url}
                             date={postMocks.date}
                             attachments={postMocks.attachment}
                             onUpdateVisibility={this.updateActionSheetVisibility} />

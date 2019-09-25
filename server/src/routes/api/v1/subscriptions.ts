@@ -33,7 +33,6 @@ subscriptionRoutes.get("/api/v1/subscriptions/:id", ({ params: requestParams }, 
 
 subscriptionRoutes.post("/api/v1/subscriptions/", ({ body: requestBody }, res) => {
     if (!requestBody) {
-        console.log("subscriptionRoutes1", requestBody);
         res.sendStatus(400);
         return;
     }
@@ -53,7 +52,6 @@ subscriptionRoutes.post("/api/v1/subscriptions/", ({ body: requestBody }, res) =
     newSubscription.save(err => {
         if (err) {
             console.error(err);
-            console.log("subscriptionRoutes2");
             res.sendStatus(400);
             return;
         }

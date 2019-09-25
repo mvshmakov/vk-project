@@ -18,11 +18,11 @@ const SettingsSnippetBlock: IFunctionalBlock<IProps> = ({
     onSnippetClick
 }: IProps) => (
     <Cell
-        before={<Avatar />}
-        description={user && user.description}
+        before={<Avatar src={user.avatar_url} />}
+        description={user.category}
         onClick={onSnippetClick}
     >
-        {user && user.label}
+        {user && user.profileName}
     </Cell>
 );
 

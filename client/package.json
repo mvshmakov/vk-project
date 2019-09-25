@@ -38,7 +38,7 @@
         "@vkontakte/mvk-mini-apps-scroll-helper": "^1.0.3",
         "@vkontakte/vk-connect": "^1.5.5",
         "@vkontakte/vk-connect-promise": "^0.2.0",
-        "@vkontakte/vkui": "^2.29.3",
+        "@vkontakte/vkui": "^2.30.7",
         "connected-react-router": "^6.5.2",
         "date-fns": "^2.0.1",
         "history": "^4.9.0",

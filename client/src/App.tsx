@@ -17,20 +17,21 @@ import {
 
 import Tabbar from "@/components/blocks/Tabbar";
 import SearchView from "@/components/views/Search";
-import ProfileView from "@/components/views/Profile";
+import ProfileView from "@/containers/views/Profile";
 import ScheduleView from "@/containers/views/Schedule";
 import SettingsView from "@/containers/views/Settings";
 import OnboardingView from "@/components/views/Onboarding";
 import { getUsers } from "@/api/users";
-import { fetchUser } from "@/api/search";
 import { fetchSchedule } from "@/api/schedule";
 import { initUserAction, initScheduleAction } from "@/actions/initial";
+import { getSubscriptionsAction } from "@/actions/subscription";
 
 interface IProps {
     pageId: string;
     pushStory: (...args) => {};
     initUserAction: (...args) => {};
     initScheduleAction: (...args) => {};
+    getSubscriptionsAction: (...args) => {};
 }
 interface IState {
     activePanel: "search" | any;
@@ -44,11 +45,10 @@ class App extends React.PureComponent<IProps, IState> {
     };
 
     async componentDidMount() {
-        const user = await fetchUser("Шмаков");
+        // const fetchUser = await fetchUser("Шмаков");
         const schedule = await fetchSchedule("Шмаков");
 
-        const backend = await getUsers();
-        console.log(backend);
+        const user = await getUsers();
 
         VKConnect.subscribe(event => {
             if (event.detail.type === "VKWebAppGetUserInfoResult") {
@@ -63,6 +63,7 @@ class App extends React.PureComponent<IProps, IState> {
 
         this.props.initUserAction(user[0]);
         this.props.initScheduleAction(schedule);
+        this.props.getSubscriptionsAction();
     }
 
     changeView = (activePanel: string) => {
@@ -127,6 +128,7 @@ const mapDispatchToProps = dispatch => {
         {
             initUserAction,
             initScheduleAction,
+            getSubscriptionsAction,
             pushStory: story => push("/" + story)
         },
         dispatch

@@ -4,16 +4,16 @@ import { connectRouter } from "connected-react-router";
 import loading from "@/reducers/loading";
 import example from "@/reducers/example";
 import users from "@/reducers/users";
-import user from "@/reducers/user";
 import group from "@/reducers/group";
 import initial from "@/reducers/initial";
+import subscriptions from "@/reducers/subscriptions";
 
 export default (history) => combineReducers({
     example,
     loading,
     users,
-    user,
     group,
     account: initial,
+    subscriptions,
     router: connectRouter(history),
 });
