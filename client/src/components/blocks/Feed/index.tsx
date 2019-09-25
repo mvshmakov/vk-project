@@ -9,13 +9,19 @@ interface IProps {
 }
 
 export class Feed extends React.Component<IProps> {
+    constructor(props) {
+        super(props);
+
+        this.onUpdateVisibility = this.onUpdateVisibility.bind(this);
+    }
+
     onUpdateVisibility() {
         this.props.onUpdateVisibility(true);
     }
 
     render() {
-        const {posts} = this.props;
-        debugger;
+        const { posts } = this.props;
+
         return (
             <Group className="feed-block">
                 {posts.map((post, i) => (
@@ -25,7 +31,7 @@ export class Feed extends React.Component<IProps> {
                         createdAt={post.createdAt}
                         avatar={post.avatar}
                         attachments={post.attachments}
-                        onUpdateVisibility={this.onUpdateVisibility}/>
+                        onUpdateVisibility={this.onUpdateVisibility} />
                 ))
                 }
             </Group>

@@ -33,34 +33,34 @@ export class Post extends React.Component<IPost, IState> {
     }
 
     render() {
-        const {like} = this.state;
-        const {name, createdAt, attachments, avatar} = this.props;
-        debugger;
+        const { like } = this.state;
+        const { name, createdAt, attachments, avatar } = this.props;
+
         return (
             <React.Fragment>
                 <Group className="post-block">
                     <Cell size="l"
-                          before={<Avatar src={avatar}/>}
-                          asideContent={
-                              <div className="post-block__aside-content">
-                                  <Button level="outline" className="post-block__aside-content-button">Demo</Button>
-                                  <Icon24MoreHorizontal onClick={this.showMoreActions}/>
-                              </div>
-                          }
-                          bottomContent={format(new Date(createdAt), "'Today is a' iiii")}
-                          className="post-block__header">
+                        before={<Avatar src={avatar} />}
+                        asideContent={
+                            <div className="post-block__aside-content">
+                                <Button level="outline" className="post-block__aside-content-button">Demo</Button>
+                                <Icon24MoreHorizontal onClick={this.showMoreActions} />
+                            </div>
+                        }
+                        bottomContent={format(new Date(createdAt), "dd MMM yyyy HH:mm:ss")}
+                        className="post-block__header">
                         {name}
                     </Cell>
                     <Div className="post-block__text">{attachments.text}</Div>
                     {attachments.img && (
                         <img className={"post-block__image"}
-                             src={attachments.img}/>
+                            src={attachments.img} />
                     )}
-                    <Separator className="post-block__separator"/>
+                    <Separator className="post-block__separator" />
                     <Cell className="post-block__iconBtn-wrapper">
                         <Div className={`iconBtn likeBtn ${like && "_active"}`}
-                             onClick={this.toggleLike}/>
-                        <Div className={"iconBtn repliesBtn"}/>
+                            onClick={this.toggleLike} />
+                        <Div className={"iconBtn repliesBtn"} />
                     </Cell>
                 </Group>
             </React.Fragment>
