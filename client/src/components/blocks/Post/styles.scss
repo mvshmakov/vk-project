@@ -38,6 +38,11 @@
   &__iconBtn-wrapper {
     padding: 0 8px;
   }
+
+  &__image {
+    object-fit: cover;
+    width: 100%;
+  }
 }
 
 .iconBtn {

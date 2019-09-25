@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Avatar, Cell, Separator, Div, Group, Button } from "@vkontakte/vkui";
 import Icon24MoreHorizontal from "@vkontakte/icons/dist/24/more_horizontal";
-import { IPostProps } from "@/entities/Post";
+import { IPost } from "@/entities/Post";
 
 import "./styles.scss";
 
@@ -9,7 +9,7 @@ interface IState {
     like: boolean;
 }
 
-export class Post extends React.Component<IPostProps, IState> {
+export class Post extends React.Component<IPost, IState> {
     constructor(props) {
         super(props);
 
@@ -24,40 +24,41 @@ export class Post extends React.Component<IPostProps, IState> {
         this.setState({
             like: !this.state.like
         });
-    }
+    };
 
     showMoreActions() {
         this.props.onUpdateVisibility(true);
     }
 
     render() {
-        const { like } = this.state;
-        const { text, img, video, audio } = this.props.attachments;
+        const {like} = this.state;
+        const {text, img, video, audio} = this.props.attachments;
 
         return (
             <React.Fragment>
                 <Group className="post-block">
                     <Cell size="l"
-                        before={<Avatar src={this.props.img} />}
-                        asideContent={
-                            <div className="post-block__aside-content">
-                                <Button level="outline" className="post-block__aside-content-button">Demo</Button>
-                                <Icon24MoreHorizontal onClick={this.showMoreActions}/>
-                            </div>
-                        }
-                        bottomContent={this.props.date}
-                        className="post-block__header">
+                          before={<Avatar src={this.props.avatar}/>}
+                          asideContent={
+                              <div className="post-block__aside-content">
+                                  <Button level="outline" className="post-block__aside-content-button">Demo</Button>
+                                  <Icon24MoreHorizontal onClick={this.showMoreActions}/>
+                              </div>
+                          }
+                          bottomContent={this.props.createdAt}
+                          className="post-block__header">
                         {this.props.name}
                     </Cell>
                     <Div className="post-block__text">{text}</Div>
                     {img && (
-                        <Div className="post-block__image">{img}</Div>
+                        <img className={"post-block__image"}
+                             src={img}/>
                     )}
-                    <Separator className="post-block__separator" />
+                    <Separator className="post-block__separator"/>
                     <Cell className="post-block__iconBtn-wrapper">
                         <Div className={`iconBtn likeBtn ${like && "_active"}`}
-                            onClick={this.toggleLike} />
-                        <Div className={"iconBtn repliesBtn"} />
+                             onClick={this.toggleLike}/>
+                        <Div className={"iconBtn repliesBtn"}/>
                     </Cell>
                 </Group>
             </React.Fragment>

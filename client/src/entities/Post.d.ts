@@ -1,7 +1,7 @@
-export interface IPostProps {
+export interface IPost {
     name: string;
-    date: string;
-    img: string;
+    createdAt: string;
+    avatar: string;
     attachments: IAttachments;
     onUpdateVisibility: (value: boolean) => void;
 }
