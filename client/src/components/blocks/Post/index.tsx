@@ -1,7 +1,9 @@
 import * as React from "react";
+import { format } from "date-fns";
+
 import { Avatar, Cell, Separator, Div, Group, Button } from "@vkontakte/vkui";
 import Icon24MoreHorizontal from "@vkontakte/icons/dist/24/more_horizontal";
-import { IPostProps } from "@/entities/Post";
+import { IPost } from "@/entities/Post";
 
 import "./styles.scss";
 
@@ -9,7 +11,7 @@ interface IState {
     like: boolean;
 }
 
-export class Post extends React.Component<IPostProps, IState> {
+export class Post extends React.Component<IPost, IState> {
     constructor(props) {
         super(props);
 
@@ -32,26 +34,27 @@ export class Post extends React.Component<IPostProps, IState> {
 
     render() {
         const { like } = this.state;
-        const { text, img, video, audio } = this.props.attachments;
+        const { name, createdAt, attachments, avatar } = this.props;
 
         return (
             <React.Fragment>
                 <Group className="post-block">
                     <Cell size="l"
-                        before={<Avatar src={this.props.img} />}
+                        before={<Avatar src={avatar} />}
                         asideContent={
                             <div className="post-block__aside-content">
                                 <Button level="outline" className="post-block__aside-content-button">Demo</Button>
-                                <Icon24MoreHorizontal onClick={this.showMoreActions}/>
+                                <Icon24MoreHorizontal onClick={this.showMoreActions} />
                             </div>
                         }
-                        bottomContent={this.props.date}
+                        bottomContent={format(new Date(createdAt), "dd MMM yyyy HH:mm:ss")}
                         className="post-block__header">
-                        {this.props.name}
+                        {name}
                     </Cell>
-                    <Div className="post-block__text">{text}</Div>
-                    {img && (
-                        <Div className="post-block__image">{img}</Div>
+                    <Div className="post-block__text">{attachments.text}</Div>
+                    {attachments.img && (
+                        <img className={"post-block__image"}
+                            src={attachments.img} />
                     )}
                     <Separator className="post-block__separator" />
                     <Cell className="post-block__iconBtn-wrapper">

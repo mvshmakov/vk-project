@@ -13,7 +13,7 @@ postRoutes.post("/api/v1/posts/", ({ body: requestBody }, res) => {
         return;
     }
 
-    const postFields = pick(["text", "video", "audio", "img"], requestBody);
+    const postFields = pick(["attachments", "name", "avatar"], requestBody);
 
     if (!isValidPostModel) {
         console.error("invalid post object");

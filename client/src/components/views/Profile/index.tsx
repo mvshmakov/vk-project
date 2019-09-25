@@ -5,25 +5,27 @@ import Icon20Info from "@vkontakte/icons/dist/20/info";
 import Icon20ArticleOutline from "@vkontakte/icons/dist/20/article_outline";
 import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
 
-import { Post } from "@/components/blocks/Post";
 import { PureView } from "@/utils/Components";
 import { ISubscription } from "@/entities/Subscription";
 import { PostActionSheet } from "@/components/blocks/PostActionSheet";
 import { SubscriptionPopout } from "@/components/blocks/SubscriptionPopout";
 import { AdditionalInfoModal } from "@/components/blocks/AdditionalInfoModal";
 import { SubscriptionCarousel } from "@/components/blocks/SubscriptionCarousel";
+import { IUser } from "@/entities/User";
+import { Feed } from "@/components/blocks/Feed";
+import { IPost } from "@/entities/Post";
 
 import "./styles.scss";
-import { postMocks } from "./__mocks__";
-import { IUser } from "@/entities/User";
 
 export interface IStateProps {
+    feed: IPost[];
     currentUser: IUser;
     subscriptionCards: ISubscription[];
 }
 
 interface IProps {
     id: string;
+    getFeedAction: (...args) => {};
 }
 
 interface IState {
@@ -51,6 +53,10 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
         subscriptionSlideIndex: null,
     };
 
+    componentWillMount(): void {
+        this.props.getFeedAction();
+    }
+
     updateModalVisibility = (visible: boolean) => {
         this.setState({ isModalShown: visible });
     }
@@ -68,8 +74,6 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
     }
 
     render() {
-        const posts = [1, 2, 3];
-
         const { currentUser, subscriptionCards } = this.props;
 
         const {
@@ -152,14 +156,8 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
                         <SubscriptionCarousel subscriptionCards={subscriptionCards} onSlideChange={this.onSlideChange} />
                     }
 
-                    {posts && posts.map((post, i) =>
-                        <Post key={i}
-                            name={currentUser && currentUser.profileName}
-                            img={currentUser.avatar_url}
-                            date={postMocks.date}
-                            attachments={postMocks.attachment}
-                            onUpdateVisibility={this.updateActionSheetVisibility} />
-                    )}
+                    <Feed posts={this.props.feed} onUpdateVisibility={this.updateActionSheetVisibility} />
+
                 </Panel>
             </View>
         );
