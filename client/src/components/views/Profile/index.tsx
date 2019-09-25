@@ -5,7 +5,6 @@ import Icon20Info from "@vkontakte/icons/dist/20/info";
 import Icon20ArticleOutline from "@vkontakte/icons/dist/20/article_outline";
 import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
 
-import { Post } from "@/components/blocks/Post";
 import { PureView } from "@/utils/Components";
 import { ISubscription } from "@/entities/Subscription";
 import { PostActionSheet } from "@/components/blocks/PostActionSheet";
@@ -13,8 +12,8 @@ import { SubscriptionPopout } from "@/components/blocks/SubscriptionPopout";
 import { AdditionalInfoModal } from "@/components/blocks/AdditionalInfoModal";
 import { SubscriptionCarousel } from "@/components/blocks/SubscriptionCarousel";
 import { IUser } from "@/entities/User";
-import { Feed } from "../../blocks/Feed";
-import { IPost } from "../../../entities/Post";
+import { Feed } from "@/components/blocks/Feed";
+import { IPost } from "@/entities/Post";
 
 import "./styles.scss";
 

@@ -3,7 +3,7 @@ import { createAction } from "redux-actions";
 import { TLoadedAction } from "@/entities/Actions";
 import { IPost } from "@/entities/Post";
 
-export const GET_FEED: "root" = "root";
+export const GET_FEED: "root/GET_FEED" = "root/GET_FEED";
 export const GET_FEED_SUCCESS: "root/GET_FEED_SUCCESS" = "root/GET_FEED_SUCCESS";
 export const GET_FEED_FAILED: "root/GET_FEED_FAILED" = "root/GET_FEED_FAILED";
 

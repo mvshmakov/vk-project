@@ -1,4 +1,4 @@
-import { IPost } from "../entities/Post";
+import { IPost } from "@/entities/Post";
 
 const API_BASE_SEARCH = "http://localhost/api/v1/posts";
 

@@ -1,4 +1,6 @@
 import * as React from "react";
+import { format } from "date-fns";
+
 import { Avatar, Cell, Separator, Div, Group, Button } from "@vkontakte/vkui";
 import Icon24MoreHorizontal from "@vkontakte/icons/dist/24/more_horizontal";
 import { IPost } from "@/entities/Post";
@@ -45,7 +47,7 @@ export class Post extends React.Component<IPost, IState> {
                                   <Icon24MoreHorizontal onClick={this.showMoreActions}/>
                               </div>
                           }
-                          bottomContent={new Date(createdAt).toLocaleDateString()}
+                          bottomContent={format(new Date(createdAt), "'Today is a' iiii")}
                           className="post-block__header">
                         {name}
                     </Cell>
