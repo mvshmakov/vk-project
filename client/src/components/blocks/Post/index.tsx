@@ -24,7 +24,7 @@ export class Post extends React.Component<IPost, IState> {
         this.setState({
             like: !this.state.like
         });
-    };
+    }
 
     showMoreActions() {
         this.props.onUpdateVisibility(true);
@@ -32,27 +32,27 @@ export class Post extends React.Component<IPost, IState> {
 
     render() {
         const {like} = this.state;
-        const {text, img, video, audio} = this.props.attachments;
-
+        const {name, createdAt, attachments, avatar} = this.props;
+        debugger;
         return (
             <React.Fragment>
                 <Group className="post-block">
                     <Cell size="l"
-                          before={<Avatar src={this.props.avatar}/>}
+                          before={<Avatar src={avatar}/>}
                           asideContent={
                               <div className="post-block__aside-content">
                                   <Button level="outline" className="post-block__aside-content-button">Demo</Button>
                                   <Icon24MoreHorizontal onClick={this.showMoreActions}/>
                               </div>
                           }
-                          bottomContent={this.props.createdAt}
+                          bottomContent={new Date(createdAt).toLocaleDateString()}
                           className="post-block__header">
-                        {this.props.name}
+                        {name}
                     </Cell>
-                    <Div className="post-block__text">{text}</Div>
-                    {img && (
+                    <Div className="post-block__text">{attachments.text}</Div>
+                    {attachments.img && (
                         <img className={"post-block__image"}
-                             src={img}/>
+                             src={attachments.img}/>
                     )}
                     <Separator className="post-block__separator"/>
                     <Cell className="post-block__iconBtn-wrapper">

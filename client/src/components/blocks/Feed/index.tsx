@@ -5,8 +5,8 @@ import { IPost } from "../../../entities/Post";
 import { Post } from "../Post";
 
 interface IProps {
-    posts: IPost[],
-    onUpdateVisibility: (value: boolean) => void
+    posts: IPost[];
+    onUpdateVisibility: (value: boolean) => void;
 }
 
 export class Feed extends React.Component<IProps> {
@@ -25,7 +25,7 @@ export class Feed extends React.Component<IProps> {
                         <Post
                             key={i}
                             name={post.name}
-                            createdAt={post.name}
+                            createdAt={post.createdAt}
                             avatar={post.avatar}
                             attachments={post.attachments}
                             onUpdateVisibility={this.onUpdateVisibility}/>
