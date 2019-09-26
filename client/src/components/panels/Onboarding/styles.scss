@@ -1,7 +1,45 @@
-.header {
-    text-align: center;
-}
+.onboarding-panel {
+  &__subscriber {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    height: 290px;
+    padding-bottom: 12px;
+    color: white;
+    border-radius: 12px;
+    background-image: linear-gradient(135deg, #1d2b64 0%, #f8cdda 100%);
 
-.text {
-    text-align: center;
+    &-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  &__content-maker {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    height: 290px;
+    padding-bottom: 12px;
+    color: white;
+    border-radius: 12px;
+    background-image: linear-gradient(135deg, #085078 0%, #85d8ce 100%);
+
+    &-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      padding: 30px;
+      border: 2px solid white;
+      border-radius: 50%;
+    }
+  }
 }

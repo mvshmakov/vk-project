@@ -22,13 +22,13 @@ export default ({ activeRoute, onStoryChange }: IProps) => (
         >
             <Icon24User />
         </TabbarItem>
-        <TabbarItem
+        {/* <TabbarItem
             onClick={onStoryChange}
             selected={activeRoute === "schedule"}
             data-story="schedule"
         >
             <Icon24List />
-        </TabbarItem>
+        </TabbarItem> */}
         <TabbarItem
             onClick={onStoryChange}
             selected={activeRoute === "search"}

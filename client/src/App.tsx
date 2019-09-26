@@ -114,7 +114,7 @@ class App extends React.PureComponent<IProps, IState> {
                     }
                 >
                     <ProfileView id="profile" />
-                    <ScheduleView id="schedule" />
+                    {/* <ScheduleView id="schedule" /> */}
                     <SearchView id="search" />
                     <SettingsView id="settings" />
                 </Epic>

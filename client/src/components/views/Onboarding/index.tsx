@@ -4,6 +4,7 @@ import "@vkontakte/vkui/dist/vkui.css";
 
 import SearchPanel from "@/containers/panels/Search";
 import OnboardingPanel from "@/components/panels/Onboarding";
+import CreateProfilePanel from "@/components/panels/CreateProfile";
 import { PureView } from "@/utils/Components";
 
 import "./styles.scss";
@@ -39,10 +40,19 @@ export default class OnboardingView extends PureView<IProps, IState> {
             <View id={this.props.id} activePanel={this.state.activePanel}>
                 <OnboardingPanel
                     id="start"
+                    onCreateSubscriberClick={() => this.props.onQuitOnboarding(7643)}
+                    onCreateContentMakerClick={this.changePanel("create")}
+                />
+                <CreateProfilePanel
+                    id="create"
                     onSearchGroupClick={this.onSearchGroup}
                     onButtonClick={() => this.props.onQuitOnboarding(7643)}
                 />
-                <SearchPanel id="groupSearch" type="general" onSelectUser={this.changePanel("start")} />
+                <SearchPanel
+                    id="groupSearch"
+                    type="general"
+                    onSelectUser={this.changePanel("create")}
+                />
             </View>
         );
     }

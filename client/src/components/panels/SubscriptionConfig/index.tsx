@@ -91,10 +91,17 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
 
     onSaveButtonClick = () => {
         const {
+            stickers,
+            comments,
+            privateChat,
+            contentType,
             subscriptionName,
+            subscriptionType,
             subscriptionPrice,
+            subscriptionColor,
             subscriptionPeriod,
             isSubscriptionNameFieldEmpty,
+            subscriptionBriefDescription,
             isSubscriptionPriceFieldEmpty,
             isSubscriptionPeriodFieldEmpty
         } = this.state;
@@ -108,17 +115,17 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
             && !isSubscriptionPeriodFieldEmpty && isSubscriptionPeriodFieldEmpty != null) {
             this.setState({ isError: false });
 
-            const finalObject = {
-                subscriptionName: this.state.subscriptionName,
-                subscriptionType: this.state.subscriptionType,
-                subscriptionColor: this.state.subscriptionColor,
-                subscriptionBriefDescription: this.state.subscriptionBriefDescription,
-                contentType: this.state.contentType,
-                subscriptionPrice: this.state.subscriptionPrice,
-                subscriptionPeriod: this.state.subscriptionPeriod,
-                stickers: this.state.stickers,
-                privateChat: this.state.privateChat,
-                comments: this.state.comments,
+            const finalObject: ISubscription = {
+                comments,
+                stickers,
+                privateChat,
+                contentType,
+                subscriptionName,
+                subscriptionType,
+                subscriptionColor,
+                subscriptionPrice,
+                subscriptionPeriod,
+                subscriptionBriefDescription,
             };
 
             this.props.postSubscriptionAction(finalObject);
