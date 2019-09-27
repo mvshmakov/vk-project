@@ -6,10 +6,7 @@ import {
 export default (state = [], action: TFeedActions) => {
     switch (action.type) {
         case GET_FEED_SUCCESS:
-            return [
-                ...state,
-                ...action.payload.feed
-            ];
+            return action.payload.feed;
         default:
             return state;
     }

@@ -11,15 +11,15 @@ import { PostActionSheet } from "@/components/blocks/PostActionSheet";
 import { SubscriptionPopout } from "@/components/blocks/SubscriptionPopout";
 import { AdditionalInfoModal } from "@/components/blocks/AdditionalInfoModal";
 import { SubscriptionCarousel } from "@/components/blocks/SubscriptionCarousel";
-import { IUser } from "@/entities/User";
 import { Feed } from "@/components/blocks/Feed";
 import { IPost } from "@/entities/Post";
+import { IProfile } from "@/entities/Profile";
 
 import "./styles.scss";
 
 export interface IStateProps {
     feed: IPost[];
-    currentUser: IUser;
+    currentProfile: IProfile;
     subscriptionCards: ISubscription[];
 }
 
@@ -74,7 +74,7 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
     }
 
     render() {
-        const { currentUser, subscriptionCards } = this.props;
+        const { currentProfile, subscriptionCards } = this.props;
 
         const {
             activePanel,
@@ -94,7 +94,7 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
         };
 
         const activeModal = (
-            isModalShown ? <AdditionalInfoModal user={currentUser} onUpdateVisibility={this.updateModalVisibility} /> : null
+            isModalShown ? <AdditionalInfoModal profile={currentProfile} onUpdateVisibility={this.updateModalVisibility} /> : null
         );
 
         return (
@@ -105,10 +105,10 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
                         <Cell
                             size="l"
                             className="profile-view__cell"
-                            description={currentUser && currentUser.category}
-                            asideContent={<Avatar src={currentUser.avatar_url} size={80} />}
+                            description={currentProfile && currentProfile.category}
+                            asideContent={<Avatar src={currentProfile && currentProfile.avatar_url} size={80} />}
                         >
-                            {currentUser && currentUser.profileName}
+                            {currentProfile && currentProfile.profileName}
                         </Cell>
                         <Div className="profile-view__main-buttons-wrapper">
                             <Button size="l"
@@ -130,7 +130,7 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
                             <Icon20FollowersOutline /> 865,2K подписчиков
                         </Div>
                         <Div className="profile-view__description-article">
-                            <Icon20ArticleOutline /> {currentUser && currentUser.profileDescription}
+                            <Icon20ArticleOutline /> {currentProfile && currentProfile.profileDescription}
                         </Div>
                         <Div className="profile-view__description-additional-info"
                             onClick={() => this.setState({ isModalShown: true })}>

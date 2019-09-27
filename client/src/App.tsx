@@ -25,11 +25,13 @@ import { getUsers } from "@/api/users";
 import { fetchSchedule } from "@/api/schedule";
 import { initUserAction, initScheduleAction } from "@/actions/initial";
 import { getSubscriptionsAction } from "@/actions/subscription";
+import { getProfilesAction } from "@/actions/profiles";
 
 interface IProps {
     pageId: string;
     pushStory: (...args) => {};
     initUserAction: (...args) => {};
+    getProfilesAction: (...args) => {};
     initScheduleAction: (...args) => {};
     getSubscriptionsAction: (...args) => {};
 }
@@ -61,6 +63,7 @@ class App extends React.PureComponent<IProps, IState> {
             format(new Date(), "'Today is a' iiii")
         );
 
+        this.props.getProfilesAction();
         this.props.initUserAction(user[0]);
         this.props.initScheduleAction(schedule);
         this.props.getSubscriptionsAction();
@@ -127,6 +130,7 @@ const mapDispatchToProps = dispatch => {
     return bindActionCreators(
         {
             initUserAction,
+            getProfilesAction,
             initScheduleAction,
             getSubscriptionsAction,
             pushStory: story => push("/" + story)

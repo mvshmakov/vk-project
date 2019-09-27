@@ -7,6 +7,7 @@ import users from "@/reducers/users";
 import group from "@/reducers/group";
 import feed from "@/reducers/feed";
 import initial from "@/reducers/initial";
+import profiles from "@/reducers/profiles";
 import subscriptions from "@/reducers/subscriptions";
 
 export default (history) => combineReducers({
@@ -15,6 +16,7 @@ export default (history) => combineReducers({
     users,
     group,
     feed,
+    profiles,
     account: initial,
     subscriptions,
     router: connectRouter(history),

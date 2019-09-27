@@ -6,6 +6,8 @@ import { IFunctionalBlock } from "@/utils/Components";
 
 import { IUser } from "@/entities/User";
 
+import Icon24Settings from "@vkontakte/icons/dist/24/settings";
+
 import "./styles.scss";
 
 interface IProps {
@@ -17,13 +19,14 @@ const SettingsSnippetBlock: IFunctionalBlock<IProps> = ({
     user,
     onSnippetClick
 }: IProps) => (
-    <Cell
-        before={<Avatar src={user.avatar_url} />}
-        description={user.category}
-        onClick={onSnippetClick}
-    >
-        {user && user.profileName}
-    </Cell>
-);
+        <Cell
+            before={<Avatar src={user.photo_100} size={80} />}
+            asideContent={<Icon24Settings />}
+            description={user.role}
+            onClick={onSnippetClick}
+        >
+            {user.first_name + " " + user.last_name}
+        </Cell>
+    );
 
 export default SettingsSnippetBlock;

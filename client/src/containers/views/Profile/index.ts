@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch: Dispatch<GetFeedAction>) =>
 
 const mapStateToProps = (state): IStateProps => ({
     feed: state.feed,
-    currentUser: state.account && state.account.user,
+    currentProfile: state.profiles[0],
     subscriptionCards: state.subscriptions
 });
 

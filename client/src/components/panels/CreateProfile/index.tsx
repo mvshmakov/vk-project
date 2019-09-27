@@ -18,7 +18,7 @@ import "@vkontakte/vkui/dist/vkui.css";
 import { PurePanel } from "@/utils/Components";
 
 import "./styles.scss";
-import { IUser } from "@/entities/User";
+import { IProfile } from "@/entities/Profile";
 
 export interface IActionsProps {
     postUserAction: (...args: any[]) => any;
@@ -36,7 +36,7 @@ interface IState {
     isProfileDescriptionFieldEmpty: boolean;
 }
 
-export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IUser & IState> {
+export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IProfile & IState> {
     constructor(props) {
         super(props);
 
@@ -45,6 +45,7 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IUser 
 
     state = {
         id: null,
+        ownerId: null,
         username: null,
         email: null,
         role: null,
@@ -91,6 +92,7 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IUser 
             id,
             role,
             email,
+            ownerId,
             category,
             username,
             avatar_url,
@@ -107,12 +109,10 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IUser 
             && !isProfileDescriptionFieldEmpty && isProfileDescriptionFieldEmpty != null) {
             this.setState({ isError: false });
 
-            const finalObject: IUser = {
+            const finalObject: IProfile = {
                 id,
-                role,
-                email,
+                ownerId,
                 category,
-                username,
                 avatar_url,
                 profileName,
                 profileDescription,
