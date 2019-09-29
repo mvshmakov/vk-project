@@ -32,7 +32,7 @@ export interface IActionsProps {
 
 interface IProps {
     id: string;
-    onBackButtonClick: () => any;
+    onBackButtonClick: (...args) => any;
 }
 
 export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, ISubscription> {
@@ -40,6 +40,7 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         super(props);
 
         this.onChange = this.onChange.bind(this);
+        this.onBackButtonClick = this.onBackButtonClick.bind(this);
     }
 
     state = {
@@ -59,6 +60,10 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         isSubscriptionPriceFieldEmpty: null,
         isSubscriptionPeriodFieldEmpty: null
     };
+
+    onBackButtonClick() {
+        this.props.onBackButtonClick("account");
+    }
 
     onChange(e) {
         const { id, value } = e.currentTarget;
@@ -129,7 +134,7 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
             };
 
             this.props.postSubscriptionAction(finalObject);
-            this.props.onBackButtonClick();
+            this.props.onBackButtonClick("account");
         } else {
             this.setState({ isError: true });
         }
@@ -153,7 +158,7 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         return (
             <Panel id={id}>
                 <PanelHeader noShadow left={
-                    <HeaderButton onClick={onBackButtonClick}>
+                    <HeaderButton onClick={this.onBackButtonClick}>
                         {IS_PLATFORM_ANDROID ? <Icon24Back /> : <Icon28ChevronBack />}
                     </HeaderButton>
                 }></PanelHeader>

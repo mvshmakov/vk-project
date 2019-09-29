@@ -1,8 +1,8 @@
 export interface IProfile {
-    id: number | string;
+    _id?: string;
     ownerId: number | string;
     profileName: string;
     profileDescription: string;
-    category: string;
+    profileСategory: string;
     avatar_url: string;
 }

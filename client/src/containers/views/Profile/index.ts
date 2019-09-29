@@ -9,7 +9,8 @@ const mapDispatchToProps = (dispatch: Dispatch<GetFeedAction>) =>
 const mapStateToProps = (state): IStateProps => ({
     feed: state.feed,
     currentProfile: state.profiles[0],
-    subscriptionCards: state.subscriptions
+    subscriptionCards: state.subscriptions,
+    currentUser: state.account && state.account.user
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileView);

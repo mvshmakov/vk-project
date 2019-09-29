@@ -15,18 +15,19 @@ interface IProps {
     onSnippetClick: (...args: any[]) => any;
 }
 
-const SettingsSnippetBlock: IFunctionalBlock<IProps> = ({
+const AccountSnippetBlock: IFunctionalBlock<IProps> = ({
     user,
     onSnippetClick
 }: IProps) => (
         <Cell
-            before={<Avatar src={user.photo_100} size={80} />}
+            className="settings-snippet-block"
+            before={<Avatar src={user && user.photo_100} size={80} />}
             asideContent={<Icon24Settings />}
-            description={user.role}
+            description={user && user.role}
             onClick={onSnippetClick}
         >
-            {user.first_name + " " + user.last_name}
+            {user && (user.first_name + " " + user.last_name)}
         </Cell>
     );
 
-export default SettingsSnippetBlock;
+export default AccountSnippetBlock;

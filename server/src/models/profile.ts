@@ -5,7 +5,7 @@ export type ProfileDocument = mongoose.Document & {
     ownerId: number | string,
     profileName: string,
     profileDescription: string,
-    category: string,
+    profileСategory: string,
     avatar_url: string,
 };
 
@@ -17,7 +17,7 @@ const profileSchema = new mongoose.Schema({
         unique: true
     },
     profileDescription: String,
-    category: String,
+    profileСategory: String,
     avatar_url: String,
 }, {
     timestamps: true

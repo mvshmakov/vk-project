@@ -10,12 +10,14 @@ import {
 import "@vkontakte/vkui/dist/vkui.css";
 import Icon36Add from "@vkontakte/icons/dist/36/add";
 
+import { IUser } from "@/entities/User";
 import { PurePanel } from "@/utils/Components";
 
 import "./styles.scss";
 
 interface IProps {
     id: string;
+    currentUser: IUser;
     onCreateSubscriberClick: (...args) => any;
     onCreateContentMakerClick: (...args) => any;
 }
@@ -23,7 +25,7 @@ interface IProps {
 export class OnboardingPanel extends PurePanel<IProps, null> {
 
     render() {
-        const { id, onCreateSubscriberClick, onCreateContentMakerClick } = this.props;
+        const { id, currentUser, onCreateSubscriberClick, onCreateContentMakerClick } = this.props;
 
         return (
             <Panel id={id}>
@@ -33,11 +35,11 @@ export class OnboardingPanel extends PurePanel<IProps, null> {
                         <div className="onboarding-panel__subscriber">
                             <div className="onboarding-panel__subscriber-content">
                                 <Avatar
-                                    src="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png"
+                                    src={currentUser && currentUser.photo_100}
                                     style={{ marginBottom: "10px" }}
                                     size={80}
                                 />
-                                Лев Самбурский
+                                {currentUser && (currentUser.first_name + " " + currentUser.last_name)}
                             </div>
                             Я пользователь
                         </div>

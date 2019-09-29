@@ -58,7 +58,7 @@ export class AdditionalInfoModal extends React.Component<IProps> {
                         </Cell>
                         <Cell>
                             <InfoRow title="Категория">
-                                {this.props.profile && this.props.profile.category}
+                                {this.props.profile && this.props.profile.profileСategory}
                             </InfoRow>
                         </Cell>
                         <Cell>

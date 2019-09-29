@@ -1,10 +1,9 @@
 import * as React from "react";
 import {
-    View,
-    List,
     Cell,
-    Group,
+    List,
     Panel,
+    Group,
     Avatar,
     PanelHeader,
     HeaderButton,
@@ -13,104 +12,86 @@ import {
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
-import SettingsSnippetBlock from "@/components/blocks/SettingsSnippet";
-import { PureView } from "@/utils/Components";
-
-import "./styles.scss";
-import { IUser } from "@/entities/User";
-import SubscriptionConfigPanel from "@/containers/panels/SubscriptionConfig";
 import Icon24Add from "@vkontakte/icons/dist/24/add";
-import Icon16Dropdown from "@vkontakte/icons/dist/16/dropdown";
 import Icon24Done from "@vkontakte/icons/dist/24/done";
+import Icon24User from "@vkontakte/icons/dist/24/user";
 import Icon24Users from "@vkontakte/icons/dist/24/users";
-import Icon24Settings from "@vkontakte/icons/dist/24/settings";
+import Icon16Dropdown from "@vkontakte/icons/dist/16/dropdown";
 import Icon24MoreHorizontal from "@vkontakte/icons/dist/24/more_horizontal";
 
-export interface IStateProps {
-    user: IUser;
-}
+import { IUser } from "@/entities/User";
+import { IProfile } from "@/entities/Profile";
+import { PurePanel } from "@/utils/Components";
+import { ISubscription } from "@/entities/Subscription";
+import AccountSnippetBlock from "@/components/blocks/SettingsSnippet";
+
+import "./styles.scss";
+
 interface IProps {
     id: string;
-}
-
-interface IState {
     mode: string;
-    activePanel: string;
+    currentUser: IUser;
     contextOpened: boolean;
+    currentProfile: IProfile;
+    toggleContext: (...args) => any;
+    selectHeaderMode: (...args) => any;
+    onActivePanelChange: (...args) => any;
 }
 
-export default class SettingsView extends PureView<IProps & IStateProps, IState> {
+export class AccountPanel extends PurePanel<IProps, ISubscription> {
     constructor(props) {
         super(props);
 
-        this.toggleContext = this.toggleContext.bind(this);
-        this.select = this.select.bind(this);
+        this.onActivePanelChange = this.onActivePanelChange.bind(this);
     }
 
-    state = {
-        activePanel: "main",
-        contextOpened: false,
-        mode: "all"
-    };
-
-    toggleContext() {
-        this.setState({ contextOpened: !this.state.contextOpened });
-    }
-
-    select(e) {
-        const mode = e.currentTarget.dataset.mode;
-        this.setState({ mode });
-        requestAnimationFrame(this.toggleContext);
-    }
-
-    changePanel(activePanel: string) {
-        return (...args) => {
-            this.setState({ activePanel });
-        };
+    onActivePanelChange(panelId) {
+        this.props.onActivePanelChange(panelId);
     }
 
     render() {
+        const { id, mode, currentUser, currentProfile, contextOpened } = this.props;
+
         return (
-            <View id={this.props.id} activePanel={this.state.activePanel}>
-                <Panel id="main">
+            <Panel id={id}>
                     <PanelHeader
                         right={<HeaderButton>{<Icon24Add />}</HeaderButton>}
                     >
-                        <PanelHeaderContent aside={<Icon16Dropdown />} onClick={this.toggleContext}>
-                            Sports.Ru
+                        <PanelHeaderContent aside={<Icon16Dropdown />} onClick={this.props.toggleContext}>
+                            {currentUser.first_name + " " + currentUser.last_name}
                         </PanelHeaderContent>
                     </PanelHeader>
-                    <HeaderContext opened={this.state.contextOpened} onClose={this.toggleContext}>
+                    <HeaderContext opened={contextOpened} onClose={this.props.toggleContext}>
                         <List>
                             <Cell
-                                before={<Icon24Users />}
-                                asideContent={this.state.mode === "all" ? <Icon24Done fill="var(--accent)" /> : null}
-                                onClick={this.select}
-                                data-mode="all"
+                                before={<Icon24User />}
+                                asideContent={mode === "account" ? <Icon24Done fill="var(--accent)" /> : null}
+                                onClick={this.props.selectHeaderMode}
+                                data-mode="account"
                             >
-                                Another community
+                                {currentUser.first_name + " " + currentUser.last_name}
                             </Cell>
                             <Cell
-                                before={<Icon24Settings />}
-                                asideContent={this.state.mode === "managed" ? <Icon24Done fill="var(--accent)" /> : null}
-                                onClick={this.select}
-                                data-mode="managed"
+                                before={<Icon24Users />}
+                                asideContent={mode === "profile" ? <Icon24Done fill="var(--accent)" /> : null}
+                                onClick={this.props.selectHeaderMode}
+                                data-mode="profile"
                             >
-                                Create New Community
+                                {currentProfile.profileName}
                             </Cell>
                         </List>
                     </HeaderContext>
                     <Group>
                         <List>
-                            <SettingsSnippetBlock
-                                user={this.props.user}
+                            <AccountSnippetBlock
+                                user={currentUser}
                                 onSnippetClick={() => { }}
                             />
                         </List>
                     </Group>
                     <Group title="Настройки">
                         <List>
-                            <Cell expandable onClick={this.changePanel("config")}>
+                            <Cell expandable onClick={() => this.onActivePanelChange("config")}>
                                 Конфигурация подписки
                             </Cell>
                         </List>
@@ -138,8 +119,8 @@ export default class SettingsView extends PureView<IProps & IStateProps, IState>
                         </List>
                     </Group>
                 </Panel>
-                <SubscriptionConfigPanel id="config" onBackButtonClick={this.changePanel("main")} />
-            </View>
         );
     }
 }
+
+export default AccountPanel;

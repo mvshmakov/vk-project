@@ -1,24 +1,23 @@
 import * as React from "react";
-import { Panel, View, Group, Div, Button, Cell, Avatar } from "@vkontakte/vkui";
-import Icon16Add from "@vkontakte/icons/dist/16/add";
-import Icon20Info from "@vkontakte/icons/dist/20/info";
-import Icon20ArticleOutline from "@vkontakte/icons/dist/20/article_outline";
-import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
+import { View } from "@vkontakte/vkui";
 
+import { IUser } from "@/entities/User";
+import { IPost } from "@/entities/Post";
+import { IProfile } from "@/entities/Profile";
 import { PureView } from "@/utils/Components";
 import { ISubscription } from "@/entities/Subscription";
+import AccountPanel from "@/components/panels/AccountPanel";
+import { ProfilePanel } from "@/components/panels/ProfilePanel";
 import { PostActionSheet } from "@/components/blocks/PostActionSheet";
 import { SubscriptionPopout } from "@/components/blocks/SubscriptionPopout";
 import { AdditionalInfoModal } from "@/components/blocks/AdditionalInfoModal";
-import { SubscriptionCarousel } from "@/components/blocks/SubscriptionCarousel";
-import { Feed } from "@/components/blocks/Feed";
-import { IPost } from "@/entities/Post";
-import { IProfile } from "@/entities/Profile";
+import SubscriptionConfigPanel from "@/containers/panels/SubscriptionConfig";
 
 import "./styles.scss";
 
 export interface IStateProps {
     feed: IPost[];
+    currentUser: IUser;
     currentProfile: IProfile;
     subscriptionCards: ISubscription[];
 }
@@ -29,9 +28,11 @@ interface IProps {
 }
 
 interface IState {
+    mode: string;
     activePanel: string;
     isModalShown: boolean;
     isPopupShown: boolean;
+    contextOpened: boolean;
     isActionSheetShown: boolean;
     subscriptionSlideIndex: number;
 }
@@ -40,15 +41,19 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
     constructor(props) {
         super(props);
 
+        this.toggleContext = this.toggleContext.bind(this);
+        this.selectHeaderMode = this.selectHeaderMode.bind(this);
         this.updateModalVisibility = this.updateModalVisibility.bind(this);
         this.updateActionSheetVisibility = this.updateActionSheetVisibility.bind(this);
         this.updateSubscriptionVisibility = this.updateSubscriptionVisibility.bind(this);
     }
 
     state = {
-        activePanel: "profile",
+        mode: "account",
+        activePanel: "account",
         isModalShown: false,
         isPopupShown: false,
+        contextOpened: false,
         isActionSheetShown: false,
         subscriptionSlideIndex: null,
     };
@@ -73,13 +78,29 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
         this.setState({ subscriptionSlideIndex: slideIndex });
     }
 
+    onActivePanelChange = (panelId: string) => {
+        this.setState({ activePanel: panelId });
+    }
+
+    toggleContext() {
+        this.setState({ contextOpened: !this.state.contextOpened });
+    }
+
+    selectHeaderMode(e) {
+        const mode = e.currentTarget.dataset.mode;
+        this.setState({ mode, activePanel: mode });
+        requestAnimationFrame(this.toggleContext);
+    }
+
     render() {
-        const { currentProfile, subscriptionCards } = this.props;
+        const { feed, currentUser, currentProfile, subscriptionCards } = this.props;
 
         const {
+            mode,
             activePanel,
             isModalShown,
             isPopupShown,
+            contextOpened,
             isActionSheetShown,
         } = this.state;
 
@@ -98,67 +119,41 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
         );
 
         return (
-            <View header={false} id={this.props.id} activePanel={activePanel} modal={activeModal} popout={activePopover()} className="profile-view">
-                <Panel id="profile">
-                    <div className="profile-view__panel-header-block"></div>
-                    <Group className="profile-view__main-block">
-                        <Cell
-                            size="l"
-                            className="profile-view__cell"
-                            description={currentProfile && currentProfile.category}
-                            asideContent={<Avatar src={currentProfile && currentProfile.avatar_url} size={80} />}
-                        >
-                            {currentProfile && currentProfile.profileName}
-                        </Cell>
-                        <Div className="profile-view__main-buttons-wrapper">
-                            <Button size="l"
-                                stretched
-                                level="outline"
-                                style={{ marginRight: 20 }}
-                            >
-                                Сообщение
-                            </Button>
-                            <Button size="l"
-                                stretched
-                                before={<Icon16Add />}
-                                onClick={() => this.setState({ isPopupShown: true })}
-                            >
-                                Подписаться
-                            </Button>
-                        </Div>
-                        <Div className="profile-view__description-followers">
-                            <Icon20FollowersOutline /> 865,2K подписчиков
-                        </Div>
-                        <Div className="profile-view__description-article">
-                            <Icon20ArticleOutline /> {currentProfile && currentProfile.profileDescription}
-                        </Div>
-                        <Div className="profile-view__description-additional-info"
-                            onClick={() => this.setState({ isModalShown: true })}>
-                            <Icon20Info /> Подробная информация
-                        </Div>
-                    </Group>
-                    <Group className="profile-view__subscription-block">
-                        <div className="profile-view__subscription-block-wrapper"
-                            onClick={() => this.setState({ isPopupShown: true })}>
-                            <div className="profile-view__subscription-block-cards">
-                                <div className="profile-view__subscription-block-cards-one"></div>
-                                <div className="profile-view__subscription-block-cards-two"></div>
-                                <div className="profile-view__subscription-block-cards-three"></div>
-                            </div>
-                            <div className="profile-view__subscription-block-info">
-                                <div className="profile-view__subscription-block-info-caption">С подпиской - больше!</div>
-                                <div className="profile-view__subscription-block-info-text">Доступ к уникальному контенту, коммьюнити и многое другое...</div>
-                            </div>
-                        </div>
-                    </Group>
+            <View
+                id={this.props.id}
+                activePanel={activePanel}
+                modal={activeModal}
+                popout={activePopover()}
+                className="profile-view"
+            >
+                <ProfilePanel
+                    id="profile"
+                    feed={feed}
+                    mode={mode}
+                    currentUser={currentUser}
+                    contextOpened={contextOpened}
+                    selectHeaderMode={this.selectHeaderMode}
+                    currentProfile={currentProfile}
+                    subscriptionCards={subscriptionCards}
+                    toggleContext={this.toggleContext}
+                    onSlideChange={this.onSlideChange}
+                    updateModalVisibility={this.updateModalVisibility}
+                    updateActionSheetVisibility={this.updateActionSheetVisibility}
+                    updateSubscriptionVisibility={this.updateSubscriptionVisibility}
+                />
 
-                    {subscriptionCards.length !== 0 &&
-                        <SubscriptionCarousel subscriptionCards={subscriptionCards} onSlideChange={this.onSlideChange} />
-                    }
+                <AccountPanel
+                    id="account"
+                    mode={mode}
+                    currentUser={currentUser}
+                    contextOpened={contextOpened}
+                    currentProfile={currentProfile}
+                    toggleContext={this.toggleContext}
+                    selectHeaderMode={this.selectHeaderMode}
+                    onActivePanelChange={this.onActivePanelChange}
+                />
 
-                    <Feed posts={this.props.feed} onUpdateVisibility={this.updateActionSheetVisibility} />
-
-                </Panel>
+                <SubscriptionConfigPanel id="config" onBackButtonClick={this.onActivePanelChange} />
             </View>
         );
     }

@@ -6,26 +6,34 @@ import {
     Button,
     Select,
     Checkbox,
+    Textarea,
     FormLayout,
+    FormStatus,
     PanelHeader,
+    HeaderButton,
     SelectMimicry,
     FormLayoutGroup,
-    Textarea,
-    FormStatus,
+    IS_PLATFORM_ANDROID,
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
+import { IUser } from "@/entities/User";
+import { IProfile } from "@/entities/Profile";
 import { PurePanel } from "@/utils/Components";
 
+import Icon24Back from "@vkontakte/icons/dist/24/back";
+import Icon28ChevronBack from "@vkontakte/icons/dist/28/chevron_back";
+
 import "./styles.scss";
-import { IProfile } from "@/entities/Profile";
 
 export interface IActionsProps {
-    postUserAction: (...args: any[]) => any;
+    postProfileAction: (...args: any[]) => any;
 }
 
 interface IProps {
     id: string;
+    currentUser: IUser;
+    onBackButtonClick: () => any;
     onSearchGroupClick: () => any;
     onButtonClick: (...args) => any;
 }
@@ -44,19 +52,15 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IProfi
     }
 
     state = {
-        id: null,
         ownerId: null,
-        username: null,
-        email: null,
-        role: null,
 
         profileName: "",
         profileDescription: "",
-        category: "",
+        profileСategory: "",
         avatar_url: "",
-        isButtonActive: false,
 
         isError: null,
+        isButtonActive: false,
         isProfileNameFieldEmpty: null,
         isProfileDescriptionFieldEmpty: null,
     };
@@ -88,15 +92,13 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IProfi
     }
 
     onSaveButtonClick = () => {
+        const { currentUser } = this.props;
+
         const {
-            id,
-            role,
-            email,
             ownerId,
-            category,
-            username,
             avatar_url,
             profileName,
+            profileСategory,
             profileDescription,
             isProfileNameFieldEmpty,
             isProfileDescriptionFieldEmpty,
@@ -110,17 +112,16 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IProfi
             this.setState({ isError: false });
 
             const finalObject: IProfile = {
-                id,
-                ownerId,
-                category,
+                ownerId: currentUser._id,
                 avatar_url,
                 profileName,
+                profileСategory,
                 profileDescription,
             };
 
             console.log(finalObject);
 
-            // this.props.postUserAction(finalObject);
+            this.props.postProfileAction(finalObject);
             this.props.onButtonClick();
         } else {
             this.setState({ isError: true });
@@ -128,20 +129,26 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IProfi
     }
 
     render() {
-        const { id, onSearchGroupClick } = this.props;
+        const { id, onBackButtonClick, onSearchGroupClick } = this.props;
 
         const {
             isError,
-            category,
             isButtonActive,
+            profileСategory,
             profileDescription,
             isProfileNameFieldEmpty,
             isProfileDescriptionFieldEmpty,
         } = this.state;
 
         return (
-            <Panel id={id}>
-                <PanelHeader noShadow>Создание страницы автора</PanelHeader>
+            <Panel id={id} theme="white">
+                <PanelHeader noShadow left={
+                    <HeaderButton onClick={onBackButtonClick}>
+                        {IS_PLATFORM_ANDROID ? <Icon24Back /> : <Icon28ChevronBack />}
+                    </HeaderButton>
+                }>
+                    Создание страницы автора
+                </PanelHeader>
                 <FormLayout>
                     <FormLayoutGroup
                         top="Название профиля"
@@ -158,14 +165,17 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IProfi
 
                     <FormLayoutGroup top="Тематика контента">
                         <Select
-                            value={category}
-                            id="profileСategory"
-                            onChange={this.onChange}
-                            getRef={this.getReferenceElement}
                             placeholder="Выберите тематику"
+                            value={profileСategory}
+                            id="profileСategory"
+                            getRef={this.getReferenceElement}
+                            onChange={this.onChange}
                         >
-                            <option value="hse">НИУ ВШЭ (ГУ-ВШЭ)</option>
-                            <option value="miet">МИЭТ</option>
+                            <option value="humor">Юмор</option>
+                            <option value="sport">Спорт</option>
+                            <option value="football">Футбол</option>
+                            <option value="art">Искусство</option>
+                            <option value="movies">Кино</option>
                         </Select>
                     </FormLayoutGroup>
 
@@ -195,7 +205,7 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IProfi
 
                     <FormLayoutGroup top="Основная группа Вконтакте">
                         <SelectMimicry
-                            disabled={true}
+                            disabled
                             placeholder="Выберите группу"
                             // onClick={onSearchGroupClick}
                             onChange={this.onChange}

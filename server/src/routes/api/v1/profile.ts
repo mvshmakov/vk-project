@@ -37,7 +37,7 @@ profileRoutes.post("/api/v1/profiles/", ({ body: requestBody }, res) => {
         return;
     }
 
-    const profileFields = pick(["id", "ownerId", "profileName", "profileDescription", "category", "avatar_url"], requestBody);
+    const profileFields = pick(["ownerId", "profileName", "profileDescription", "profileСategory", "avatar_url"], requestBody);
 
     if (!isValidProfileModel(profileFields)) {
         console.error("invalid profile object");
