@@ -27,7 +27,7 @@ import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
 import { IUser } from "@/entities/User";
 import { IPost } from "@/entities/Post";
 import { IProfile } from "@/entities/Profile";
-import { PurePanel } from "@/utils/Components";
+import { PurePanel } from "@/utils/typings/Components";
 import { Feed } from "@/components/blocks/Feed";
 import { ISubscription } from "@/entities/Subscription";
 import { SubscriptionCarousel } from "@/components/blocks/SubscriptionCarousel";

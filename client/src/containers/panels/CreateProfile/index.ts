@@ -7,4 +7,4 @@ import CreateProfilePanel, { IActionsProps } from "@/components/panels/CreatePro
 const mapDispatchToProps = (dispatch: Dispatch<PostProfileAction>): IActionsProps =>
     bindActionCreators({ postProfileAction }, dispatch);
 
-export default connect(data => data, mapDispatchToProps)(CreateProfilePanel);
+export default connect(null, mapDispatchToProps)(CreateProfilePanel);

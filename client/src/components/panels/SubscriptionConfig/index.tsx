@@ -141,8 +141,6 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
     }
 
     render() {
-        const { id, onBackButtonClick } = this.props;
-
         const {
             isError,
             contentType,
@@ -156,7 +154,7 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         } = this.state;
 
         return (
-            <Panel id={id}>
+            <Panel id={this.props.id}>
                 <PanelHeader noShadow left={
                     <HeaderButton onClick={this.onBackButtonClick}>
                         {IS_PLATFORM_ANDROID ? <Icon24Back /> : <Icon28ChevronBack />}

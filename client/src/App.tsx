@@ -20,21 +20,14 @@ import Tabbar from "@/components/blocks/Tabbar";
 import SearchView from "@/components/views/Search";
 import OnboardingView from "@/components/views/Onboarding";
 import ProfileView from "@/containers/views/Profile";
-import ScheduleView from "@/containers/views/Schedule";
-import SettingsView from "@/containers/views/Settings";
 import FeedView from "@/containers/views/Feed";
 
 import { getUsers } from "@/api/users";
-import { fetchSchedule } from "@/api/schedule";
 
 import { getSubscriptionsAction, TSubscriptionActions } from "@/actions/subscription";
 import { getProfilesAction, TProfileActions } from "@/actions/profiles";
 import { getFeedAction, TFeedActions } from "@/actions/feed";
-import {
-    initUserAction,
-    initScheduleAction,
-    TInitialActions
-} from "@/actions/initial";
+import { initUserAction, TInitialActions } from "@/actions/initial";
 
 interface IProps {
     pageId: string;

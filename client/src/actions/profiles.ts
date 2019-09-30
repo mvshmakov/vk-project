@@ -1,6 +1,6 @@
 import { createAction } from "redux-actions";
 
-import { TLoadedAction } from "@/entities/Actions";
+import { TLoadedAction } from "@/utils/typings/Actions";
 import { IProfile } from "@/entities/Profile";
 
 export const GET_PROFILES: "root/GET_PROFILES" = "root/GET_PROFILES";

@@ -7,7 +7,4 @@ import ExamplePanel from "@/components/panels/Example";
 const mapDispatchToProps = (dispatch: Dispatch<TExampleActions>) =>
     bindActionCreators({ exampleAction }, dispatch);
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(ExamplePanel);
+export default connect(null, mapDispatchToProps)(ExamplePanel);

@@ -21,7 +21,7 @@ import Icon24MoreHorizontal from "@vkontakte/icons/dist/24/more_horizontal";
 
 import { IUser } from "@/entities/User";
 import { IProfile } from "@/entities/Profile";
-import { PurePanel } from "@/utils/Components";
+import { PurePanel } from "@/utils/typings/Components";
 import { ISubscription } from "@/entities/Subscription";
 import AccountSnippetBlock from "@/components/blocks/SettingsSnippet";
 

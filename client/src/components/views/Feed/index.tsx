@@ -3,7 +3,7 @@ import { View, Panel, PanelHeader } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import { IPost } from "@/entities/Post";
-import { PureView } from "@/utils/Components";
+import { PureView } from "@/utils/typings/Components";
 import { Feed } from "@/components/blocks/Feed";
 import { PostActionSheet } from "@/components/blocks/PostActionSheet";
 

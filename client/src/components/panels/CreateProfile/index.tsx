@@ -19,7 +19,7 @@ import "@vkontakte/vkui/dist/vkui.css";
 
 import { IUser } from "@/entities/User";
 import { IProfile } from "@/entities/Profile";
-import { PurePanel } from "@/utils/Components";
+import { PurePanel } from "@/utils/typings/Components";
 
 import Icon24Back from "@vkontakte/icons/dist/24/back";
 import Icon28ChevronBack from "@vkontakte/icons/dist/28/chevron_back";
