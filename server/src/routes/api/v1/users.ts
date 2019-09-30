@@ -71,29 +71,27 @@ userRoutes.delete("/api/v1/users/:id", ({ params: requestParams }, res) => {
     });
 });
 
-// TODO: rewrite PUT method
+userRoutes.put("/api/v1/users/:id", ({ params: requestParams, body: requestBody }, res) => {
+    if (!requestBody) {
+        res.sendStatus(400);
+        return;
+    }
 
-// userRoutes.put("/api/v1/users/:id", ({ params: requestParams, body: requestBody }, res) => {
-//     if (!requestBody) {
-//         res.sendStatus(400);
-//         return;
-//     }
+    const { first_name, last_name, email, sex, city, country, photo_100, photo_200, role } = requestBody;
 
-//     const { username, email } = requestBody;
+    UserModel.findOneAndUpdate(
+        { _id: requestParams.id },
+        { first_name, last_name, email, sex, city, country, photo_100, photo_200, role },
+        { new: true },
+        (err, user) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(400);
+                return;
+            }
 
-//     UserModel.findOneAndUpdate(
-//         { _id: requestParams.id },
-//         { username, email },
-//         { new: true },
-//         (err, user) => {
-//             if (err) {
-//                 console.log(err);
-//                 res.sendStatus(400);
-//                 return;
-//             }
-
-//         res.send(user);
-//     });
-// });
+        res.send(user);
+    });
+});
 
 export default userRoutes;

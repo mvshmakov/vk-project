@@ -9,6 +9,20 @@ export const isValidUserModel = user => {
     return validationResult(user);
 };
 
+export const isValidSubscriptionModel = subscription => {
+    check("subscriptionName", "subscriptionName is not blank").isLength({ min: 1 }).isString();
+    check("subscriptionType", "subscriptionType is not blank").isLength({ min: 1 }).isString();
+    check("subscriptionColor", "subscriptionColor is not blank").isLength({ min: 1 }).isString();
+    check("subscriptionBriefDescription", "subscriptionBriefDescription is not blank").isLength({ min: 1 }).isString();
+    check("contentType", "contentType is not blank").isLength({ min: 1 }).isString();
+    check("subscriptionPrice", "subscriptionPrice is not blank").isLength({ min: 1 }).isString();
+    check("subscriptionPeriod", "subscriptionPeriod is not blank").isLength({ min: 1 }).isString();
+    check("stickers", "stickers is not blank").isLength({ min: 1 }).isBoolean();
+    check("privateChat", "privateChat is not blank").isLength({ min: 1 }).isBoolean();
+    check("comments", "comments is not blank").isLength({ min: 1 }).isBoolean();
+    return validationResult(subscription);
+};
+
 export const isValidProfileModel = profile => {
     check("ownerId", "ownerId is not blank").isLength({ min: 1 }).isString();
     check("profileName", "profileName is not blank").isLength({ min: 1 }).isString();
