@@ -33,7 +33,7 @@ interface IProps {
     currentUser: IUser;
     contextOpened: boolean;
     currentProfile: IProfile;
-    toggleContext: (...args) => any;
+    toggleContext: () => any;
     selectHeaderMode: (...args) => any;
     onActivePanelChange: (...args) => any;
 }
@@ -50,23 +50,23 @@ export class AccountPanel extends PurePanel<IProps, ISubscription> {
     }
 
     render() {
-        const { id, mode, currentUser, currentProfile, contextOpened } = this.props;
+        const { id, mode, currentUser, currentProfile, contextOpened, toggleContext, selectHeaderMode } = this.props;
 
         return (
             <Panel id={id}>
                     <PanelHeader
                         right={<HeaderButton>{<Icon24Add />}</HeaderButton>}
                     >
-                        <PanelHeaderContent aside={<Icon16Dropdown />} onClick={this.props.toggleContext}>
+                        <PanelHeaderContent aside={<Icon16Dropdown />} onClick={toggleContext}>
                             {currentUser.first_name + " " + currentUser.last_name}
                         </PanelHeaderContent>
                     </PanelHeader>
-                    <HeaderContext opened={contextOpened} onClose={this.props.toggleContext}>
+                    <HeaderContext opened={contextOpened} onClose={toggleContext}>
                         <List>
                             <Cell
                                 before={<Icon24User />}
                                 asideContent={mode === "account" ? <Icon24Done fill="var(--accent)" /> : null}
-                                onClick={this.props.selectHeaderMode}
+                                onClick={selectHeaderMode}
                                 data-mode="account"
                             >
                                 {currentUser.first_name + " " + currentUser.last_name}
@@ -74,7 +74,7 @@ export class AccountPanel extends PurePanel<IProps, ISubscription> {
                             <Cell
                                 before={<Icon24Users />}
                                 asideContent={mode === "profile" ? <Icon24Done fill="var(--accent)" /> : null}
-                                onClick={this.props.selectHeaderMode}
+                                onClick={selectHeaderMode}
                                 data-mode="profile"
                             >
                                 {currentProfile.profileName}

@@ -42,7 +42,7 @@ interface IProps {
     contextOpened: boolean;
     currentProfile: IProfile;
     subscriptionCards: ISubscription[];
-    toggleContext: (...args) => any;
+    toggleContext: () => any;
     onSlideChange: (...args) => any;
     selectHeaderMode: (...args) => any;
     updateModalVisibility: (...args) => any;
@@ -71,23 +71,34 @@ export class ProfilePanel extends PurePanel<IProps, ISubscription> {
     }
 
     render() {
-        const { id, feed, mode, currentUser, currentProfile, contextOpened, subscriptionCards } = this.props;
+        const {
+            id,
+            feed,
+            mode,
+            currentUser,
+            toggleContext,
+            onSlideChange,
+            contextOpened,
+            currentProfile,
+            selectHeaderMode,
+            subscriptionCards
+        } = this.props;
 
         return (
             <Panel id={id}>
                 <PanelHeader
                     right={<HeaderButton>{<Icon24Add />}</HeaderButton>}
                 >
-                    <PanelHeaderContent aside={<Icon16Dropdown />} onClick={this.props.toggleContext}>
+                    <PanelHeaderContent aside={<Icon16Dropdown />} onClick={toggleContext}>
                         {currentProfile.profileName}
                     </PanelHeaderContent>
                 </PanelHeader>
-                <HeaderContext opened={contextOpened} onClose={this.props.toggleContext}>
+                <HeaderContext opened={contextOpened} onClose={toggleContext}>
                     <List>
                         <Cell
                             before={<Icon24User />}
                             asideContent={mode === "account" ? <Icon24Done fill="var(--accent)" /> : null}
-                            onClick={this.props.selectHeaderMode}
+                            onClick={selectHeaderMode}
                             data-mode="account"
                         >
                             {currentUser.first_name + " " + currentUser.last_name}
@@ -95,7 +106,7 @@ export class ProfilePanel extends PurePanel<IProps, ISubscription> {
                         <Cell
                             before={<Icon24Users />}
                             asideContent={mode === "profile" ? <Icon24Done fill="var(--accent)" /> : null}
-                            onClick={this.props.selectHeaderMode}
+                            onClick={selectHeaderMode}
                             data-mode="profile"
                         >
                             {currentProfile.profileName}
@@ -159,7 +170,7 @@ export class ProfilePanel extends PurePanel<IProps, ISubscription> {
                 </Group>
 
                 {subscriptionCards.length !== 0 &&
-                    <SubscriptionCarousel subscriptionCards={subscriptionCards} onSlideChange={this.props.onSlideChange} />
+                    <SubscriptionCarousel subscriptionCards={subscriptionCards} onSlideChange={onSlideChange} />
                 }
 
                 <Feed posts={feed} onUpdateVisibility={this.updateActionSheetVisibility} />
