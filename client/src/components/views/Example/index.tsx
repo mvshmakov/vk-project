@@ -3,7 +3,7 @@ import { View } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import ExamplePanel from "@/components/panels/Example";
-import { PureView } from "@/utils/Components";
+import { PureView } from "@/utils/typings/Components";
 
 import "./styles.scss";
 

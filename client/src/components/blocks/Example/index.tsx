@@ -2,7 +2,7 @@ import * as React from "react";
 import { Group, Div, Button } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
-import {IFunctionalBlock} from "@/utils/Components";
+import {IFunctionalBlock} from "@/utils/typings/Components";
 
 import "./styles.scss";
 

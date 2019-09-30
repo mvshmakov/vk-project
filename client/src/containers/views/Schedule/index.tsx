@@ -1,7 +1,9 @@
 import { connect } from "react-redux";
 
-import ScheduleView from "@/components/views/Schedule";
+import { TStore } from "@/store";
 import { ILesson } from "@/entities/Lesson";
+import ScheduleView from "@/components/views/Schedule";
+
 
 const groupLessonsByDay = (lessons: ILesson[]) => {
     const obj = {};
@@ -17,7 +19,7 @@ const groupLessonsByDay = (lessons: ILesson[]) => {
     return Object.values(obj);
 };
 
-const mapStateToProps = ({ account }) => {
+const mapStateToProps = ({ account }: TStore) => {
     const { schedule = [] } = account;
 
     return { schedule: groupLessonsByDay(schedule) };

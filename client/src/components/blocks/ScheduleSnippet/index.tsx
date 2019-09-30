@@ -3,7 +3,7 @@ import { Div } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import { ILesson } from "@/entities/Lesson";
-import { IFunctionalBlock } from "@/utils/Components";
+import { IFunctionalBlock } from "@/utils/typings/Components";
 
 import "./styles.scss";
 

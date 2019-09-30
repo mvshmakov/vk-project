@@ -1,10 +1,10 @@
-import { bindActionCreators } from "redux";
+import { bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 
-import { exampleAction } from "@/actions/example";
+import { exampleAction, TExampleActions } from "@/actions/example";
 import ExampleView from "@/components/views/Example";
 
-const mapDispatchToProps = (dispatch) =>
+const mapDispatchToProps = (dispatch: Dispatch<TExampleActions>) =>
     bindActionCreators({ exampleAction }, dispatch);
 
 export default connect(

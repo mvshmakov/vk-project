@@ -1,7 +1,7 @@
 import { createAction } from "redux-actions";
 
-import { TLoadedAction } from "@/entities/Actions";
 import { IPost } from "@/entities/Post";
+import { TLoadedAction } from "@/utils/typings/Actions";
 
 export const GET_FEED: "root/GET_FEED" = "root/GET_FEED";
 export const GET_FEED_SUCCESS: "root/GET_FEED_SUCCESS" = "root/GET_FEED_SUCCESS";

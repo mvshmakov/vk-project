@@ -1,5 +1,5 @@
 import { createAction } from "redux-actions";
-import { TAction } from "@/entities/Actions";
+import { TAction } from "@/utils/typings/Actions";
 
 export const LOADING_START: "LOADING_START" = "LOADING_START";
 export const LOADING_END: "LOADING_END" = "LOADING_END";

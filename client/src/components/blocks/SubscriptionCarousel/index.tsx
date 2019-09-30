@@ -2,7 +2,7 @@ import * as React from "react";
 import { Gallery, Group, Button } from "@vkontakte/vkui";
 
 import { ISubscription } from "@/entities/Subscription";
-import { PureBlock } from "@/utils/Components";
+import { PureBlock } from "@/utils/typings/Components";
 
 import "./styles.scss";
 

@@ -1,8 +1,8 @@
 import { createAction } from "redux-actions";
 
-import { TLoadedAction } from "@/entities/Actions";
 import { IUser } from "@/entities/User";
 import { ILesson } from "@/entities/Lesson";
+import { TLoadedAction } from "@/utils/typings/Actions";
 
 export const INIT_USER: "INIT_USER" = "INIT_USER";
 export const INIT_SCHEDULE: "INIT_SCHEDULE" = "INIT_SCHEDULE";

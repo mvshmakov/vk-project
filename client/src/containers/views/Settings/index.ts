@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
-import SettingsView, { IStateProps } from "@/components/views/Settings";
+import { TStore } from "@/store";
+import SettingsView from "@/components/views/Settings";
 
-const mapStateToProps = ({ account }): IStateProps => ({ user: account.user });
+const mapStateToProps = ({ account }: TStore) => ({ user: account.user });
 
 export default connect(mapStateToProps)(SettingsView);

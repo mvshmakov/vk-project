@@ -14,7 +14,7 @@ export function* getSubscriptionsSaga() {
     try {
         const subscriptions = yield call(getSubscriptions);
         yield put(getSubscriptionsActionSuccess(subscriptions));
-    } catch (e) {
+    } catch (err) {
         // TODO: show notification
         yield put(getSubscriptionsActionFailed());
     }
@@ -25,7 +25,7 @@ export function* postSubscriptionSaga({ payload }: PostSubscriptionAction) {
     yield put(loadingStartAction());
     try {
         yield call(postSubscription, payload.subscription);
-    } catch (e) {
+    } catch (err) {
         // TODO: show notification
         yield put(postSubscriptionActionFailed());
     }

@@ -3,7 +3,7 @@ import { Panel, PanelHeader, Group } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import { ILesson } from "@/entities/Lesson";
-import { PurePanel } from "@/utils/Components";
+import { PurePanel } from "@/utils/typings/Components";
 import ScheduleSnippetBlock from "@/components/blocks/ScheduleSnippet";
 
 import "./styles.scss";

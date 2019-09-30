@@ -21,7 +21,7 @@
     },
     "homepage": "https://vk.com/vk-project",
     "scripts": {
-        "bootstrap:dev": "npm run configure && npm run start:dev",
+        "bootstrap": "npm run configure; npm run start:dev",
         "configure": "npm run configure:server && npm run configure:client",
         "configure:client": "cd client && npm run configure",
         "configure:server": "cd server && npm run configure",

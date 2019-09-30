@@ -1,35 +1,26 @@
 import { IUser } from "@/entities/User";
+import fetchApi from "@/utils/fetchApi";
 
-const API_BASE_SEARCH = "http://localhost/api/v1/users";
+class UsersApiError extends Error { }
 
-export const getUsers = async (): Promise<IUser[] | undefined> => {
-    const response = await fetch(API_BASE_SEARCH, { method: "GET" });
-
-    // TODO: rewrite this as helper
-    if (!response.ok) {
-        throw Error(response.statusText);
+export const getUsers = async (): Promise<IUser[]> => {
+    try {
+        return await fetchApi({ route: "/api/v1/users" });
+    } catch (err) {
+        throw new UsersApiError(err);
     }
-
-    return await response.json();
 };
 
-export const postUsers = async (username, email): Promise<IUser[] | undefined> => {
-    const response = await fetch(API_BASE_SEARCH, {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }, // TODO: make fetch wrapper to store headers
-        body: JSON.stringify({
-            username,
-            email
-        })
-    });
-
-    // TODO: rewrite this as helper
-    if (!response.ok) {
-        throw Error(response.statusText);
+export const postUsers = async (username: string, email: string): Promise<IUser[]> => {
+    try {
+        return await fetchApi({
+            route: "/api/v1/users",
+            settings: {
+                method: "POST",
+                body: JSON.stringify({ username, email })
+            }
+        });
+    } catch (err) {
+        throw new UsersApiError(err);
     }
-
-    return await response.json();
 };

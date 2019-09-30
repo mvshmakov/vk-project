@@ -1,9 +1,9 @@
 import { takeEvery } from "redux-saga/effects";
 
+import { GET_FEED } from "@/actions/feed";
 import { SEARCH_USER } from "@/actions/search";
 import { EXAMPLE_ACTION } from "@/actions/example";
 import { GET_SUBSCRIPTIONS, POST_SUBSCRIPTION } from "@/actions/subscription";
-import { GET_FEED } from "@/actions/feed";
 import { getSubscriptionsSaga, postSubscriptionSaga } from "@/sagas/subscriptions";
 import exampleSaga from "@/sagas/example";
 import searchSaga from "@/sagas/search";

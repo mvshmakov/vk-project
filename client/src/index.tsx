@@ -7,7 +7,7 @@ import mVKMiniAppsScrollHelper from "@vkontakte/mvk-mini-apps-scroll-helper";
 
 import App from "@/App";
 import { store, history } from "@/store";
-import registerServiceWorker from "@/helpers/serviceWorker";
+import registerServiceWorker from "@/utils/serviceWorker";
 
 const renderApp = (AppComponent: any) => {
     const root = document.getElementById("root");

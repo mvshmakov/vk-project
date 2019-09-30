@@ -1,14 +1,12 @@
 import { IPost } from "@/entities/Post";
+import fetchApi from "@/utils/fetchApi";
 
-const API_BASE_SEARCH = "http://localhost/api/v1/posts";
+class FeedApiError extends Error { }
 
-export const getFeed = async (): Promise<IPost[] | undefined> => {
-    const response = await fetch(API_BASE_SEARCH, { method: "GET" });
-
-    // TODO: rewrite this as helper
-    if (!response.ok) {
-        throw Error(response.statusText);
+export const getFeed = async (): Promise<IPost[]> => {
+    try {
+        return await fetchApi({ route: "/api/v1/posts" });
+    } catch (err) {
+        throw new FeedApiError(err);
     }
-
-    return await response.json();
 };

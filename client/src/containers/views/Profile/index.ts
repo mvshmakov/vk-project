@@ -1,12 +1,14 @@
-import { connect } from "react-redux";
-import ProfileView, { IStateProps } from "@/components/views/Profile";
 import { bindActionCreators, Dispatch } from "redux";
-import { GetFeedAction, getFeedAction } from "@/actions/feed";
+import { connect } from "react-redux";
 
-const mapDispatchToProps = (dispatch: Dispatch<GetFeedAction>) =>
+import { TStore } from "@/store";
+import { TFeedActions, getFeedAction } from "@/actions/feed";
+import ProfileView from "@/components/views/Profile";
+
+const mapDispatchToProps = (dispatch: Dispatch<TFeedActions>) =>
     bindActionCreators({ getFeedAction }, dispatch);
 
-const mapStateToProps = (state): IStateProps => ({
+const mapStateToProps = (state: TStore) => ({
     feed: state.feed,
     currentUser: state.account && state.account.user,
     subscriptionCards: state.subscriptions

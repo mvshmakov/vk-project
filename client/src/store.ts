@@ -3,10 +3,11 @@ import createSagaMiddleware from "redux-saga";
 import { routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
 
-import createRootReducer from "@/reducers";
 import rootSaga from "@/sagas";
+import createRootReducer from "@/reducers";
+import { GetInnerStoreType } from "@/utils/typings/Extractors";
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 
 declare global {
@@ -17,7 +18,7 @@ declare global {
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(
+export const store = createStore(
     createRootReducer(history),
     composeEnhancer(
         applyMiddleware(
@@ -27,6 +28,6 @@ const store = createStore(
     )
 );
 
-sagaMiddleware.run(rootSaga);
+export type TStore = GetInnerStoreType<typeof store>;
 
-export { store, history };
+sagaMiddleware.run(rootSaga);

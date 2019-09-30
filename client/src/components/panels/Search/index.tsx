@@ -4,8 +4,7 @@ import PanelSpinner from "@vkontakte/vkui/dist/components/PanelSpinner/PanelSpin
 import "@vkontakte/vkui/dist/vkui.css";
 
 import UserSnippetBlock from "@/components/blocks/UserSnippet";
-import { IUser } from "@/entities/User";
-import { PurePanel } from "@/utils/Components";
+import { PurePanel } from "@/utils/typings/Components";
 
 import "./styles.scss";
 
@@ -15,7 +14,7 @@ export interface IActionsProps {
     searchUserAction: (...args: any[]) => any;
 }
 export interface IStateProps {
-    users: IUser[];
+    users: any[];
     loading: boolean;
 }
 interface IProps {

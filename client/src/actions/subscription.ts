@@ -1,7 +1,7 @@
 import { createAction } from "redux-actions";
 
-import { TLoadedAction } from "@/entities/Actions";
 import { ISubscription } from "@/entities/Subscription";
+import { TLoadedAction } from "@/utils/typings/Actions";
 
 export const GET_SUBSCRIPTIONS: "root/GET_SUBSCRIPTIONS" = "root/GET_SUBSCRIPTIONS";
 export const GET_SUBSCRIPTIONS_SUCCESS: "root/GET_SUBSCRIPTIONS_SUCCESS" = "root/GET_SUBSCRIPTIONS_SUCCESS";

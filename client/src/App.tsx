@@ -1,8 +1,9 @@
-import * as React from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { push } from "connected-react-router";
 import { format } from "date-fns";
+import { Path, LocationState } from "history";
+import * as React from "react";
+import { bindActionCreators, Dispatch } from "redux";
+import { connect } from "react-redux";
+import { push, CallHistoryMethodAction } from "connected-react-router";
 
 import "@vkontakte/vk-connect";
 import VKConnect from "@vkontakte/vkui-connect-mock";
@@ -13,26 +14,31 @@ import "@vkontakte/vkui/dist/vkui.css";
 import {
     getLocalStorageItem,
     setLocalStorageItem
-} from "@/helpers/localStorage";
+} from "@/utils/localStorage";
 
 import Tabbar from "@/components/blocks/Tabbar";
 import SearchView from "@/components/views/Search";
+import OnboardingView from "@/components/views/Onboarding";
 import ProfileView from "@/containers/views/Profile";
 import ScheduleView from "@/containers/views/Schedule";
 import SettingsView from "@/containers/views/Settings";
-import OnboardingView from "@/components/views/Onboarding";
 import { getUsers } from "@/api/users";
 import { fetchSchedule } from "@/api/schedule";
-import { initUserAction, initScheduleAction } from "@/actions/initial";
-import { getSubscriptionsAction } from "@/actions/subscription";
+import { getSubscriptionsAction, TSubscriptionActions } from "@/actions/subscription";
+import {
+    initUserAction,
+    initScheduleAction,
+    TInitialActions
+} from "@/actions/initial";
 
 interface IProps {
     pageId: string;
-    pushStory: (...args) => {};
-    initUserAction: (...args) => {};
-    initScheduleAction: (...args) => {};
-    getSubscriptionsAction: (...args) => {};
+    pushStory: typeof pushStory;
+    initUserAction: typeof initUserAction;
+    initScheduleAction: typeof initScheduleAction;
+    getSubscriptionsAction: typeof getSubscriptionsAction;
 }
+
 interface IState {
     activePanel: "search" | any;
     onboarding: boolean;
@@ -45,9 +51,7 @@ class App extends React.PureComponent<IProps, IState> {
     };
 
     async componentDidMount() {
-        // const fetchUser = await fetchUser("Шмаков");
         const schedule = await fetchSchedule("Шмаков");
-
         const user = await getUsers();
 
         VKConnect.subscribe(event => {
@@ -73,7 +77,7 @@ class App extends React.PureComponent<IProps, IState> {
     }
 
     onQuitOnboarding = (id: number) => {
-        setLocalStorageItem("hse-app-id", id);
+        setLocalStorageItem("hse-app-id", String(id));
         this.setState({ onboarding: false });
     }
 
@@ -123,13 +127,20 @@ class App extends React.PureComponent<IProps, IState> {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const pushStory = (
+    story: Path,
+    state?: LocationState
+): CallHistoryMethodAction<[Path, LocationState?]> => push("/" + story, state);
+
+const mapDispatchToProps = (
+    dispatch: Dispatch<TInitialActions & TSubscriptionActions>
+) => {
     return bindActionCreators(
         {
             initUserAction,
             initScheduleAction,
             getSubscriptionsAction,
-            pushStory: story => push("/" + story)
+            pushStory
         },
         dispatch
     );

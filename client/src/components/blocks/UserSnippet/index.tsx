@@ -3,7 +3,7 @@ import { Cell } from "@vkontakte/vkui";
 import Icon24Users from "@vkontakte/icons/dist/24/users";
 import "@vkontakte/vkui/dist/vkui.css";
 
-import { IFunctionalBlock } from "@/utils/Components";
+import { IFunctionalBlock } from "@/utils/typings/Components";
 
 import "./styles.scss";
 

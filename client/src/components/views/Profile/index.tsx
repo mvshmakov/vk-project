@@ -5,7 +5,7 @@ import Icon20Info from "@vkontakte/icons/dist/20/info";
 import Icon20ArticleOutline from "@vkontakte/icons/dist/20/article_outline";
 import Icon20FollowersOutline from "@vkontakte/icons/dist/20/followers_outline";
 
-import { PureView } from "@/utils/Components";
+import { PureView } from "@/utils/typings/Components";
 import { ISubscription } from "@/entities/Subscription";
 import { PostActionSheet } from "@/components/blocks/PostActionSheet";
 import { SubscriptionPopout } from "@/components/blocks/SubscriptionPopout";
@@ -37,7 +37,7 @@ interface IState {
 }
 
 export default class ProfileView extends PureView<IProps & IStateProps, IState> {
-    constructor(props) {
+    constructor(props: IProps & IStateProps) {
         super(props);
 
         this.updateModalVisibility = this.updateModalVisibility.bind(this);

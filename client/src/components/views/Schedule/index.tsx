@@ -4,7 +4,7 @@ import "@vkontakte/vkui/dist/vkui.css";
 
 import SchedulePanel from "@/components/panels/Schedule";
 import LessonDescriptionPanel from "@/components/panels/LessonDescription";
-import { PureView } from "@/utils/Components";
+import { PureView } from "@/utils/typings/Components";
 import { ILesson } from "@/entities/Lesson";
 
 import "./styles.scss";

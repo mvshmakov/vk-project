@@ -2,7 +2,7 @@ import * as React from "react";
 import { View } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
-import { PureView } from "@/utils/Components";
+import { PureView } from "@/utils/typings/Components";
 import SearchPanel from "@/containers/panels/Search";
 import ExamplePanel from "@/components/panels/Example";
 

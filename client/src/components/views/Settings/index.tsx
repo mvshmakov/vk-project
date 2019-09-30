@@ -3,7 +3,7 @@ import { View, PanelHeader, Panel, Group, List, Cell } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import SettingsSnippetBlock from "@/components/blocks/SettingsSnippet";
-import { PureView } from "@/utils/Components";
+import { PureView } from "@/utils/typings/Components";
 
 import "./styles.scss";
 import { IUser } from "@/entities/User";

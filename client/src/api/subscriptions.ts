@@ -1,33 +1,26 @@
 import { ISubscription } from "@/entities/Subscription";
+import fetchApi from "@/utils/fetchApi";
 
-const API_BASE_SEARCH = "http://localhost/api/v1/subscriptions";
+class SubscriptionsApiError extends Error {}
 
-export const getSubscriptions = async (): Promise<ISubscription[] | undefined> => {
-    const response = await fetch(API_BASE_SEARCH, { method: "GET" });
-
-    // TODO: rewrite this as helper
-    if (!response.ok) {
-        throw Error(response.statusText);
+export const getSubscriptions = async (): Promise<ISubscription[]> => {
+    try {
+        return await fetchApi({ route: "/api/v1/subscriptions" });
+    } catch (err) {
+        throw new SubscriptionsApiError(err);
     }
-
-    return await response.json();
 };
 
-export const postSubscription = async (subscription: ISubscription): Promise<ISubscription | undefined> => {
-    const response = await fetch(API_BASE_SEARCH, {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }, // TODO: make fetch wrapper to store headers
-        body: JSON.stringify(subscription)
-    });
-
-    // TODO: rewrite this as helper
-    if (!response.ok) {
-        console.log("postSubscriptions");
-        throw Error(response.statusText);
+export const postSubscription = async (subscription: ISubscription): Promise<ISubscription> => {
+    try {
+        return await fetchApi({
+            route: "/api/v1/subscriptions",
+            settings: {
+                method: "POST",
+                body: JSON.stringify(subscription)
+            }
+        });
+    } catch (err) {
+        throw new SubscriptionsApiError(err);
     }
-
-    return await response.json();
 };
