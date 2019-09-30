@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Tabbar as VkuiTabbbar, TabbarItem } from "@vkontakte/vkui";
 import Icon24User from "@vkontakte/icons/dist/24/user";
-import Icon24List from "@vkontakte/icons/dist/24/list";
 import Icon24Search from "@vkontakte/icons/dist/24/search";
-import Icon24Settings from "@vkontakte/icons/dist/24/settings";
+import Icon24Newsfeed from "@vkontakte/icons/dist/24/newsfeed";
 import "@vkontakte/vkui/dist/vkui.css";
 
 import "./styles.scss";
@@ -17,17 +16,10 @@ export default ({ activeRoute, onStoryChange }: IProps) => (
     <VkuiTabbbar>
         <TabbarItem
             onClick={onStoryChange}
-            selected={activeRoute === "profile"}
-            data-story="profile"
+            selected={activeRoute === "feed"}
+            data-story="feed"
         >
-            <Icon24User />
-        </TabbarItem>
-        <TabbarItem
-            onClick={onStoryChange}
-            selected={activeRoute === "schedule"}
-            data-story="schedule"
-        >
-            <Icon24List />
+            <Icon24Newsfeed />
         </TabbarItem>
         <TabbarItem
             onClick={onStoryChange}
@@ -38,10 +30,10 @@ export default ({ activeRoute, onStoryChange }: IProps) => (
         </TabbarItem>
         <TabbarItem
             onClick={onStoryChange}
-            selected={activeRoute === "settings"}
-            data-story="settings"
+            selected={activeRoute === "profile"}
+            data-story="profile"
         >
-            <Icon24Settings />
+            <Icon24User />
         </TabbarItem>
     </VkuiTabbbar>
 );

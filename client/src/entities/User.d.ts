@@ -1,13 +1,20 @@
 export interface IUser {
-    _id: string;
-    id: number;
-    username: string;
-    email: string;
+    _id?: string;
+    first_name: string;
+    last_name: string;
+    email?: string;
+    sex?: number;
+    photo_100: string;
+    photo_200: string;
     role: TUserRole;
-    profileName: string;
-    profileDescription: string;
-    category: string;
-    avatar_url?: string;
+    city?: {
+        id: number;
+        title: string;
+    }
+    country?: {
+        id: number;
+        title: string;
+    }
 }
 
 export type TUserRole = {

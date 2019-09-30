@@ -2,27 +2,43 @@ import mongoose from "mongoose";
 
 // User typings
 export type UserDocument = mongoose.Document & {
-    username: string,
+    first_name: string,
+    last_name: string,
     email: string,
-    role: string;
-    profileName: string,
-    profileDescription: string,
-    category: string,
-    avatar_url: string,
+    sex: number,
+    city: {
+        id: number,
+        title: string,
+    }
+    country: {
+        id: number,
+        title: string,
+    }
+    photo_100: string,
+    photo_200: string,
+    role: string,
 };
 
 // User Collection
 const userSchema = new mongoose.Schema({
-    username: String,
+    first_name: String,
+    last_name: String,
     email: {
         type: String,
         unique: true
     },
+    sex: Number,
+    city: {
+        id: Number,
+        title: String,
+    },
+    country: {
+        id: Number,
+        title: String,
+    },
+    photo_100: String,
+    photo_200: String,
     role: String,
-    profileName: String,
-    profileDescription: String,
-    category: String,
-    avatar_url: String,
 }, {
     timestamps: true
 });

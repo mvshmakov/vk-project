@@ -41,7 +41,7 @@ export default class SearchPanel extends PurePanel<
         const search = this.state.username.toLowerCase();
 
         return this.props.users.filter(
-            ({ profileName }) => profileName.toLowerCase().indexOf(search) > -1
+            ({ first_name }) => first_name.toLowerCase().indexOf(search) > -1
         );
     }
 
@@ -67,13 +67,13 @@ export default class SearchPanel extends PurePanel<
         ) : (
             <List>
                 {this.users.length !== 0 &&
-                    this.users.map(({ id, profileName }) => {
+                    this.users.map(({ _id, first_name }) => {
                         return (
                             <UserSnippetBlock
-                                key={id}
-                                userId={id}
+                                key={_id}
+                                userId={+_id}
                                 entity="student"
-                                title={profileName}
+                                title={first_name}
                                 description="Тестовое описание"
                                 onClick={onSelectUser}
                             />

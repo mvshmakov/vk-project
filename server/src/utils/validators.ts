@@ -9,6 +9,15 @@ export const isValidUserModel = user => {
     return validationResult(user);
 };
 
+export const isValidProfileModel = profile => {
+    check("ownerId", "ownerId is not blank").isLength({ min: 1 }).isString();
+    check("profileName", "profileName is not blank").isLength({ min: 1 }).isString();
+    check("profileDescription", "profileDescription is not blank").isLength({ min: 1 }).isString();
+    check("profileСategory", "profileСategory is not blank").isLength({ min: 1 }).isString();
+    check("avatar_url", "avatar_url is not blank").isLength({ min: 1 }).isURL();
+    return validationResult(profile);
+};
+
 export const isValidPostModel = post => {
     check("text", "text is not valid").isString();
     check("video", "video url is not blank").isLength({ min: 1 }).isURL();

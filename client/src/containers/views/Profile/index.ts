@@ -10,8 +10,9 @@ const mapDispatchToProps = (dispatch: Dispatch<TFeedActions>) =>
 
 const mapStateToProps = (state: TStore) => ({
     feed: state.feed,
-    currentUser: state.account && state.account.user,
-    subscriptionCards: state.subscriptions
+    currentProfile: state.profiles[0],
+    subscriptionCards: state.subscriptions,
+    currentUser: state.account && state.account.user
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileView);

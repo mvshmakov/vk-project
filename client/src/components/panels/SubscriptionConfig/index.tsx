@@ -32,7 +32,7 @@ export interface IActionsProps {
 
 interface IProps {
     id: string;
-    onBackButtonClick: () => any;
+    onBackButtonClick: (...args) => any;
 }
 
 export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, ISubscription> {
@@ -40,6 +40,7 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         super(props);
 
         this.onChange = this.onChange.bind(this);
+        this.onBackButtonClick = this.onBackButtonClick.bind(this);
     }
 
     state = {
@@ -59,6 +60,10 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         isSubscriptionPriceFieldEmpty: null,
         isSubscriptionPeriodFieldEmpty: null
     };
+
+    onBackButtonClick() {
+        this.props.onBackButtonClick("account");
+    }
 
     onChange(e) {
         const { id, value } = e.currentTarget;
@@ -91,10 +96,17 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
 
     onSaveButtonClick = () => {
         const {
+            stickers,
+            comments,
+            privateChat,
+            contentType,
             subscriptionName,
+            subscriptionType,
             subscriptionPrice,
+            subscriptionColor,
             subscriptionPeriod,
             isSubscriptionNameFieldEmpty,
+            subscriptionBriefDescription,
             isSubscriptionPriceFieldEmpty,
             isSubscriptionPeriodFieldEmpty
         } = this.state;
@@ -108,21 +120,21 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
             && !isSubscriptionPeriodFieldEmpty && isSubscriptionPeriodFieldEmpty != null) {
             this.setState({ isError: false });
 
-            const finalObject = {
-                subscriptionName: this.state.subscriptionName,
-                subscriptionType: this.state.subscriptionType,
-                subscriptionColor: this.state.subscriptionColor,
-                subscriptionBriefDescription: this.state.subscriptionBriefDescription,
-                contentType: this.state.contentType,
-                subscriptionPrice: this.state.subscriptionPrice,
-                subscriptionPeriod: this.state.subscriptionPeriod,
-                stickers: this.state.stickers,
-                privateChat: this.state.privateChat,
-                comments: this.state.comments,
+            const finalObject: ISubscription = {
+                comments,
+                stickers,
+                privateChat,
+                contentType,
+                subscriptionName,
+                subscriptionType,
+                subscriptionColor,
+                subscriptionPrice,
+                subscriptionPeriod,
+                subscriptionBriefDescription,
             };
 
             this.props.postSubscriptionAction(finalObject);
-            this.props.onBackButtonClick();
+            this.props.onBackButtonClick("account");
         } else {
             this.setState({ isError: true });
         }
@@ -146,7 +158,7 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         return (
             <Panel id={id}>
                 <PanelHeader noShadow left={
-                    <HeaderButton onClick={onBackButtonClick}>
+                    <HeaderButton onClick={this.onBackButtonClick}>
                         {IS_PLATFORM_ANDROID ? <Icon24Back /> : <Icon28ChevronBack />}
                     </HeaderButton>
                 }></PanelHeader>

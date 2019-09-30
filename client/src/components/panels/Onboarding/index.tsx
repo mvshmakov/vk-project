@@ -1,83 +1,61 @@
 import * as React from "react";
 import {
+    Div,
     Panel,
+    Group,
+    Separator,
     PanelHeader,
-    FormLayout,
-    Select,
-    SelectMimicry,
-    Button,
-    Checkbox,
-    Link,
-    FormLayoutGroup
+    Avatar,
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
+import Icon36Add from "@vkontakte/icons/dist/36/add";
 
 import { PurePanel } from "@/utils/typings/Components";
+import { IUser } from "@/entities/User";
 
 import "./styles.scss";
 
 interface IProps {
     id: string;
-    onSearchGroupClick: () => any;
-    onButtonClick: (...args) => any;
-}
-interface IState {
-    isButtonActive: boolean;
+    currentUser: IUser;
+    onCreateSubscriberClick: (...args) => any;
+    onCreateContentMakerClick: (...args) => any;
 }
 
-export class OnboardingPanel extends PurePanel<IProps, IState> {
-    state = {
-        isButtonActive: false
-    };
-
-    onCheckboxClick = event => {
-        if (event.currentTarget.checked) {
-            return this.setState({ isButtonActive: true });
-        }
-        return this.setState({ isButtonActive: false });
-    }
+export class OnboardingPanel extends PurePanel<IProps, null> {
 
     render() {
-        const { id, onSearchGroupClick, onButtonClick } = this.props;
+        const { id, currentUser, onCreateSubscriberClick, onCreateContentMakerClick } = this.props;
 
         return (
             <Panel id={id}>
-                <PanelHeader noShadow>VK Project</PanelHeader>
-                <div className="header">Начнём</div>
-                <div className="text">
-                    Выберите своё учебное заведение и академическую
-                    группу
-                </div>
-                <FormLayout>
-                    <FormLayoutGroup top="ВУЗ">
-                        <Select placeholder="Выберите ВУЗ">
-                            <option value="hse">НИУ ВШЭ (ГУ-ВШЭ)</option>
-                            <option value="miet">МИЭТ</option>
-                        </Select>
-                    </FormLayoutGroup>
-                    <FormLayoutGroup top="Группа">
-                        <SelectMimicry
-                            placeholder="Выберите Группу"
-                            onClick={onSearchGroupClick}
-                        />
-                    </FormLayoutGroup>
-                    <Checkbox onClick={this.onCheckboxClick}>
-                        Я прочитал и согласен с{" "}
-                        <Link href="#">правилами</Link>
-                    </Checkbox>
-                    <Button
-                        size="xl"
-                        stretched={true}
-                        onClick={onButtonClick}
-                        level={
-                            this.state.isButtonActive
-                                ? "primary"
-                                : "secondary"
-                        }
-                    >
-                        Готово
-                    </Button>
-                </FormLayout>
+                <PanelHeader noShadow>Продолжить в качестве...</PanelHeader>
+                <Group className="onboarding-panel">
+                    <Div onClick={onCreateSubscriberClick}>
+                        <div className="onboarding-panel__subscriber">
+                            <div className="onboarding-panel__subscriber-content">
+                                <Avatar
+                                    src={currentUser && currentUser.photo_100}
+                                    style={{ marginBottom: "10px" }}
+                                    size={80}
+                                />
+                                {currentUser && (currentUser.first_name + " " + currentUser.last_name)}
+                            </div>
+                            Я пользователь
+                        </div>
+                    </Div>
+
+                    <Separator style={{ margin: "12px 0" }} />
+
+                    <Div onClick={onCreateContentMakerClick}>
+                        <div className="onboarding-panel__content-maker">
+                            <div className="onboarding-panel__content-maker-content">
+                                <Icon36Add />
+                            </div>
+                            Я автор и хочу создать страницу
+                        </div>
+                    </Div>
+                </Group>
             </Panel>
         );
     }

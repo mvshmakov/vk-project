@@ -22,9 +22,14 @@ import OnboardingView from "@/components/views/Onboarding";
 import ProfileView from "@/containers/views/Profile";
 import ScheduleView from "@/containers/views/Schedule";
 import SettingsView from "@/containers/views/Settings";
+import FeedView from "@/containers/views/Feed";
+
 import { getUsers } from "@/api/users";
 import { fetchSchedule } from "@/api/schedule";
+
 import { getSubscriptionsAction, TSubscriptionActions } from "@/actions/subscription";
+import { getProfilesAction, TProfileActions } from "@/actions/profiles";
+import { getFeedAction, TFeedActions } from "@/actions/feed";
 import {
     initUserAction,
     initScheduleAction,
@@ -34,8 +39,9 @@ import {
 interface IProps {
     pageId: string;
     pushStory: typeof pushStory;
+    getFeedAction: typeof getFeedAction;
     initUserAction: typeof initUserAction;
-    initScheduleAction: typeof initScheduleAction;
+    getProfilesAction: typeof getProfilesAction;
     getSubscriptionsAction: typeof getSubscriptionsAction;
 }
 
@@ -51,7 +57,8 @@ class App extends React.PureComponent<IProps, IState> {
     };
 
     async componentDidMount() {
-        const schedule = await fetchSchedule("Шмаков");
+        // const fetchUser = await fetchUser("Шмаков");
+        // const schedule = await fetchSchedule("Шмаков");
         const user = await getUsers();
 
         VKConnect.subscribe(event => {
@@ -65,8 +72,8 @@ class App extends React.PureComponent<IProps, IState> {
             format(new Date(), "'Today is a' iiii")
         );
 
+        this.props.getProfilesAction();
         this.props.initUserAction(user[0]);
-        this.props.initScheduleAction(schedule);
         this.props.getSubscriptionsAction();
     }
 
@@ -84,10 +91,8 @@ class App extends React.PureComponent<IProps, IState> {
     onStoryChange = async e => {
         this.props.pushStory(e.currentTarget.dataset.story);
 
-        if (e.currentTarget.dataset.story === "schedule") {
-            const schedule = await fetchSchedule("Шмаков");
-
-            this.props.initScheduleAction(schedule);
+        if (e.currentTarget.dataset.story === "feed") {
+            this.props.getFeedAction();
         }
     }
 
@@ -117,10 +122,9 @@ class App extends React.PureComponent<IProps, IState> {
                         />
                     }
                 >
-                    <ProfileView id="profile" />
-                    <ScheduleView id="schedule" />
+                    <FeedView id="feed" />
                     <SearchView id="search" />
-                    <SettingsView id="settings" />
+                    <ProfileView id="profile" />
                 </Epic>
             </ConfigProvider>
         );
@@ -133,12 +137,13 @@ const pushStory = (
 ): CallHistoryMethodAction<[Path, LocationState?]> => push("/" + story, state);
 
 const mapDispatchToProps = (
-    dispatch: Dispatch<TInitialActions & TSubscriptionActions>
+    dispatch: Dispatch<TInitialActions & TSubscriptionActions & TProfileActions & TFeedActions>
 ) => {
     return bindActionCreators(
         {
+            getFeedAction,
             initUserAction,
-            initScheduleAction,
+            getProfilesAction,
             getSubscriptionsAction,
             pushStory
         },
