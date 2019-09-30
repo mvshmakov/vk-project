@@ -53,7 +53,6 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IProfi
 
     state = {
         ownerId: null,
-
         profileName: "",
         profileDescription: "",
         profileСategory: "",
@@ -95,7 +94,6 @@ export class CreateProfilePanel extends PurePanel<IActionsProps & IProps, IProfi
         const { currentUser } = this.props;
 
         const {
-            ownerId,
             avatar_url,
             profileName,
             profileСategory,

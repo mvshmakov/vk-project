@@ -45,29 +45,24 @@ interface IProps {
     toggleContext: () => any;
     onSlideChange: (...args) => any;
     selectHeaderMode: (...args) => any;
-    updateModalVisibility: (...args) => any;
-    updateActionSheetVisibility: (...args) => any;
-    updateSubscriptionVisibility: (...args) => any;
+    onUpdateElementVisibility: (elem: string, value: boolean) => any;
 }
 
 export class ProfilePanel extends PurePanel<IProps, ISubscription> {
     constructor(props) {
         super(props);
 
-        this.onUpdateState = this.onUpdateState.bind(this);
-        this.updateActionSheetVisibility = this.updateActionSheetVisibility.bind(this);
+        this.onUpdateElementVisibility = this.onUpdateElementVisibility.bind(this);
     }
 
-    onUpdateState(stateParam) {
-        if (stateParam === "isModalShown") {
-            this.props.updateModalVisibility(true);
+    onUpdateElementVisibility = (elem: string) => {
+        if (elem === "modal") {
+            this.props.onUpdateElementVisibility("modal", true);
+        } else if (elem === "popup") {
+            this.props.onUpdateElementVisibility("popup", true);
         } else {
-            this.props.updateSubscriptionVisibility(true);
+            this.props.onUpdateElementVisibility("actionSheet", true);
         }
-    }
-
-    updateActionSheetVisibility() {
-        this.props.updateActionSheetVisibility(true);
     }
 
     render() {
@@ -138,7 +133,7 @@ export class ProfilePanel extends PurePanel<IProps, ISubscription> {
                         <Button size="l"
                             stretched
                             before={<Icon16Add />}
-                            onClick={() => this.onUpdateState("isPopupShown")}
+                            onClick={() => this.onUpdateElementVisibility("popup")}
                         >
                             Подписаться
                             </Button>
@@ -150,13 +145,13 @@ export class ProfilePanel extends PurePanel<IProps, ISubscription> {
                         <Icon20ArticleOutline /> {currentProfile && currentProfile.profileDescription}
                     </Div>
                     <Div className="profile-view__description-additional-info"
-                        onClick={() => this.onUpdateState("isModalShown")}>
+                        onClick={() => this.onUpdateElementVisibility("modal")}>
                         <Icon20Info /> Подробная информация
                         </Div>
                 </Group>
                 <Group className="profile-view__subscription-block">
                     <div className="profile-view__subscription-block-wrapper"
-                        onClick={() => this.onUpdateState("isPopupShown")}>
+                        onClick={() => this.onUpdateElementVisibility("popup")}>
                         <div className="profile-view__subscription-block-cards">
                             <div className="profile-view__subscription-block-cards-one"></div>
                             <div className="profile-view__subscription-block-cards-two"></div>
@@ -173,7 +168,7 @@ export class ProfilePanel extends PurePanel<IProps, ISubscription> {
                     <SubscriptionCarousel subscriptionCards={subscriptionCards} onSlideChange={onSlideChange} />
                 }
 
-                <Feed posts={feed} onUpdateVisibility={this.updateActionSheetVisibility} />
+                <Feed posts={feed} onUpdateVisibility={() => this.onUpdateElementVisibility("actionSheet")} />
 
             </Panel>
         );

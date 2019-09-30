@@ -18,7 +18,7 @@ import { IProfile } from "@/entities/Profile";
 
 interface IProps {
     profile: IProfile | undefined;
-    onUpdateVisibility: (value: boolean) => void;
+    onUpdateVisibility: (elem: string, value: boolean) => void;
 }
 
 // TODO: change to React.PureComponent
@@ -30,7 +30,7 @@ export class AdditionalInfoModal extends React.Component<IProps> {
     }
 
     updateVisibility = () => {
-        this.props.onUpdateVisibility(false);
+        this.props.onUpdateVisibility("modal", false);
     }
 
     render() {

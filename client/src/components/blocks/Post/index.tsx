@@ -7,11 +7,15 @@ import { IPost } from "@/entities/Post";
 
 import "./styles.scss";
 
+interface IProps {
+    onUpdateVisibility: () => any;
+}
+
 interface IState {
     like: boolean;
 }
 
-export class Post extends React.Component<IPost, IState> {
+export class Post extends React.Component<IPost & IProps, IState> {
     constructor(props) {
         super(props);
 
@@ -29,7 +33,7 @@ export class Post extends React.Component<IPost, IState> {
     }
 
     showMoreActions() {
-        this.props.onUpdateVisibility(true);
+        this.props.onUpdateVisibility();
     }
 
     render() {

@@ -4,10 +4,9 @@ import { ActionSheet, ActionSheetItem, IS_PLATFORM_IOS } from "@vkontakte/vkui";
 import "./styles.scss";
 
 interface IProps {
-    onUpdateVisibility: (value: boolean) => void;
+    onUpdateVisibility: (elem: string, value: boolean) => void;
 }
 
-// TODO: change to React.PureComponent
 export class PostActionSheet extends React.PureComponent<IProps> {
     constructor(props) {
         super(props);
@@ -16,7 +15,7 @@ export class PostActionSheet extends React.PureComponent<IProps> {
     }
 
     updateVisibility = () => {
-        this.props.onUpdateVisibility(false);
+        this.props.onUpdateVisibility("actionSheet", false);
     }
 
     render() {

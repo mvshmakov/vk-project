@@ -35,8 +35,10 @@ export default class FeedView extends PureView<IProps & IStateProps, IState> {
         isActionSheetShown: false,
     };
 
-    updateActionSheetVisibility = (visible: boolean) => {
-        this.setState({ isActionSheetShown: visible });
+    updateActionSheetVisibility = (elem: string, visible: boolean) => {
+        if (elem === "actionSheet") {
+            this.setState({ isActionSheetShown: visible });
+        }
     }
 
     render() {

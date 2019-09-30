@@ -5,7 +5,7 @@ import Icon24Dismiss from "@vkontakte/icons/dist/24/dismiss";
 import "./styles.scss";
 
 interface IProps {
-    onUpdateVisibility: (value: boolean) => void;
+    onUpdateVisibility: (elem: string, value: boolean) => void;
 }
 
 interface IState {
@@ -25,7 +25,7 @@ export class SubscriptionPopout extends React.Component<IProps, IState> {
     };
 
     updateVisibility = () => {
-        this.props.onUpdateVisibility(false);
+        this.props.onUpdateVisibility("popup", false);
     }
 
     onSlideChange = (slideIndex: number) => {

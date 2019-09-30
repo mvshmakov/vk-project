@@ -23,7 +23,7 @@ import { IUser } from "@/entities/User";
 import { IProfile } from "@/entities/Profile";
 import { PurePanel } from "@/utils/typings/Components";
 import { ISubscription } from "@/entities/Subscription";
-import AccountSnippetBlock from "@/components/blocks/SettingsSnippet";
+import AccountSnippetBlock from "@/components/blocks/AccountSnippet";
 
 import "./styles.scss";
 

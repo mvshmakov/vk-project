@@ -35,7 +35,11 @@ interface IProps {
     onBackButtonClick: (...args) => any;
 }
 
-export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, ISubscription> {
+interface IState {
+    isError: boolean;
+}
+
+export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, IState & ISubscription> {
     constructor(props) {
         super(props);
 
@@ -70,7 +74,7 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
 
         const { subscriptionName, subscriptionPrice, subscriptionPeriod } = this.state;
 
-        this.setState({ [id]: value } as Pick<ISubscription, keyof ISubscription>);
+        this.setState({ [id]: value } as Pick<IState & ISubscription, keyof IState & ISubscription>);
 
         this.setState({ isSubscriptionNameFieldEmpty: subscriptionName.length === 0 });
         this.setState({ isSubscriptionPriceFieldEmpty: subscriptionPrice.length === 0 });
@@ -81,7 +85,7 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         if (element) {
             const { id, value } = element;
 
-            this.setState({ [id]: value } as Pick<ISubscription, keyof ISubscription>);
+            this.setState({ [id]: value } as Pick<IState & ISubscription, keyof IState & ISubscription>);
         }
     }
 
@@ -89,9 +93,9 @@ export class SubscriptionConfigPanel extends PurePanel<IActionsProps & IProps, I
         const { id, checked } = event.currentTarget;
 
         if (checked) {
-            return this.setState({ [id]: true } as Pick<ISubscription, keyof ISubscription>);
+            return this.setState({ [id]: true } as Pick<IState & ISubscription, keyof IState & ISubscription>);
         }
-        return this.setState({ [id]: false } as Pick<ISubscription, keyof ISubscription>);
+        return this.setState({ [id]: false } as Pick<IState & ISubscription, keyof IState & ISubscription>);
     }
 
     onSaveButtonClick = () => {

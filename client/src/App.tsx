@@ -18,7 +18,7 @@ import {
 
 import Tabbar from "@/components/blocks/Tabbar";
 import SearchView from "@/components/views/Search";
-import OnboardingView from "@/components/views/Onboarding";
+import OnboardingView from "@/containers/views/Onboarding";
 import ProfileView from "@/containers/views/Profile";
 import FeedView from "@/containers/views/Feed";
 

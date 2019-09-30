@@ -3,7 +3,6 @@ export interface IPost {
     createdAt: string;
     avatar: string;
     attachments: IAttachments;
-    onUpdateVisibility: (value: boolean) => void;
 }
 
 export interface IAttachments {

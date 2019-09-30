@@ -43,9 +43,7 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
 
         this.toggleContext = this.toggleContext.bind(this);
         this.selectHeaderMode = this.selectHeaderMode.bind(this);
-        this.updateModalVisibility = this.updateModalVisibility.bind(this);
-        this.updateActionSheetVisibility = this.updateActionSheetVisibility.bind(this);
-        this.updateSubscriptionVisibility = this.updateSubscriptionVisibility.bind(this);
+        this.onUpdateElementVisibility = this.onUpdateElementVisibility.bind(this);
     }
 
     state = {
@@ -62,16 +60,14 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
         this.props.getFeedAction();
     }
 
-    updateModalVisibility = (visible: boolean) => {
-        this.setState({ isModalShown: visible });
-    }
-
-    updateActionSheetVisibility = (visible: boolean) => {
-        this.setState({ isActionSheetShown: visible });
-    }
-
-    updateSubscriptionVisibility = (visible: boolean) => {
-        this.setState({ isPopupShown: visible });
+    onUpdateElementVisibility = (elem: string, visible: boolean) => {
+        if (elem === "modal") {
+            this.setState({ isModalShown: visible });
+        } else if (elem === "popup") {
+            this.setState({ isPopupShown: visible });
+        } else {
+            this.setState({ isActionSheetShown: visible });
+        }
     }
 
     onSlideChange = (slideIndex: number) => {
@@ -106,16 +102,16 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
 
         const activePopover = () => {
             if (isPopupShown) {
-                return <SubscriptionPopout onUpdateVisibility={this.updateSubscriptionVisibility} />;
+                return <SubscriptionPopout onUpdateVisibility={this.onUpdateElementVisibility} />;
             } else if (isActionSheetShown) {
-                return <PostActionSheet onUpdateVisibility={this.updateActionSheetVisibility} />;
+                return <PostActionSheet onUpdateVisibility={this.onUpdateElementVisibility} />;
             } else {
                 return null;
             }
         };
 
         const activeModal = (
-            isModalShown ? <AdditionalInfoModal profile={currentProfile} onUpdateVisibility={this.updateModalVisibility} /> : null
+            isModalShown ? <AdditionalInfoModal profile={currentProfile} onUpdateVisibility={this.onUpdateElementVisibility} /> : null
         );
 
         return (
@@ -137,9 +133,7 @@ export default class ProfileView extends PureView<IProps & IStateProps, IState> 
                     subscriptionCards={subscriptionCards}
                     toggleContext={this.toggleContext}
                     onSlideChange={this.onSlideChange}
-                    updateModalVisibility={this.updateModalVisibility}
-                    updateActionSheetVisibility={this.updateActionSheetVisibility}
-                    updateSubscriptionVisibility={this.updateSubscriptionVisibility}
+                    onUpdateElementVisibility={this.onUpdateElementVisibility}
                 />
 
                 <AccountPanel

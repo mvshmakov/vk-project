@@ -11,7 +11,7 @@ import CreateProfilePanel from "@/containers/panels/CreateProfile";
 
 import "./styles.scss";
 
-interface IStateProps {
+export interface IStateProps {
     currentUser: IUser;
 }
 
@@ -23,7 +23,7 @@ interface IState {
     activePanel: string;
 }
 
-class OnboardingView extends PureView<IProps & IStateProps, IState> {
+export default class OnboardingView extends PureView<IProps & IStateProps, IState> {
     constructor(props) {
         super(props);
     }
@@ -69,7 +69,3 @@ class OnboardingView extends PureView<IProps & IStateProps, IState> {
         );
     }
 }
-
-const mapStateToProps = ({ account }): IStateProps => ({ currentUser: account.user });
-
-export default connect(mapStateToProps)(OnboardingView);

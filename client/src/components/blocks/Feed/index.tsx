@@ -5,7 +5,7 @@ import { Post } from "../Post";
 
 interface IProps {
     posts: IPost[];
-    onUpdateVisibility: (value: boolean) => void;
+    onUpdateVisibility: (elem: string, value: boolean) => any;
 }
 
 export class Feed extends React.Component<IProps> {
@@ -16,7 +16,7 @@ export class Feed extends React.Component<IProps> {
     }
 
     onUpdateVisibility() {
-        this.props.onUpdateVisibility(true);
+        this.props.onUpdateVisibility("actionSheet", true);
     }
 
     render() {
