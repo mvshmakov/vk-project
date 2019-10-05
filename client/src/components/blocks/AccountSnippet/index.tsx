@@ -23,7 +23,7 @@ const AccountSnippetBlock: IFunctionalBlock<IProps> = ({
             className="settings-snippet-block"
             before={<Avatar src={user && user.photo_100} size={80} />}
             asideContent={<Icon24Settings />}
-            description={user && user.role}
+            description={user && user.city.title}
             onClick={onSnippetClick}
         >
             {user && (user.first_name + " " + user.last_name)}

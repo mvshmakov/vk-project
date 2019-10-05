@@ -23,6 +23,7 @@ import ProfileView from "@/containers/views/Profile";
 import FeedView from "@/containers/views/Feed";
 
 import { getUsers } from "@/api/users";
+import { IUser } from "@/entities/User";
 
 import { getSubscriptionsAction, TSubscriptionActions } from "@/actions/subscription";
 import { getProfilesAction, TProfileActions } from "@/actions/profiles";
@@ -52,11 +53,12 @@ class App extends React.PureComponent<IProps, IState> {
     async componentDidMount() {
         // const fetchUser = await fetchUser("Шмаков");
         // const schedule = await fetchSchedule("Шмаков");
-        const user = await getUsers();
+        let user: IUser;
 
         VKConnect.subscribe(event => {
             if (event.detail.type === "VKWebAppGetUserInfoResult") {
                 console.log(event);
+                user = event.detail.data;
             }
         });
         VKConnect.send("VKWebAppGetUserInfo", {});
@@ -66,7 +68,7 @@ class App extends React.PureComponent<IProps, IState> {
         );
 
         this.props.getProfilesAction();
-        this.props.initUserAction(user[0]);
+        this.props.initUserAction(user);
         this.props.getSubscriptionsAction();
     }
 

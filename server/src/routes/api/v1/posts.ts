@@ -7,6 +7,17 @@ import userRoutes from "./users";
 
 const postRoutes = Router();
 
+postRoutes.get("/api/v1/posts/", (_req, res) => {
+    PostModel.find({}, (err, posts) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        res.send(posts || []);
+    });
+});
+
 postRoutes.post("/api/v1/posts/", ({ body: requestBody }, res) => {
     if (!requestBody) {
         res.sendStatus(400);
@@ -44,17 +55,6 @@ userRoutes.delete("/api/v1/posts/:id", ({ params: requestParams }, res) => {
         }
 
         res.send(post);
-    });
-});
-
-postRoutes.get("/api/v1/posts/", (_req, res) => {
-    PostModel.find({}, (err, posts) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-
-        res.send(posts || []);
     });
 });
 
