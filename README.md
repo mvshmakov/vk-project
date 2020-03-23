@@ -34,3 +34,7 @@
 ##### Ветку в гите именуем как `<typeoffix>/<ticket>-<brief description>`. Пример: `feature/VKPROJECT-1-new-convention`.
 
 ##### Префиксуем типы через `T`, интерфейсы через `I`.
+
+## TODO:
+
+#### Add Jest tests

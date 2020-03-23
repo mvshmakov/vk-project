@@ -10,6 +10,15 @@ import initial from "@/reducers/initial";
 import profiles from "@/reducers/profiles";
 import subscriptions from "@/reducers/subscriptions";
 
+// TODO: make nested structure
+// const rootReducer = combineReducers({
+//     stuff: combineReducers({
+//         innerStuff: combineReducers({
+//             something
+//         })
+//     })
+// });
+
 export default (history: History) => combineReducers({
     example,
     loading,
